@@ -7,9 +7,16 @@
         height = 70px
         max-height = 70px
         >
-        <v-toolbar-title>
-            FreeTours
-        </v-toolbar-title>
+        <router-link
+        :to = "{path : '/'}"
+        class = "router-link"
+        >
+            <v-toolbar-title
+            class = "toolbar-title"
+            >       
+                FreeTours  
+            </v-toolbar-title>  
+        </router-link> 
         <v-spacer></v-spacer>
         <v-text-field
             class = "text-field"
@@ -41,7 +48,15 @@
 
 <script>
 export default {
-    name : "Header"
+    name : "Header",
+    data: () => ({
+        links : [
+            {
+                text : "FreeTours",
+                link : "/"
+            }
+        ]
+    })
 }
 </script>
 
@@ -51,4 +66,13 @@ export default {
   height : 60px;
   width : 50px
 }
+
+.router-link {
+    text-decoration : none;
+}
+
+.toolbar-title {
+    color : #ffffff;
+}
+
 </style>

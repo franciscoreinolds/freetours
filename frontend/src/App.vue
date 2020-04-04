@@ -39,7 +39,7 @@ export default {
 
 .router { 
   height : 100%;
-  width : 95%;
+  width : 85%;
   margin : auto;
   padding : 25px 0px;
 }

@@ -1,0 +1,282 @@
+<template>
+    <div>
+        <h1>
+            My Profile
+        </h1>
+        <v-content>
+            <v-container
+                class="fill-height"
+                fluid
+            >
+                <v-row
+                align="center"
+                justify="center"
+                >
+                    <v-card
+                    
+                    shaped
+                    elevation
+                    class="elevation-12 card"
+                    >
+                        <v-card-text>
+                            <v-row>
+                                <v-col>
+                                    Username: francisco.reinolds
+                                </v-col>
+                                <v-col>
+                                    Email: francisco.reinolds@email.com
+                                </v-col>
+                                <v-col>
+                                    Date of Birth: 17/04/98
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    Password: ********
+                                </v-col>
+                                <v-col>
+                                    Rating: 4.5
+                                </v-col>
+                                <v-col>
+                                    Phone Number: +351*********
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col
+                                :cols = 8
+                                >
+                                    Languages: PT | EN | ES | FR | DE | NL
+                                </v-col>
+                                <v-col
+                                :cols = 4
+                                >
+                                    <v-img
+                                    src="https://picsum.photos/510/300?random"
+                                    aspect-ratio = 1.8
+                                    max-height = "300px"
+                                    max-width = "300px"
+                                    >
+                                    </v-img>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col
+                                :cols = 12
+                                >
+                                    <span
+                                    class = "pb-2"
+                                    >
+                                        About me:
+                                    </span>
+                                    <v-textarea
+                                    outlined
+                                    value = "Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken. Het heeft niet alleen vijf eeuwen overleefd maar is ook, vrijwel onveranderd, overgenomen in elektronische letterzetting. Het is in de jaren '60 populair geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing software zoals Aldus PageMaker die versies van Lorem Ipsum bevatten."
+                                    >
+                                    </v-textarea>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                        <v-card-actions
+                        class = "pt-1 pb-6"
+                        >
+                            <v-layout justify-center>
+                                <v-btn
+                                large
+                                primary
+                                >
+                                    Change edited information
+                                </v-btn>
+                            </v-layout>
+                        </v-card-actions>
+                    </v-card>
+                </v-row>
+            </v-container>
+        </v-content>
+  
+
+        <h1>
+            Tours
+        </h1>
+        <v-content>
+            <v-container
+                class="fill-height"
+                fluid
+            >
+                <v-radio-group
+                row
+                >
+                    <v-radio
+                    v-for = "val in radio_values"
+                    :key="val.index"
+                    :label="val.text"
+                    :value="val.value"
+                    >
+                    </v-radio>
+                </v-radio-group>
+                
+                <!---->
+
+                <v-row
+                align="center"
+                justify="center"    
+                >
+                    <v-card
+                    outlined
+                    elevation
+                    class="elevation-12 card"
+                    >   
+                        <TourList :tour_data="tours"/>                    
+                    </v-card>
+                </v-row>
+            </v-container>
+        </v-content>
+    </div>
+</template>
+
+<script>
+import TourList from './TourList.vue'
+
+export default {
+    name : "Profile",
+    components : {
+        TourList
+    },
+    data: () => {
+        return {
+            default_radio : 
+            {
+                text : "All",
+                value : 1
+            },
+            radio_values : [
+                {
+                    text : "All",
+                    value : 1
+                },
+                {
+                    text : "My Upcoming Tours",
+                    value : 2
+                },
+                {
+                    text : "My Organized Tours",
+                    value : 3
+                },
+                {
+                    text : "History",
+                    value : 4
+                },
+            ],
+            languages : [
+                {
+                    language : "Portuguese",
+                    value : 1
+                },
+                {
+                    language : "Spanish",
+                    value : 2
+                },
+                {
+                    language : "French",
+                    value : 3
+                },
+                {
+                    language : "German",
+                    value : 4
+                },
+                {
+                    language : "English",
+                    value : 5
+                },
+                {
+                    language : "Dutch",
+                    value : 6
+                },
+            ],
+            country_codes : [
+                {
+                    country_code : "PT: +351",
+                    value : 1
+                },
+                {
+                    country_code : "ES: +34",
+                    value : 2
+                },
+                {
+                    country_code : "FR: +33",
+                    value : 3
+                },
+                {
+                    country_code : "DE: +49",
+                    value : 4
+                },
+                {
+                    country_code : "UK: +44",
+                    value : 5
+                },
+                {
+                    country_code : "NL: +31",
+                    value : 6
+                },
+                {
+                    country_code : "BE: +32",
+                    value : 7
+                },
+            ],
+            tours : [
+                {
+                    text : "Language",
+                    value : "English"
+                },
+                {
+                    text : "Location",
+                    value : "Berlin, Germany"
+                },
+                {
+                    text : "Time and Date",
+                    value : "09:00 05/05/2020"
+                },
+                {
+                    text : "Rating",
+                    value : 4.5
+                },
+                {
+                    text : "Capacity",
+                    value : 50
+                },
+            ],
+            cards: [
+                {
+                title: "Indigo Card",
+                color: "indigo",
+                flex: 4
+                },
+                {
+                title: "Red Card",
+                color: "red",
+                flex: 4
+                },
+                {
+                title: "Purple Card",
+                color: "purple",
+                flex: 4
+                },
+                {
+                title: "Green Card",
+                color: "green",
+                flex: 7
+                },
+                {
+                title: "Black Card",
+                color: "black",
+                flex: 5
+                },
+                {
+                title: "Brown Card",
+                color: "brown",
+                flex: 10
+                }
+            ]
+        }
+    },
+}
+</script>

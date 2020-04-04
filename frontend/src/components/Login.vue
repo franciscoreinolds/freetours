@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h1>
+        <h1
+        class = "pl-12 pt-6"
+        >
             Login
         </h1>
         <v-content>
@@ -13,29 +15,52 @@
                 justify="center"
                 >
                     <v-card
-                    class="elevation-12"
-                    width = "1000px"
-                    height = "600px"
+                    
+                    shaped
+                    elevation
+                    class="elevation-12 card"
                     >
                         <v-card-text>
                             <v-form>
                             <v-text-field
+                                outlined
                                 label="Login"
                                 name="login"
                                 type="text"
+                                class = "pt-12"
                             />
 
                             <v-text-field
+                                outlined
                                 id="password"
                                 label="Password"
                                 name="password"
                                 type="password"
+                                class = "pt-6"
                             />
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
-                            <v-spacer />
-                            <v-btn color="primary">Login</v-btn>
+                            <v-layout justify-center>
+                                <v-btn
+                                large
+                                primary
+                                >
+                                    Login
+                                </v-btn>
+                            </v-layout>
+                        </v-card-actions>
+                        <v-card-actions
+                        class = "pt-4"
+                        >
+                            <v-layout justify-center>
+                                <v-btn
+                                large
+                                primary
+                                >
+                                    I Forgot my Password
+                                </v-btn>
+                            </v-layout>
                         </v-card-actions>
                     </v-card>
                 </v-row>
@@ -52,3 +77,12 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+
+.card {
+    width : 75%;
+    height : 450px;
+}
+
+</style>
