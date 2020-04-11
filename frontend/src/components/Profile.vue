@@ -1,8 +1,5 @@
 <template>
     <div>
-        <h1>
-            My Profile
-        </h1>
         <v-content>
             <v-container
                 class="fill-height"
@@ -13,11 +10,15 @@
                 justify="center"
                 >
                     <v-card
-                    
                     shaped
                     elevation
                     class="elevation-12 card"
                     >
+                        <h1
+                        class = "pa-5"
+                        >
+                            My Profile
+                        </h1>
                         <v-card-text>
                             <v-row>
                                 <v-col>
@@ -88,46 +89,59 @@
                                 </v-btn>
                             </v-layout>
                         </v-card-actions>
+                        <h1
+                        class = "pa-5"
+                        >
+                            Tours
+                        </h1>
+                        <v-radio-group
+                        row
+                        class = "pa-5"
+                        >
+                            <v-radio
+                            v-for = "val in radio_values"
+                            :key="val.index"
+                            :label="val.text"
+                            :value="val.value"
+                            >
+                            </v-radio>
+                        </v-radio-group>
+                        <TourList :tour_data="tours"/> 
                     </v-card>
                 </v-row>
-            </v-container>
-        </v-content>
-  
-
-        <h1>
-            Tours
-        </h1>
-        <v-content>
-            <v-container
-                class="fill-height"
-                fluid
-            >
-                <v-radio-group
-                row
-                >
-                    <v-radio
-                    v-for = "val in radio_values"
-                    :key="val.index"
-                    :label="val.text"
-                    :value="val.value"
-                    >
-                    </v-radio>
-                </v-radio-group>
-                
-                <!---->
-
+                <!--
+                <br>
+                <br>
                 <v-row
                 align="center"
-                justify="center"    
+                justify="center"
                 >
                     <v-card
                     outlined
                     elevation
                     class="elevation-12 card"
                     >   
+                        <h1
+                        class = "pa-5"
+                        >
+                            Tours
+                        </h1>
+                        <v-radio-group
+                        row
+                        class = "pa-5"
+                        >
+                            <v-radio
+                            v-for = "val in radio_values"
+                            :key="val.index"
+                            :label="val.text"
+                            :value="val.value"
+                            >
+                            </v-radio>
+                        </v-radio-group>
                         <TourList :tour_data="tours"/>                    
                     </v-card>
                 </v-row>
+                -->
             </v-container>
         </v-content>
     </div>

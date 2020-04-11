@@ -5,6 +5,8 @@ import Login from '../components/Login.vue'
 import SignUp from '../components/SignUp.vue'
 import Profile from '../components/Profile.vue'
 import Search from '../components/Search.vue'
+import CreateTour from '../components/CreateTour.vue'
+import Tour from '../components/Tour.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +35,16 @@ const routes = [
     name : "Search",
     path : "/search",
     component : Search
+  },
+  {
+    name : "CreateTour",
+    path : "/createtour",
+    component : CreateTour
+  },
+  {
+    name : "Tour",
+    path : "/tour",
+    component : Tour
   }
 ]
 

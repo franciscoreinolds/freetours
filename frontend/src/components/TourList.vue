@@ -14,7 +14,7 @@
                             <v-card
                             outlined
                             elevation
-                            color = "#f2f2f2"
+                            color = "#ffeeee"
                             class="tour_card mb-5 elevation-12"
                             >
                             <v-container
@@ -26,6 +26,7 @@
                                 wrap
                                 >
                                     <v-flex>
+                                        <!--
                                         <v-card>
                                             <v-container
                                             fill-height fluid pa-2
@@ -37,6 +38,10 @@
                                                 </v-flex>
                                             </v-container>
                                         </v-card>
+                                        -->
+                                        <h1>
+                                            City Tour #{{i}}
+                                        </h1>
                                     </v-flex>
                                 </v-layout>
                                 
@@ -49,6 +54,7 @@
                                     <v-flex
                                     xs5
                                     >
+                                        
                                         <v-card
                                         width = 100%
                                         height = 300px
@@ -58,7 +64,9 @@
                                     </v-flex>
                                     <v-flex
                                     xs7
+                                    min-width = "200px"
                                     class = "text-center">
+                                        <!--
                                         <v-card
                                         width = 100%
                                         height = 300px
@@ -83,6 +91,25 @@
                                                 </v-flex>
                                             </v-container>
                                         </v-card>
+                                        -->
+                                        <h4
+                                        v-for="tour in tour_data"
+                                        :key="tour.index"
+                                        >
+                                            {{tour.text}} : {{tour.value}}
+                                        </h4>
+                                        <router-link
+                                        :to = "{path : '/tour'}"
+                                        class = "router-link"
+                                        >
+                                            <v-btn
+                                            large
+                                            primary
+                                            class = "mb-12"
+                                            >
+                                                More info
+                                            </v-btn>
+                                        </router-link>
                                     </v-flex>
                                 </v-layout>
                             </v-container>

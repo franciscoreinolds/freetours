@@ -27,16 +27,26 @@
         >
         </v-text-field>
         <v-spacer></v-spacer>
-        <v-btn
-        text
+        <router-link
+        :to = "{path : '/createtour'}"
+        class = "router-link"
         >
-            Add New Tour
-        </v-btn>
-        <v-btn
-        text
+            <v-btn
+            text
+            >
+                Add New Tour
+            </v-btn>
+        </router-link>
+        <router-link
+        :to = "{path : '/profile'}"
+        class = "router-link"
         >
-            Username
-        </v-btn>
+            <v-btn
+            text
+            >
+                Username
+            </v-btn>
+        </router-link>
         <v-btn
         text
         >

@@ -77,11 +77,16 @@
             <v-col
             :cols = 1
             >
-                <v-btn
-                class = "btn"
+                <router-link
+                :to = "{path : '/search'}"
+                class = "router-link"
                 >
-                    Search tour
-                </v-btn>
+                    <v-btn
+                    class = "btn"
+                    >
+                        Search Tour
+                    </v-btn>
+                </router-link>
             </v-col>
         </v-row>
 
