@@ -105,6 +105,7 @@
                                             >
                                                 <l-icon
                                                 :icon-size="marker.icon_size"
+                                                :icon-anchor="[16, 37]"
                                                 :iconUrl="require('leaflet/dist/images/marker-icon.png')"
                                                 >
                                                 </l-icon>
@@ -119,7 +120,6 @@
                                 <v-card
                                 height = "500px"
                                 width = "100%"
-                                color = "cyan"
                                 >
                                     <v-list
                                     style="max-height: 500px;"

@@ -157,12 +157,24 @@
                                                 :options="geosearchOptions"
                                                 >
                                                 </v-geosearch>
+
+                                                <!-- Provisional Marker -->
+                                                
                                                 <l-marker
                                                 v-if="current_lattitude"
                                                 :lat-lng="[current_lattitude, current_longitude]"
                                                 :icon = "red_icon"
                                                 >
+                                                    <l-icon
+                                                    :icon-size="[37,37]"
+                                                    :icon-anchor="[16,37]"
+                                                    :iconUrl="require('leaflet/dist/images/marker-24.png')"
+                                                    >
+                                                    </l-icon>
                                                 </l-marker>
+                                                
+                                                <!-- Saved Marker(s) -->
+
                                                 <l-marker
                                                     v-for="(marker,index) in markers"
                                                     :key="index"
@@ -170,6 +182,12 @@
                                                     @click="markerInfo(index, marker)"
                                                     @dblclick="removeMarker(index)"
                                                 >
+                                                    <l-icon
+                                                    :icon-size="marker.icon_size"
+                                                    :icon-anchor="marker.icon_anchor"
+                                                    :iconUrl="require('leaflet/dist/images/marker-icon.png')"
+                                                    >
+                                                    </l-icon>
                                                 </l-marker>
                                             </l-map>
                                         </div>
@@ -179,10 +197,12 @@
                                 xs4
                                 >
                                     <!--
-                                        Side Card
+                                        Side Card - Add Marker
                                     -->
+
                                     <v-card
                                     height = "500px"
+                                    v-if="current_lattitude || marker_index != null"
                                     >
                                         <v-card-title>
                                             Marker Information
@@ -228,11 +248,56 @@
                                         <div
                                         class = "text-center pb-3 mb-3 pt-0">
                                             <v-btn
-                                            @click="clearMarkerInfo"
+                                            @click="clearMarkerInfo(index)"
                                             >
                                                 Clear Info
                                             </v-btn>
                                         </div>
+                                    </v-card>
+
+                                    <!--
+                                        Side Card - Marker List
+                                    -->
+
+                                    <v-card
+                                    height = "500px"
+                                    width = "100%"
+                                    v-else
+                                    >
+                                        <v-list
+                                        style="max-height: 500px;"
+                                        class="overflow-y-auto"
+                                        >
+                                            <v-list-item
+                                            v-for="(marker, index) in markers"
+                                            :key="index"
+                                            class = "pb-1 ps-1 pe-1 pt-0"
+                                            >
+                                                <v-list-item-content
+                                                class = "pa-0"
+                                                >
+                                                    <v-card
+                                                    color="#ffeeee"
+                                                    width = "100%"
+                                                    @mouseover="mouseOverMarker(index)"
+                                                    @mouseleave="mouseLeavesMarker(index)"
+                                                    @click="editMarker(index)"
+                                                    >
+                                                        <v-card-text>
+                                                            <h3>
+                                                                Stop #{{index + 1}}
+                                                            </h3>
+                                                            <h4>
+                                                                Marker Name: {{marker.name}}
+                                                            </h4>
+                                                            <h4>
+                                                                Marker Description: {{marker.description}}
+                                                            </h4>
+                                                        </v-card-text>
+                                                    </v-card>
+                                                </v-list-item-content>
+                                        </v-list-item>
+                                        </v-list>
                                     </v-card>
                                 </v-flex>
                             </v-layout>
@@ -311,7 +376,7 @@ export default {
         zoom: 5,
         center: [38.72, -9.13],
         bounds: null,
-        geosearchOptions: { // Important part Here
+        geosearchOptions: { // options regarding GeoSearch component
             provider: new OpenStreetMapProvider(),
             style : 'bar',
             autoComplete: true,
@@ -319,18 +384,18 @@ export default {
             maxMarkers : 0,
             autoClose : true
         },
-        red_icon: L.icon({
+        red_icon: L.icon({ // placeholder icon
             iconUrl: require('leaflet/dist/images/marker-24.png'),
             iconSize: [37, 37],
             iconAnchor: [16, 37]
         }),
-        current_lattitude : null,
-        current_longitude : null,
-        marker_index : null,
-        marker_name : null,
-        marker_description : null,
-        marker_lattitude : null,
-        marker_longitude : null,
+        current_lattitude : null, // placeholder lattitude
+        current_longitude : null, // placeholder longitude
+        marker_index : null, // index of a saved marker
+        marker_name : null, // name of a saved marker
+        marker_description : null, // description of a saved marker
+        marker_lattitude : null, // lattitude of a saved marker
+        marker_longitude : null, // longitude of a saved marker
         success_alert : false
       }
     },
@@ -359,6 +424,8 @@ export default {
                 this.markers[this.marker_index].description = this.marker_description;
                 this.markers[this.marker_index].position.lattitude = this.marker_lattitude;
                 this.markers[this.marker_index].position.longitude = this.marker_longitude;
+                this.markers[this.marker_index].icon_size = [37,37];
+                this.markers[this.marker_index].icon_anchor = [16,37];
             }
             else {
                 this.markers.push(
@@ -368,11 +435,13 @@ export default {
                             longitude : this.marker_longitude
                         },
                         name : this.marker_name,
-                        description : this.marker_description
+                        description : this.marker_description,
+                        icon_size : [37,37],
+                        icon_anchor : [16,37]
                     }
                 );
             }
-            this.success_alert = true;
+            //this.success_alert = true;
             this.clearMarkerInfo();
         },
         markerInfo(index, marker) {
@@ -386,7 +455,7 @@ export default {
             this.current_lattitude = null;
             this.current_longitude = null;
         },
-        clearMarkerInfo() {
+        clearMarkerInfo(index) {
             // resets placeholder marker info
             this.marker_index = null;
             this.marker_name = null;
@@ -395,7 +464,26 @@ export default {
             this.marker_longitude = null;
             this.current_lattitude = null;
             this.current_longitude = null;
-            this.success_alert = false;
+            //this.markers[index].icon_size = [37,37];
+            //this.markers[index].icon_anchor = [16,37];
+            //this.success_alert = false;
+        },
+        mouseOverMarker(index) {
+            this.markers[index].icon_size = [50,50];
+        },
+        mouseLeavesMarker(index) {
+            this.markers[index].icon_size = [37,37];
+        },
+        editMarker(index) {
+            this.marker_index = index;
+            this.marker_name = this.markers[index].name;
+            this.marker_description = this.markers[index].description;
+            this.marker_lattitude = this.markers[index].position.lattitude;
+            this.marker_longitude = this.markers[index].position.longitude;
+            this.markers[index].icon_size = [50,50];
+            this.markers[index].icon_anchor = [16,37];
+            //this.current_lattitude = this.markers[index].position.lattitude;
+            //this.current_longitude = this.markers[index].position.longitude;
         }
     }
 }
