@@ -42,12 +42,8 @@ fi
 if not_installed "npm"; then
   pp_error "setup" "We are using NPM for managing packages for the JavaScript, since it was not found on your system we cannot ensure that you are using the correct versions of all the tools."
   ensure_confirmation
-  sudo apt-get update
-  sudo apt install npm
-  sudo npm install npm@next -g
-  sudo npm cache clean -f
-  sudo npm install -g n
-  sudo n stable
+  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+  sudo apt install nodejs
 else
   pp_success "setup" "NPM is already installed"
 fi
