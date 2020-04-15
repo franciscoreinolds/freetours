@@ -31,7 +31,7 @@ not_installed() {
 }
 
 ensure_confirmation() {
-  read -r "confirmation?please confirm you want to continue [y/n] (default: y) " confirmation
+  read -r -p "confirmation?please confirm you want to continue [y/n] (default: y) " confirmation
   confirmation=${confirmation:-"y"}
 
   if [ "$confirmation" != "y" ]; then
@@ -40,7 +40,7 @@ ensure_confirmation() {
 }
 
 ask_confirmation() {
-  read -r "confirmation?please confirm you want to continue [y/n] (default: y) " confirmation
+  read -r -p "confirmation?please confirm you want to continue [y/n] (default: y) " confirmation
   confirmation=${confirmation:-"y"}
 
   [[ "$confirmation" == "y" ]];
