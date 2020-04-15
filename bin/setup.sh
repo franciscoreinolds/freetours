@@ -44,8 +44,10 @@ if not_installed "npm"; then
   ensure_confirmation
   sudo apt-get update
   sudo apt install npm
-  sudo apt install nodejs
-  sudo apt install build-essential
+  sudo npm install npm@latest -g
+  sudo npm cache clean -f
+  sudo npm install -g n
+  sudo n stable
 else
   pp_success "setup" "NPM is already installed"
 fi
