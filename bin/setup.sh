@@ -25,7 +25,6 @@ if not_installed "docker"; then
   sudo apt-get update
   sudo apt-get install docker-ce docker-ce-cli containerd.io
   pp_info "setup" "Manage Docker as a non-root user"
-  sudo groupadd docker
   sudo usermod -aG docker $USER
   newgrp docker
   pp_info "setup" "Enabling Docker to start on boot."
