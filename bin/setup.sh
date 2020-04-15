@@ -44,7 +44,7 @@ if not_installed "npm"; then
   ensure_confirmation
   sudo apt-get update
   sudo apt install npm
-  sudo npm install npm@latest -g
+  sudo npm install npm@next -g
   sudo npm cache clean -f
   sudo npm install -g n
   sudo n stable
