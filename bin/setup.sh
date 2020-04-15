@@ -44,6 +44,9 @@ if not_installed "npm"; then
   ensure_confirmation
   curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
   sudo apt install nodejs
+  sudo npm cache clean -f
+  sudo npm install -g n
+  sudo n stable
 else
   pp_success "setup" "NPM is already installed"
 fi
