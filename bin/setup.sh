@@ -43,6 +43,7 @@ if not_installed "npm"; then
   pp_error "setup" "We are using NPM for managing packages for the JavaScript, since it was not found on your system we cannot ensure that you are using the correct versions of all the tools."
   ensure_confirmation
   sudo apt-get update
+  sudo apt install npm
   sudo apt install nodejs
   sudo apt install build-essential
 else
@@ -71,6 +72,6 @@ else
 fi
 
 pp_info "setup" "Creating a PostgreSQL container"
-docker container inspect postgres > /dev/null 2>&1 || docker run -d --name postgres -p 5432:5432 postgres:11.5
+sudo docker container inspect postgres > /dev/null 2>&1 || sudo docker run -d --name postgres -p 5432:5432 postgres:11.5
 
 pp_success "setup" "You're good to go!"
