@@ -3,15 +3,17 @@
 # $11 - Admin1 Code; $12 - Admin2 Code; $13 - Admin3 Code; $14 - Admin4 Code; $15 - Population;
 # $16 - Elevation; $17 - DIgital Elevation Model; $18 - Timezone; $19 - Modification date; $20 - Country; $21 - Coordinates
 BEGIN{FS=";"}
-$15 >= 40000 && $20 ~ /.+/        {countries[$20]; cities[$2][0]=$5; cities[$2][1]=$6; cities[$2][2]=$20}
+# every city with 40k or more population and country name is not empty
+$15 >= 40000 && $20 ~ /.+/ && $20 !~ /Country/        {country_name=gensub(/'/, "''", "g", $20); city_name=gensub(/'/, "''", "g", $2);
+                                                      countries[country_name]; cities[city_name][0]=$5; cities[city_name][1]=$6; cities[city_name][2]=country_name}
 END{insertcCountries(); insertCities()}
 
 function insertcCountries(){
   for(country in countries)
-    print "INSERT INTO country (name) VALUES (\""country"\");"
+    print "INSERT INTO country(name) VALUES ('"country"');"
 }
 
 function insertCities(){
   for(city in cities)
-    print "INSERT INTO city (name, latitude, longitude, country_id) VALUES (\""city"\", \""cities[city][0]"\", \""cities[city][1]"\", SELECT id FROM country WHERE name=\""cities[city][2]"\")"
+    print "INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='"cities[city][2]"'), "cities[city][0]", "cities[city][1]", '"city"');"
 }
