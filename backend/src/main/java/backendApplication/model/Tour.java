@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 import java.util.List;
 
-@Entity(name = "Tours")
+@Entity(name = "Tour")
 public class Tour {
     @Id
     private int id;

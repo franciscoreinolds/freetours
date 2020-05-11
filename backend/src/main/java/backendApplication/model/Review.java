@@ -2,7 +2,7 @@ package backendApplication.model;
 
 import javax.persistence.*;
 
-@Entity(name = "Reviews")
+@Entity(name = "Review")
 public class Review{
     @Id
     private int id;

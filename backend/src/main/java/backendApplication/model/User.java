@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "Users")
+@Entity(name = "User")
 public class User {
     @Id
     private String username;

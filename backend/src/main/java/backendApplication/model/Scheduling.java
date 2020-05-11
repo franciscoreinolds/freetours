@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "Schedulings")
+@Entity(name = "Scheduling")
 public class Scheduling {
     @Id
     private int id;

@@ -3,7 +3,7 @@ package backendApplication.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "Countries")
+@Entity(name = "Country")
 public class Country{
     @Id
     private int id;

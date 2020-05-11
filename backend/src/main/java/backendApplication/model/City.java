@@ -3,7 +3,7 @@ package backendApplication.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "Cities")
+@Entity(name = "City")
 public class City{
     @Id
     private int id;

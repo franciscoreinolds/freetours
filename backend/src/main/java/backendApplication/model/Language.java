@@ -2,7 +2,7 @@ package backendApplication.model;
 
 import javax.persistence.*;
 
-@Entity(name = "Languages")
+@Entity(name = "Language")
 public class Language {
     @Id
     private int id;
