@@ -1,7 +1,6 @@
-package backendApplication.model;
+package backendApplication.dao;
 
-import backendApplication.model.UserRepository;
-import backendApplication.model.User;
+import backendApplication.model.Place;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +10,21 @@ import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-public class UserService {
+public class PlaceService {
     @Autowired
-    UserRepository repo;
+    PlaceRepository repo;
 
-    public void save(User user) {
-        repo.save(user);
+    public void save(Place admin) {
+        repo.save(admin);
     }
 
-    public List<User> listAll() {
-        return (List<User>) repo.findAll();
+    public List<Place> listAll() {
+        return (List<Place>) repo.findAll();
     }
 
-    public User get(String id) throws NoSuchElementException {
+    public Place get(String id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
-
 
     public void delete(String id) {
         repo.deleteById(id);

@@ -1,4 +1,4 @@
-package backendApplication.model;
+package backendApplication.dao;
 
 import backendApplication.model.User;
 import org.springframework.data.repository.CrudRepository;

@@ -1,9 +1,8 @@
 package backendApplication.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity(name = "Users")
 public class User {
@@ -11,41 +10,17 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private double saldo = 0.0;
+    private String phoneNumber;
+    private Date dateOfBirth;
+    private String aboutMe;
+    private String image;
 
-    protected User(){}
+    @OneToMany
+    private List<Language> languages;
 
-    public User(String username, String password, String email){
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
+    @OneToMany
+    private List<Scheduling> schedules;
 
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
-    @Override
-    public String toString() {
-        return "backendApplication.model.User{" +
-
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", saldo=" + saldo +
-                '}';
-    }
+    @OneToMany
+    private List<Tour> tours;
 }
