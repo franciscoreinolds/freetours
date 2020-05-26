@@ -43,11 +43,10 @@ public class AuthController {
 
         try {
             User u = userService.get(user.getUsername());
-            if(u.getPassword().equals(user.getPassword())){
-                return new ResponseEntity(HttpStatus.OK);
-            }
-
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            
+            return u.getPassword().equals(user.getPassword())
+                ? new ResponseEntity(HttpStatus.OK)
+                : new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }catch ( NoSuchElementException e) {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }catch ( InvalidDataAccessApiUsageException e) {
