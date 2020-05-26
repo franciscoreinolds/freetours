@@ -15,7 +15,7 @@ public class AuthController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/sing_up", method = RequestMethod.POST)
+    @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
     public ResponseEntity registeUser(@RequestBody User user) {
 
         try {
@@ -38,7 +38,7 @@ public class AuthController {
     }
 
 
-    @RequestMapping(value = "/sing_in", method = RequestMethod.POST)
+    @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody User user) {
 
         try {
