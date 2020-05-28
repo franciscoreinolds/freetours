@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "Utilizador")
+@Entity(name="User_")
 public class User {
     @Id
     private String username;
