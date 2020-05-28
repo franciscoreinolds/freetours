@@ -46,7 +46,7 @@ public class AuthController {
 
 
     @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
-    public ResponseEntity login(@RequestBody User user) {
+    public ResponseEntity<HttpStatus> login(@RequestBody User user) {
 
         try {
             User u = userService.get(user.getUsername());
