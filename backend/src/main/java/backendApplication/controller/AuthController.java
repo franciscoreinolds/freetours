@@ -19,7 +19,7 @@ public class AuthController {
     UserService userService;
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
-    public ResponseEntity<HttpStatus> registeUser(@RequestBody User user) {
+    public ResponseEntity<HttpStatus> registerUser(@RequestBody User user) {
 
         try {
             userService.get(user.getUsername());
