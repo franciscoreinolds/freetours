@@ -1,7 +1,7 @@
 package backendApplication;
 
-import backendApplication.model.*;
-import backendApplication.dao.*;
+import backendApplication.model.dao.*;
+import backendApplication.model.entities.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

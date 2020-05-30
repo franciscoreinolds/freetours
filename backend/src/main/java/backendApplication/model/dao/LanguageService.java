@@ -1,6 +1,6 @@
-package backendApplication.dao;
+package backendApplication.model.dao;
 
-import backendApplication.model.City;
+import backendApplication.model.entities.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +10,19 @@ import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-public class CityService {
+public class LanguageService {
     @Autowired
-    CityRepository repo;
+    LanguageRepository repo;
 
-    public void save(City admin) {
+    public void save(Language admin) {
         repo.save(admin);
     }
 
-    public List<City> listAll() {
-        return (List<City>) repo.findAll();
+    public List<Language> listAll() {
+        return (List<Language>) repo.findAll();
     }
 
-    public City get(String id) throws NoSuchElementException {
+    public Language get(String id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 

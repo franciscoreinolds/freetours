@@ -1,6 +1,6 @@
-package backendApplication.dao;
+package backendApplication.model.dao;
 
-import backendApplication.model.Tour;
+import backendApplication.model.entities.Place;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +10,19 @@ import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-public class TourService {
+public class PlaceService {
     @Autowired
-    TourRepository repo;
+    PlaceRepository repo;
 
-    public void save(Tour tour) {
-        repo.save(tour);
+    public void save(Place admin) {
+        repo.save(admin);
     }
 
-    public List<Tour> listAll() {
-        return (List<Tour>) repo.findAll();
+    public List<Place> listAll() {
+        return (List<Place>) repo.findAll();
     }
 
-    public Tour get(String id) throws NoSuchElementException {
+    public Place get(String id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 

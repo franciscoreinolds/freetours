@@ -1,7 +1,7 @@
 package backendApplication.controller;
 
-import backendApplication.dao.UserService;
-import backendApplication.model.User;
+import backendApplication.model.dao.UserService;
+import backendApplication.model.entities.User;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;

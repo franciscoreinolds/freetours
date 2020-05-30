@@ -1,4 +1,4 @@
-package backendApplication.model;
+package backendApplication.model.entities;
 
 import javax.persistence.*;
 

@@ -1,7 +1,6 @@
-package backendApplication.model;
+package backendApplication.model.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package backendApplication.dao;
+package backendApplication.model.dao;
 
-import backendApplication.model.User;
+import backendApplication.model.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +10,19 @@ import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-public class UserService {
+public class CategoryService {
     @Autowired
-    UserRepository repo;
+    CategoryRepository repo;
 
-    public void save(User user) {
-        repo.save(user);
+    public void save(Category admin) {
+        repo.save(admin);
     }
 
-    public List<User> listAll() {
-        return (List<User>) repo.findAll();
+    public List<Category> listAll() {
+        return (List<Category>) repo.findAll();
     }
 
-    public User get(String id) throws NoSuchElementException {
+    public Category get(String id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 

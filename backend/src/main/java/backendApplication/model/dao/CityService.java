@@ -1,6 +1,6 @@
-package backendApplication.dao;
+package backendApplication.model.dao;
 
-import backendApplication.model.Administrator;
+import backendApplication.model.entities.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +10,19 @@ import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-public class AdministratorService {
+public class CityService {
     @Autowired
-    AdministratorRepository repo;
+    CityRepository repo;
 
-    public void save(Administrator admin) {
+    public void save(City admin) {
         repo.save(admin);
     }
 
-    public List<Administrator> listAll() {
-        return (List<Administrator>) repo.findAll();
+    public List<City> listAll() {
+        return (List<City>) repo.findAll();
     }
 
-    public Administrator get(String id) throws NoSuchElementException {
+    public City get(String id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 

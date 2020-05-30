@@ -1,6 +1,6 @@
-package backendApplication.dao;
+package backendApplication.model.dao;
 
-import backendApplication.model.City;
+import backendApplication.model.entities.City;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CityRepository extends CrudRepository<City, String> {

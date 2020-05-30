@@ -1,6 +1,6 @@
-package backendApplication.dao;
+package backendApplication.model.dao;
 
-import backendApplication.model.Language;
+import backendApplication.model.entities.Administrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +10,19 @@ import java.util.NoSuchElementException;
 
 @Service
 @Transactional
-public class LanguageService {
+public class AdministratorService {
     @Autowired
-    LanguageRepository repo;
+    AdministratorRepository repo;
 
-    public void save(Language admin) {
+    public void save(Administrator admin) {
         repo.save(admin);
     }
 
-    public List<Language> listAll() {
-        return (List<Language>) repo.findAll();
+    public List<Administrator> listAll() {
+        return (List<Administrator>) repo.findAll();
     }
 
-    public Language get(String id) throws NoSuchElementException {
+    public Administrator get(String id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 
