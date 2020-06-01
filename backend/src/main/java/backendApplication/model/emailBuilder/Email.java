@@ -1,4 +1,4 @@
-package backendApplication.model.mailBuilder;
+package backendApplication.model.emailBuilder;
 
 /**
  * Class that represents the product. The complex class under construction.
