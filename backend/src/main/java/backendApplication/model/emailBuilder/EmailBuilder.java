@@ -25,30 +25,39 @@ public abstract class EmailBuilder {
     }
 
     /**
-     * Abstract method for implementations set the From string
+     * Method that sets From property of an email
      *
      * @param from String that represents the from property.
      * */
-    abstract void setFrom(String from);
+    public void setFrom(String from) {
+        try {
+            email.setFrom(from);
+        } catch (NullPointerException npe) {
+            createNewEmail();
+            email.setFrom(from);
+        }
+    }
 
     /**
-     * Abstract method for implementations set the To string
+     * Method that sets To property of an email
      *
      * @param to String that represents the to property.
      * */
-    abstract void setTo(String to);
+    public void setTo(String to) {
+        email.setTo(to);
+    }
 
     /**
      * Abstract method for implementations set the Subject string
      *
      * @param subject String that represents the subject property.
      * */
-    abstract void setSubject(String subject);
+    protected abstract void setSubject(String subject);
 
     /**
      * Abstract method for implementations set the From string
      *
      * @param text String that represents the text property.
      * */
-    abstract void setText(String text);
+    protected abstract void setText(String text);
 }
