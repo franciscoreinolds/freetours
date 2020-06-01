@@ -13,14 +13,14 @@ public class Email {
     /* Email body */
     private String text;
 
-    public Email() {
+    protected Email() {
         this.from = "";
         this.to = "";
         this.subject = "";
         this.text = "";
     }
 
-    public Email(String from, String to, String subject, String text) {
+    protected Email(String from, String to, String subject, String text) {
         this.from = from;
         this.to = to;
         this.subject = subject;
@@ -31,7 +31,7 @@ public class Email {
         return from;
     }
 
-    public void setFrom(String from) {
+    protected void setFrom(String from) {
         this.from = from;
     }
 
@@ -39,7 +39,7 @@ public class Email {
         return to;
     }
 
-    public void setTo(String to) {
+    protected void setTo(String to) {
         this.to = to;
     }
 
@@ -47,7 +47,7 @@ public class Email {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    protected void setSubject(String subject) {
         this.subject = subject;
     }
 
@@ -55,7 +55,7 @@ public class Email {
         return text;
     }
 
-    public void setText(String text) {
+    protected void setText(String text) {
         this.text = text;
     }
 }
