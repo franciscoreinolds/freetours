@@ -58,4 +58,15 @@ public class Email {
     protected void setText(String text) {
         this.text = text;
     }
+
+    @Override
+    public String toString() {
+        return "######################################\n" +
+                "# Email:\n" +
+                "#   from='" + from + "'\n" +
+                "#   to='" + to + "'\n" +
+                "#   subject='" + subject + "'\n" +
+                "#   text='" + text + "'\n" +
+                "######################################";
+    }
 }

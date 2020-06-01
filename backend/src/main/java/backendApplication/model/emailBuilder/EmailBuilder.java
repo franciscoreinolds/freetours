@@ -44,7 +44,12 @@ public abstract class EmailBuilder {
      * @param to String that represents the to property.
      * */
     public void setTo(String to) {
-        email.setTo(to);
+        try {
+            email.setTo(to);
+        } catch (NullPointerException npe) {
+            createNewEmail();
+            email.setTo(to);
+        }
     }
 
     /**

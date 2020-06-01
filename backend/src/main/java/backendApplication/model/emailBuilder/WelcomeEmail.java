@@ -12,9 +12,9 @@ public class WelcomeEmail extends EmailBuilder {
     @Override
     protected void setText(String text) {
 
-        email.setSubject(
+        email.setText(
                 "We're excited to help you out!\n\n" +
-                "Enter into your Account and make start schedule your tours!\n\n" +
+                "Enter into your Account and start scheduling your tours!\n\n" +
                 "Best Regards,\nFreeTours Team\n"
         );
 
