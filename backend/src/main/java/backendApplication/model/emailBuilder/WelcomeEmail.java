@@ -1,5 +1,8 @@
 package backendApplication.model.emailBuilder;
 
+/**
+ * Class represents a Concrete Builder, in this case specifies a Welcome Email.
+ * */
 public class WelcomeEmail extends EmailBuilder {
 
     @Override
