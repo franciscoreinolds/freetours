@@ -1,7 +1,10 @@
 package backendApplication;
 
 import backendApplication.model.dao.*;
+import backendApplication.model.entities.Administrator;
 import backendApplication.model.entities.Category;
+import backendApplication.model.entities.City;
+import backendApplication.model.entities.Country;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -19,13 +22,15 @@ public class BackendApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(CategoryService service) {
+	public CommandLineRunner demo(CityService cityservice, CountryService countryservice) {
 		return (args) -> {
-			service.save(new Category("Bike Tour"));
+			countryservice.save(new Country("Espanha"));
 
-			for (Category category : service.listAll()) {
-				System.out.println(category.getName());
-			}
+			cityservice.save(new City("Guimarães"));
+
+			//for (Administrator admin : service.listAll()) {
+			//	System.out.println(admin.getEmail());
+			//}
 		};
 	}
 
