@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -10,10 +12,13 @@ public class Scheduling {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="scheduling_sequence")
     @SequenceGenerator(name="scheduling_sequence", sequenceName="scheduling_seq")
     private int id;
+    @NotNull
     private Date date;
+    @NotNull
     private boolean paid;
 
     @OneToOne
+    @NotNull
     private Tour tour;
 
     @OneToMany

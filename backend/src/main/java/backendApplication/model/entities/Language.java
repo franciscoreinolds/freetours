@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity(name = "Language")
@@ -9,10 +11,13 @@ public class Language {
     @SequenceGenerator(name="language_sequence", sequenceName="language_seq")
     private int id;
     @Column(unique=true)
+    @NotNull
     private String name;
     @Column(unique=true)
+    @NotNull
     private String logo;
     @Column(unique=true)
+    @NotNull
     private String abbreviation;
 
     public Language() {

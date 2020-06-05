@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,6 +12,7 @@ public class Country{
     @SequenceGenerator(name="country_sequence", sequenceName="country_seq")
     private int id;
     @Column(unique=true)
+    @NotNull
     private String name;
 
     // private Continent continent;

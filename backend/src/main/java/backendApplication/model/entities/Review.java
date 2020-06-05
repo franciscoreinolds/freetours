@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity(name = "Review")
@@ -9,6 +11,7 @@ public class Review{
     @SequenceGenerator(name="review_sequence", sequenceName="review_seq")
     private int id;
     private String comment;
+    @NotNull
     private float rating;
 
     @OneToOne

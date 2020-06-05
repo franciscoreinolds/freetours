@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.List;
@@ -10,21 +12,28 @@ public class Tour {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="tour_sequence")
     @SequenceGenerator(name="tour_sequence", sequenceName="tour_seq")
     private int id;
+    @NotNull
     private String description;
+    @NotNull
     private Time duration;
+    @NotNull
     private int maxCapacity;
+    @NotNull
     private int minCapacity;
     private String qrCode;
 
     //private Set<String> images;
 
     @OneToMany
+    @NotNull
     private List<Place> route;
 
     @OneToOne
+    @NotNull
     private Category category;
 
     @OneToMany
+    @NotNull
     private List<Language> languages;
 
     @OneToMany

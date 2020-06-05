@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -9,8 +11,10 @@ public class User {
     @Id
     @Column(unique=true) // required?
     private String username;
+    @NotNull
     private String password;
     @Column(unique=true)
+    @NotNull
     private String email;
     @Column(unique=true)
     private String phoneNumber;

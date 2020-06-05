@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity(name = "Place")
@@ -8,8 +10,11 @@ public class Place {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="place_sequence")
     @SequenceGenerator(name="place_sequence", sequenceName="place_seq")
     private int id;
+    @NotNull
     private String name;
+    @NotNull
     private double latitude;
+    @NotNull
     private double longitude;
 
     public Place() {

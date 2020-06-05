@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity(name = "Category")
@@ -9,6 +11,7 @@ public class Category{
     @SequenceGenerator(name="category_sequence", sequenceName="category_seq")
     private int id;
     @Column(unique=true)
+    @NotNull
     private String name;
 
     public Category(){

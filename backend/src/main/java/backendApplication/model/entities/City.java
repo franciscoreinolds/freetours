@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,9 +11,11 @@ public class City{
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="city_sequence")
     @SequenceGenerator(name="city_sequence", sequenceName="city_seq")
     private int id;
+    @NotNull
     private String name;
 
     @OneToOne
+    @NotNull
     private Country country;
 
     @OneToMany
