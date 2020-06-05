@@ -22,11 +22,11 @@ public class ReviewService {
         return (List<Review>) repo.findAll();
     }
 
-    public Review get(String id) throws NoSuchElementException {
+    public Review get(Integer id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 
-    public void delete(String id) {
+    public void delete(Integer id) {
         repo.deleteById(id);
     }
 }

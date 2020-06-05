@@ -12,10 +12,6 @@ public class Administrator{
     public Administrator() {
     }
 
-    public Administrator(String email) {
-        this.email = email;
-    }
-
     public String getEmail() {
         return email;
     }

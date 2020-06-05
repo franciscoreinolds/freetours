@@ -22,9 +22,17 @@ public class BackendApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(CountryService countryservice) {
+	public CommandLineRunner demo(CityService cityservice, CountryService countryservice) {
 		return (args) -> {
-			countryservice.save(new Country("Espanha"));
+			countryservice.save(new Country("Portugal"));
+
+			Country c = countryservice.get(1);
+
+			cityservice.save(new City("Famalicão", c));
+
+			City city = cityservice.get(1);
+
+			System.out.println(city.getName() + " belongs to " + city.getCountry().getName());
 
 			//for (Administrator admin : service.listAll()) {
 			//	System.out.println(admin.getEmail());
