@@ -64,8 +64,8 @@
                                 </v-col>
                                 <v-col>
                                     <v-menu
-                                        ref="menu_time"
-                                        v-model="menu_time"
+                                        ref="start_time"
+                                        v-model="start_time"
                                         :close-on-content-click="false"
                                         :nudge-right="40"
                                         :return-value.sync="time"
@@ -84,23 +84,52 @@
                                             ></v-text-field>
                                         </template>
                                         <v-time-picker
-                                            v-if="menu_time"
+                                            v-if="start_time"
                                             v-model="time"
                                             full-width
-                                            @click:minute="$refs.menu_time.save(time)"
+                                            @click:minute="$refs.start_time.save(time)"
+                                        ></v-time-picker>
+                                    </v-menu>
+                                </v-col>
+                                <v-col>
+                                    <v-menu
+                                        ref="end_time"
+                                        v-model="end_time"
+                                        :close-on-content-click="false"
+                                        :nudge-right="40"
+                                        :return-value.sync="time"
+                                        transition="scale-transition"
+                                        offset-y
+                                        max-width="290px"
+                                        min-width="290px"
+                                    >
+                                        <template v-slot:activator="{ on }">
+                                            <v-text-field
+                                                outlined
+                                                v-model="time"
+                                                label="Tour End Time"
+                                                readonly
+                                                v-on="on"
+                                            ></v-text-field>
+                                        </template>
+                                        <v-time-picker
+                                            v-if="end_time"
+                                            v-model="time"
+                                            full-width
+                                            @click:minute="$refs.end_time.save(time)"
                                         ></v-time-picker>
                                     </v-menu>
                                 </v-col>
                             </v-row>
-                            <v-text-field
-                                outlined
-                                label="Capacity"
-                                name="capacity"
-                                type="number"
-                            />
+                                <v-text-field
+                                    outlined
+                                    label="Capacity"
+                                    name="capacity"
+                                    type="number"
+                                />
                             <v-row>
                                 <v-col
-                                :cols = 6>
+                                :cols = 12>
                                     <v-select
                                         v-model="value"
                                         :items="languages"
@@ -342,7 +371,8 @@ export default {
     data () {
       return {
         menu_date : false,
-        menu_time : false,
+        start_time : false,
+        end_time : false,
         date: new Date().toISOString().substr(0, 10),
         time: null,
         languages : [
