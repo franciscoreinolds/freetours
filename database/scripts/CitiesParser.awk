@@ -1,4 +1,4 @@
-# $1 - Geoname ID; $2 - Name; $3 - ASCII Name; $4 - Alternate Names; $5 - Latitude;
+# $1 - Geoname ID; $2 - Name; $3 - ASCII Name; $4 - Alternate Names; $5 - Lattitude;
 # $6 - Longitude; $7 - Feature Class; $8 - Feature Code; $9 - Country Code; $10 - Country Code 2;
 # $11 - Admin1 Code; $12 - Admin2 Code; $13 - Admin3 Code; $14 - Admin4 Code; $15 - Population;
 # $16 - Elevation; $17 - DIgital Elevation Model; $18 - Timezone; $19 - Modification date; $20 - Country; $21 - Coordinates
@@ -15,5 +15,5 @@ function insertcCountries(){
 
 function insertCities(){
   for(city in cities)
-    print "INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='"cities[city][2]"'), "cities[city][0]", "cities[city][1]", '"city"');"
+    print "INSERT INTO city(country_id, lattitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='"cities[city][2]"'), "cities[city][0]", "cities[city][1]", '"city"');"
 }

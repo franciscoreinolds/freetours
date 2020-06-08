@@ -39,4 +39,4 @@ if __name__ == '__main__':
   if conn is not None:
     conn.close()
     print('Closing database')
-  os.remove("Countries_Cities.sql")
+  #os.remove("Countries_Cities.sql")
