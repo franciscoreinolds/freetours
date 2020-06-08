@@ -7,6 +7,7 @@ import java.util.List;
 @Entity(name = "Scheduling")
 public class Scheduling {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date date;
     private boolean paid;

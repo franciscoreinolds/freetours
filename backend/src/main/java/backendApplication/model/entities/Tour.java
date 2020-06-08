@@ -7,6 +7,7 @@ import java.util.List;
 @Entity(name = "Tour")
 public class Tour {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
     private Time duration;
