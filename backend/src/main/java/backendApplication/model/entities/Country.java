@@ -8,8 +8,9 @@ import java.util.List;
 @Entity(name = "Country")
 public class Country{
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="country_sequence")
-    @SequenceGenerator(name="country_sequence", sequenceName="country_seq")
+    //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="country_sequence")
+    //@SequenceGenerator(name="country_sequence", sequenceName="country_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(unique=true)
     @NotNull

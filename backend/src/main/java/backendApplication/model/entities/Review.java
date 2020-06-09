@@ -7,8 +7,9 @@ import javax.persistence.*;
 @Entity(name = "Review")
 public class Review{
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="review_sequence")
-    @SequenceGenerator(name="review_sequence", sequenceName="review_seq")
+    //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="review_sequence")
+    //@SequenceGenerator(name="review_sequence", sequenceName="review_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String comment;
     @NotNull

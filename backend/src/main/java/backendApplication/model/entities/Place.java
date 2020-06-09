@@ -7,8 +7,9 @@ import javax.persistence.*;
 @Entity(name = "Place")
 public class Place {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="place_sequence")
-    @SequenceGenerator(name="place_sequence", sequenceName="place_seq")
+    //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="place_sequence")
+    //@SequenceGenerator(name="place_sequence", sequenceName="place_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     private String name;

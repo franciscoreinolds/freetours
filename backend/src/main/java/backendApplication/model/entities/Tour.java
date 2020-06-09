@@ -10,8 +10,9 @@ import java.util.Set;
 @Entity(name = "Tour")
 public class Tour {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="tour_sequence")
-    @SequenceGenerator(name="tour_sequence", sequenceName="tour_seq")
+    //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="tour_sequence")
+    //@SequenceGenerator(name="tour_sequence", sequenceName="tour_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     private String description;

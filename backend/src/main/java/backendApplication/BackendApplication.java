@@ -18,6 +18,7 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
+	/*
 	@Bean
 	public CommandLineRunner demo(CityService cityservice, CountryService countryservice) {
 		return (args) -> {
@@ -36,5 +37,5 @@ public class BackendApplication {
 			//}
 		};
 	}
-
+	*/
 }

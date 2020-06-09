@@ -7,8 +7,9 @@ import javax.persistence.*;
 @Entity(name = "Language")
 public class Language {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="language_sequence")
-    @SequenceGenerator(name="language_sequence", sequenceName="language_seq")
+    //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="language_sequence")
+    //@SequenceGenerator(name="language_sequence", sequenceName="language_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(unique=true)
     @NotNull

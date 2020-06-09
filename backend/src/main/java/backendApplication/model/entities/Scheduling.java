@@ -9,8 +9,9 @@ import java.util.List;
 @Entity(name = "Scheduling")
 public class Scheduling {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="scheduling_sequence")
-    @SequenceGenerator(name="scheduling_sequence", sequenceName="scheduling_seq")
+    //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="scheduling_sequence")
+    //@SequenceGenerator(name="scheduling_sequence", sequenceName="scheduling_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     private Date date;
