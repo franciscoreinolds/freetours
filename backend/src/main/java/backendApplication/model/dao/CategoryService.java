@@ -22,11 +22,11 @@ public class CategoryService {
         return (List<Category>) repo.findAll();
     }
 
-    public Category get(String id) throws NoSuchElementException {
+    public Category get(Integer id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 
-    public void delete(String id) {
+    public void delete(Integer id) {
         repo.deleteById(id);
     }
 }

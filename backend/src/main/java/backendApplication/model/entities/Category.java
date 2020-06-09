@@ -1,19 +1,20 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity(name = "Category")
 public class Category{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="category_sequence")
+    @SequenceGenerator(name="category_sequence", sequenceName="category_seq")
     private int id;
+    @Column(unique=true)
+    @NotNull
     private String name;
 
     public Category(){
-    }
-
-    public Category(String name){
-        this.name = name;
     }
 
     public int getId() {

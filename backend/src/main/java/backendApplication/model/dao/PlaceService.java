@@ -22,11 +22,11 @@ public class PlaceService {
         return (List<Place>) repo.findAll();
     }
 
-    public Place get(String id) throws NoSuchElementException {
+    public Place get(Integer id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 
-    public void delete(String id) {
+    public void delete(Integer id) {
         repo.deleteById(id);
     }
 }
