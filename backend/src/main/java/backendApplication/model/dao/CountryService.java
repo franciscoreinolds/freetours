@@ -22,11 +22,11 @@ public class CountryService {
         return (List<Country>) repo.findAll();
     }
 
-    public Country get(String id) throws NoSuchElementException {
+    public Country get(Integer id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 
-    public void delete(String id) {
+    public void delete(Integer id) {
         repo.deleteById(id);
     }
 }

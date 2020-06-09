@@ -1,5 +1,7 @@
 package backendApplication.model.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -7,9 +9,14 @@ import java.util.List;
 @Entity(name="User_")
 public class User {
     @Id
+    @Column(unique=true) // required?
     private String username;
+    @NotNull
     private String password;
+    @Column(unique=true)
+    @NotNull
     private String email;
+    @Column(unique=true)
     private String phoneNumber;
     private Date dateOfBirth;
     private String aboutMe;
@@ -24,6 +31,8 @@ public class User {
     @OneToMany
     private List<Tour> tours;
 
+    public User() {
+    }
 
     public String getUsername() {
         return username;

@@ -22,11 +22,11 @@ public class TourService {
         return (List<Tour>) repo.findAll();
     }
 
-    public Tour get(String id) throws NoSuchElementException {
+    public Tour get(Integer id) throws NoSuchElementException {
         return repo.findById(id).get();
     }
 
-    public void delete(String id) {
+    public void delete(Integer id) {
         repo.deleteById(id);
     }
 }
