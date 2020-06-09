@@ -15,6 +15,7 @@ public class Review{
     private float rating;
 
     @OneToOne
+    @NotNull
     private User user;
 
     public Review() {

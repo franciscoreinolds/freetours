@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "Tour")
 public class Tour {
