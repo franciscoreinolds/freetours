@@ -34,12 +34,12 @@ public class AuthController {
                 userService.save(user);
             }catch (Exception ex) {
                 // logger ex.printStackTrace();
-                return new ResponseEntity<HttpStatus> (HttpStatus.NOT_ACCEPTABLE);
+                return new ResponseEntity<> (HttpStatus.NOT_ACCEPTABLE);
             }
 
-            return new ResponseEntity<HttpStatus> (HttpStatus.CREATED);
+            return new ResponseEntity<> (HttpStatus.CREATED);
         }catch ( InvalidDataAccessApiUsageException e) {
-            return new ResponseEntity<HttpStatus> (HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<> (HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -56,12 +56,12 @@ public class AuthController {
                     .toString();
 
             return u.getPassword().equals(password_hash)
-                ? new ResponseEntity<HttpStatus> (HttpStatus.OK)
-                : new ResponseEntity<HttpStatus> (HttpStatus.UNAUTHORIZED);
+                ? new ResponseEntity<> (HttpStatus.OK)
+                : new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
         }catch ( NoSuchElementException e) {
-            return new ResponseEntity<HttpStatus> (HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
         }catch ( InvalidDataAccessApiUsageException e) {
-            return new ResponseEntity<HttpStatus> (HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<> (HttpStatus.BAD_REQUEST);
         }
     }
 }

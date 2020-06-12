@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity(name="User_")
 public class User {
@@ -104,5 +105,14 @@ public class User {
 
     public void setTours(List<Tour> tours) {
         this.tours = tours;
+    }
+
+
+    // Returns next x schedule tours, from the current date
+    public List<Scheduling> getNextTours(int x) {
+        return schedules.stream()
+                        .filter(scheduling -> scheduling.getDate().compareTo(new Date()) > 0) // filtra os schedules que ja foram
+                        .collect(Collectors.toList())
+                        .subList(0, x);
     }
 }
