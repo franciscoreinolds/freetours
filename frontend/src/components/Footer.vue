@@ -2,7 +2,7 @@
     <div>
         <v-footer
         class = "footer"
-        color = "primary lighten-1"
+        color = "grey"
         height = 70px
         max-height = 70px
         >
