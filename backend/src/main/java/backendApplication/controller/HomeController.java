@@ -1,0 +1,34 @@
+package backendApplication.controller;
+
+import backendApplication.controller.expeptions.NotFoundException;
+import backendApplication.dao.UserService;
+import backendApplication.model.Scheduling;
+import backendApplication.model.Tour;
+import backendApplication.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+@RestController
+public class HomeController {
+
+    @Autowired
+    UserService userService;
+
+   @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String home() {
+        try {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            return "Hello " + username;
+        }catch (NoSuchElementException e) {
+            throw new NotFoundException();
+        }
+
+   }
+}
