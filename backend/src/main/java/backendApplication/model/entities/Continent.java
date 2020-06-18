@@ -14,12 +14,13 @@ public class Continent{
     private int id;
     @Column(unique=true)
     @NotNull
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private ContinentEnum name;
 
     public Continent() {
     }
 
-    public Continent(String name){
+    public Continent(ContinentEnum name){
         this.name = name;
     }
 
@@ -31,11 +32,11 @@ public class Continent{
         this.id = id;
     }
 
-    public String getName() {
+    public ContinentEnum getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(ContinentEnum name) {
         this.name = name;
     }
 
