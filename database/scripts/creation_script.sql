@@ -4,7 +4,7 @@
 insert into category (name) values ('Walking Tour'), ('Bike Tour'), ('Bus Tour'), ('Day Tour'), ('Night Life'), ('Romantic Tour');
 
 -- Language
-insert into language (abbreviation, logo, name) values ('PT', '../database/flags/portugal.png'),  ('EN', '../database/flags/britain.png'),  ('ES', '../database/flags/spain.png'), ('NL', '../database/flags/netherlands.png'),  ('DE', '../database/flags/germany.png'),  ('FR', '../database/flags/france.png');
+insert into language (abbreviation, logo, name) values ('PT', '../database/flags/portugal.png', 'Portuguese'),  ('EN', '../database/flags/britain.png', 'English'),  ('ES', '../database/flags/spain.png', 'Spanish'), ('NL', '../database/flags/netherlands.png', 'Dutch'),  ('DE', '../database/flags/germany.png', 'German'),  ('FR', '../database/flags/france.png', 'French');
 
 -- Continent
 
