@@ -5,8 +5,8 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "Country")
-public class Country{
+@Entity(name = "Continent")
+public class Continent{
     @Id
     //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="country_sequence")
     //@SequenceGenerator(name="country_sequence", sequenceName="country_seq")
@@ -16,19 +16,11 @@ public class Country{
     @NotNull
     private String name;
 
-    @OneToOne
-    @NotNull
-    private Continent continent;
-
-    @OneToMany
-    private List<City> cities;
-
-    public Country() {
+    public Continent() {
     }
 
-    public Country(String name, Continent continent){
+    public Continent(String name){
         this.name = name;
-        this.continent = continent;
     }
 
     public int getId() {
@@ -47,18 +39,4 @@ public class Country{
         this.name = name;
     }
 
-    public Continent getContinent() {
-        return continent;
-    }
-
-    public void setContinent(Continent continent) {
-        this.continent = continent;
-    }
-    public List<City> getCities() {
-        return cities;
-    }
-
-    public void setCities(List<City> cities) {
-        this.cities = cities;
-    }
 }
