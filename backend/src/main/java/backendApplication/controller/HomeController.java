@@ -1,9 +1,7 @@
 package backendApplication.controller;
 
 import backendApplication.controller.expeptions.NotFoundException;
-import backendApplication.dao.UserService;
-import backendApplication.model.Tour;
-import backendApplication.model.User;
+import backendApplication.model.dao.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;

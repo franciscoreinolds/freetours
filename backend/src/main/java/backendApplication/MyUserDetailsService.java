@@ -1,7 +1,8 @@
 package backendApplication;
 
-import backendApplication.dao.UserService;
-import backendApplication.model.User;
+
+import backendApplication.model.dao.UserService;
+import backendApplication.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
