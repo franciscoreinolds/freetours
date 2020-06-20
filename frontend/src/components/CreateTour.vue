@@ -35,72 +35,38 @@
                                 name="location"
                                 type="text"
                             />
-                              <v-row>
-                                <v-col>
-                                    <v-menu
-                                        ref="menu_date"
-                                        v-model="menu_date"
-                                        :close-on-content-click="false"
-                                        :return-value.sync="date"
-                                        transition="scale-transition"
-                                        offset-y
-                                        min-width="290px"
-                                    >
-                                        <template v-slot:activator="{ on }">
-                                        <v-text-field
-                                            outlined
-                                            v-model="date"
-                                            label="Tour Date"
-                                            readonly
-                                            v-on="on"
-                                        ></v-text-field>
-                                        </template>
-                                        <v-date-picker v-model="date" no-title scrollable>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="menu_date = false">Cancel</v-btn>
-                                        <v-btn text color="primary" @click="$refs.menu_date.save(date)">OK</v-btn>
-                                        </v-date-picker>
-                                    </v-menu>
-                                </v-col>
-                                <v-col>
-                                    <v-menu
-                                        ref="menu_time"
-                                        v-model="menu_time"
-                                        :close-on-content-click="false"
-                                        :nudge-right="40"
-                                        :return-value.sync="time"
-                                        transition="scale-transition"
-                                        offset-y
-                                        max-width="290px"
-                                        min-width="290px"
-                                    >
-                                        <template v-slot:activator="{ on }">
-                                            <v-text-field
-                                                outlined
-                                                v-model="time"
-                                                label="Tour Start Time"
-                                                readonly
-                                                v-on="on"
-                                            ></v-text-field>
-                                        </template>
-                                        <v-time-picker
-                                            v-if="menu_time"
-                                            v-model="time"
-                                            full-width
-                                            @click:minute="$refs.menu_time.save(time)"
-                                        ></v-time-picker>
-                                    </v-menu>
-                                </v-col>
-                            </v-row>
-                            <v-text-field
-                                outlined
-                                label="Capacity"
-                                name="capacity"
-                                type="number"
-                            />
                             <v-row>
                                 <v-col
-                                :cols = 6>
+                                :cols=2
+                                >
+                                    <v-subheader>
+                                        Duration
+                                    </v-subheader>
+                                </v-col>
+                                <v-col
+                                :cols=3
+                                >
+                                   <v-select
+                                        :items="dropdown_hours"
+                                        label="Hours"
+                                        v-model="duration_hours"
+                                    >
+                                    </v-select>
+                                </v-col>
+                                <v-col
+                                :cols=3
+                                >
+                                    <v-select
+                                        :items="dropdown_minutes"
+                                        label="Minutes"
+                                        v-model="duration_minutes"
+                                    >
+                                    </v-select>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col
+                                :cols = 12>
                                     <v-select
                                         v-model="value"
                                         :items="languages"
@@ -317,6 +283,7 @@
                                 <v-btn
                                 large
                                 primary
+                                v-on:click="hours_print"
                                 >
                                     Submit Tour
                                 </v-btn>
@@ -342,9 +309,67 @@ export default {
     data () {
       return {
         menu_date : false,
-        menu_time : false,
+        start_time : false,
+        end_time : false,
         date: new Date().toISOString().substr(0, 10),
         time: null,
+        duration_hours : "0",
+        duration_minutes : "0",
+        dropdown_hours : [
+            {
+                text : '0'
+            },
+            {
+                text : '1'
+            },
+            {
+                text : '2'
+            },
+            {
+                text : '3'
+            },
+            {
+                text : '4'
+            },
+            {
+                text :'5'
+            },
+            {
+                text : '6'
+            },
+            {
+                text : '7'
+            },
+            {
+                text : '8'
+            },
+            {
+                text : '9'
+            },
+            {
+                text : '10'
+            },
+            {
+                text : '11'
+            },
+            {
+                text :'12'
+            },
+        ],
+        dropdown_minutes : [
+            {
+                text : '0'
+            },
+            {
+                text : '15'
+            },
+            {
+                text : '30'
+            },
+            {
+                text : '45'
+            }
+        ],
         languages : [
             {
                 language : "Portuguese",
@@ -400,6 +425,9 @@ export default {
       }
     },
     methods: {
+        hours_print(e){
+            console.log(this.duration_hours, this.duration_minutes);
+        },
         loggerino(e) {
             // sets sidecard info upon clicking in the map
             this.marker_index = null;
@@ -485,7 +513,7 @@ export default {
             //this.current_lattitude = this.markers[index].position.lattitude;
             //this.current_longitude = this.markers[index].position.longitude;
         }
-    }
+    },
 }
 </script>
 

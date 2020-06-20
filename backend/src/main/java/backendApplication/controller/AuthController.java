@@ -1,10 +1,9 @@
 package backendApplication.controller;
 
 import backendApplication.MyUserDetailsService;
-import backendApplication.dao.UserService;
-import backendApplication.model.User;
 import backendApplication.utils.JwtUtil;
-import com.google.common.hash.Hashing;
+import backendApplication.model.dao.UserService;
+import backendApplication.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.charset.StandardCharsets;
 import java.util.NoSuchElementException;
 
 @RestController
