@@ -25,7 +25,7 @@ public class Scheduling {
     }
 
     public void setId(int id) {
-        this.id = id
+        this.id = id;
     }
 
     public Date getDate() {
