@@ -18,14 +18,16 @@
                     <v-form>
                         <v-text-field
                                 outlined
-                                label="Login"
-                                name="login"
+                                v-model="username"
+                                label="Username"
+                                name="username"
                                 type="text"
                                 class = "pt-12"
                         />
 
                         <v-text-field
                                 outlined
+                                v-model="password"
                                 id="password"
                                 label="Password"
                                 name="password"
@@ -39,7 +41,7 @@
                         <v-btn
                                 large
                                 primary
-                                @click="dialog = false"
+                                v-on:click="login()"
                         >
                             Login
                         </v-btn>
@@ -64,14 +66,37 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+const API_URL = process.env.VUE_APP_API_URL
+
 export default {
-    name : "Login",
+    name: "Login",
     props: {
-      source: String,
+        source: String,
     },
     data: () => ({
-        dialog: false
-    })
+        dialog: false,
+        username: '',
+        password: ''
+    }),
+    methods: {
+        // Login when called
+        login: function () {
+            axios.post(API_URL.toString() + '/sign_in', {
+                username: this.username,
+                password: this.password
+            })
+                .then(response => {
+                    console.log("Response:")
+                    console.log(response)
+                })
+                .catch(e => {
+                    console.log("Errors:")
+                    console.log(e)
+                })
+        }
+    }
 }
 </script>
 
