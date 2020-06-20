@@ -19,7 +19,7 @@ public class Continent{
 
     public Continent() {
     }
-
+  
     public Continent(ContinentEnum name){
         this.name = name;
     }
@@ -31,7 +31,7 @@ public class Continent{
     public void setId(int id) {
         this.id = id;
     }
-
+  
     public ContinentEnum getName() {
         return name;
     }
