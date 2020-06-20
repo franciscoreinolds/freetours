@@ -27,6 +27,9 @@
         >
         </v-text-field>
         <v-spacer></v-spacer>
+        <Login
+            class = "login"
+        />
         <router-link
         :to = "{path : '/createtour'}"
         class = "router-link"
@@ -57,8 +60,11 @@
 </template>
 
 <script>
+import Login from "./Login";
+
 export default {
     name : "Header",
+    components: {Login},
     data: () => ({
         links : [
             {
