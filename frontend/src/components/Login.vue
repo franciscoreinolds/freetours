@@ -18,24 +18,27 @@
                     <v-form>
                         <v-text-field
                                 outlined
-                                v-model="username"
+                                v-model="user.username"
                                 label="Username"
                                 name="username"
                                 type="text"
                                 class = "pt-12"
+                                @input="message = ''"
                         />
 
                         <v-text-field
                                 outlined
-                                v-model="password"
+                                v-model="user.password"
                                 id="password"
                                 label="Password"
                                 name="password"
                                 type="password"
                                 class = "pt-6"
+                                @input="message = ''"
                         />
                     </v-form>
                 </v-card-text>
+                <v-card-text class="red--text" v-if="message">{{message}}</v-card-text>
                 <v-card-actions>
                     <v-layout justify-center>
                         <v-btn
@@ -66,9 +69,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-
-const API_URL = process.env.VUE_APP_API_URL
+import AuthService from '../services/auth_service'
+import User from '../models/user';
 
 export default {
     name: "Login",
@@ -77,24 +79,23 @@ export default {
     },
     data: () => ({
         dialog: false,
-        username: '',
-        password: ''
+        user: new User('', '', ''),
+        message: ''
     }),
     methods: {
         // Login when called
-        login: function () {
-            axios.post(API_URL.toString() + '/sign_in', {
-                username: this.username,
-                password: this.password
-            })
-                .then(response => {
-                    console.log("Response:")
-                    console.log(response)
-                })
-                .catch(e => {
-                    console.log("Errors:")
-                    console.log(e)
-                })
+        login: async function () {
+            this.status = await AuthService.login(this.user)
+            switch (this.status) {
+
+                case 401:
+                    this.message = "*Invalid Credentials";
+                    break;
+
+                case 403:
+                    this.message = "*Username doesn't exist";
+                    break;
+            }
         }
     }
 }

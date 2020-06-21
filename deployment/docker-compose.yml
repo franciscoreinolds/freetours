@@ -2,9 +2,9 @@ version: '3'
 
 services:
 
-  db:
+  database:
     image: postgres:11.5
-    container_name: db
+    container_name: database
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -21,19 +21,28 @@ services:
     image: backend
     container_name: backend
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/freetour
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/freetour
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SERVER_PORT: 8080
+      FRONTEND_URL: http://localhost:9002
     ports:
       - 9001:8080
     restart: always
     depends_on:
-      - db
+      - database
+      - frontend
 
   frontend:
-    build: ../frontend
+    build:
+      context: ../frontend
+      args:
+        - VUE_APP_API_URL=http://localhost:9001
     image: frontend
     container_name: frontend
     ports:
       - 9002:80
+    restart: always
 
 volumes:
   pgdata:

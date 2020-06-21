@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<start-class>backendApplication.BackendApplication</start-class>
 	</properties>
 
 	<dependencies>

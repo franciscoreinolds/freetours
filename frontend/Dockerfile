@@ -16,6 +16,10 @@ COPY ./ .
 # Macs don't download this image
 COPY deployment_utils/marker-24.png ./node_modules/leaflet/dist/images/marker-24.png
 
+# Env variable
+ARG VUE_APP_API_URL
+ENV VUE_APP_API_URL $VUE_APP_API_URL
+
 # build app for production with minification
 RUN npm run build
 
