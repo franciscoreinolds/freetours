@@ -26,7 +26,7 @@
                 <v-list-item>
                     <v-list-item-content>
                         <v-list-item-title class="title">
-                            Sort by
+                            Filter by:
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
@@ -37,6 +37,9 @@
                     dense
                     nav
                 >
+                <v-list-item>
+                    Date Range:
+                </v-list-item>
                 <!-- Date Range -->
                 <v-date-picker
                     class = "mb-5"
@@ -56,17 +59,6 @@
                     <!-- Text Field that shows Range -->
                         </v-btn>
                     </v-list-item>
-                    <!--
-                    <v-list-item>
-                        <v-select
-                        label = "Rating"
-                        :items = "ratings"
-                        solo
-                        >
-                        </v-select>
-                    </v-list-item>
-                    -->
-                    <!-- Categories Select -->
                     <v-list-item>
                         <v-select
                         label = "Categories"
@@ -106,6 +98,9 @@
                                 </h4>
                             </v-card-text>
                             <v-card-content>
+                                <div
+                                class = "my_slider"
+                                >
                                 <v-range-slider
                                     v-model="rate_range"
                                     ticks="always"
@@ -113,13 +108,17 @@
                                     min = "1"
                                     max = "5"
                                ></v-range-slider> 
+                               </div>
                             </v-card-content>
                       </v-card>
                     </v-list-item>
                     <br>
                     <!-- Search Button -->
-                    <v-list-item>
-                        <v-btn>
+                    <v-list-item
+                    >
+                        <v-btn
+                            class = "search_button"
+                        >
                             Search
                         </v-btn>
                     </v-list-item>
@@ -194,5 +193,13 @@ export default {
 
 }
 
+.my_slider {
+    width : 85%;
+    margin : auto;
+}
+
+.search_button {
+    margin : auto;
+}
 
 </style>
