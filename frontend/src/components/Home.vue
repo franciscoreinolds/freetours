@@ -69,7 +69,12 @@
             :cols = 2
             >
                 <v-select
+                v-model = "category"
                 label = "Tour Category"
+                :items = "categories"
+                item-text="name"
+                item-value="id"
+                offset-y
                 solo
                 >
                 </v-select>
@@ -146,6 +151,8 @@
 </template>
 
 <script>
+import CatService from '../services/cat_service'
+
 export default {
     name : "Home",
     data() {
@@ -165,11 +172,20 @@ export default {
             'Fifth',
             ],
             date: new Date().toISOString().substr(0, 10),
+            categories : [],
+            category : '',
             menu2: false,
         }
+    },
+    async created() {
+        var cat_resp = await CatService.get();
+        if (cat_resp.status == 200) {
+            this.categories = cat_resp.data;
+        }
+        else console.log('Cat_Response Status not 200')
     }
 }
-</script>
+</script
 
 <style scoped>
 
