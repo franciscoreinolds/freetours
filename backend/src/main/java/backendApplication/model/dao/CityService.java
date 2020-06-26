@@ -29,5 +29,9 @@ public class CityService {
     public void delete(Integer id) {
         repo.deleteById(id);
     }
+
+    public List<City> findMostPopularCities() {
+        return repo.findMostPopularCities();
+    }
 }
 

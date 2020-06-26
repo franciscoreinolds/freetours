@@ -34,7 +34,7 @@ public class Tour {
     @NotNull
     private Category category;
 
-    @OneToMany
+    @ManyToMany
     @NotNull
     private List<Language> languages;
 
@@ -145,4 +145,6 @@ public class Tour {
     public void setActive(List<Scheduling> active) {
         this.active = active;
     }
+
+
 }

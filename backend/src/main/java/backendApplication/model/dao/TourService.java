@@ -2,6 +2,7 @@ package backendApplication.model.dao;
 
 import backendApplication.model.entities.Tour;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,5 +30,10 @@ public class TourService {
     public void delete(Integer id) {
         repo.deleteById(id);
     }
+
+    public List<Tour> getRandomActiveTours(int i) {
+        return repo.findRandomActiveTours(PageRequest.of(0, i));
+    }
+
 }
 

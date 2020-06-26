@@ -1,5 +1,6 @@
 package backendApplication.model.entities;
 
+import backendApplication.controller.expeptions.NotFoundException;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -81,5 +82,15 @@ public class City{
 
     public void setTours(List<Tour> tours) {
         this.tours = tours;
+    }
+
+    public Tour getRandomActiveTour() {
+        for (Tour t : tours) {
+            if(!t.getActive().isEmpty()){
+                return t;
+            }
+        }
+
+        return null;
     }
 }

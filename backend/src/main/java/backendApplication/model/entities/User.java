@@ -147,9 +147,14 @@ public class User implements UserDetails {
 
     // Returns next x schedule tours, from the current date
     public List<Scheduling> getNextTours(int x) {
-        return schedules.stream()
+        List<Scheduling> nextTours = schedules.stream()
                         .filter(scheduling -> scheduling.getDate().compareTo(new Date()) > 0) // filtra os schedules que ja foram
-                        .collect(Collectors.toList())
-                        .subList(0, x);
+                        .collect(Collectors.toList());
+
+        if(nextTours.size() > x) {
+            return nextTours.subList(0,x);
+        }else {
+            return nextTours;
+        }
     }
 }
