@@ -88,13 +88,9 @@ export default {
             this.status = await AuthService.login(this.user)
             switch (this.status) {
                 case 200:
-                    var token = localStorage.getItem('user')
-                        if (token != null) {
-                            var parseJwt = JSON.parse(atob(token.split('.')[1]))
-                            console.log(parseJwt)
-                            this.dialog = false;
-                            this.$router.go('/');
-                        }
+                    this.dialog = false;
+                    this.$router.push('/');
+                    console.log('Login: 200!');
                     break;
                 case 401:
                     this.message = "*Invalid Credentials";

@@ -28,7 +28,7 @@
         </v-text-field>
         <v-spacer></v-spacer>
         <div
-        v-if="this.username==''"
+        v-if="this.user==''"
         >
         <router-link
         :to = "{path : '/signup'}"
@@ -87,22 +87,12 @@ export default {
     components: {Login},
     computed : {
         user : function() {
-            return this.username;
+            return this.$store.state.username;
         }
     },
     async created () {
-        var jwt = localStorage.getItem('user');
-        console.log(jwt)
-        if (jwt != null) {
-            var parsedJwt = JSON.parse(atob(jwt.split('.')[1]));
-            this.username = parsedJwt.sub;
-            console.log(this.username, parsedJwt.sub);
-            console.log(this.user);
-            this.$forceUpdate();
-        }
     },
     data: () => ({
-        username : '',
         links : [
             {
                 text : "FreeTours",
@@ -113,7 +103,7 @@ export default {
     methods : { 
         logout: async function() {
             AuthService.logout();
-            this.$router.go('/');
+            this.$router.push('/');
         }
     }
 }

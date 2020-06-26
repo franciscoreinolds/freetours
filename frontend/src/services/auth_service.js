@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '../store';
 
 const API_URL = process.env.VUE_APP_API_URL
 
@@ -11,7 +12,10 @@ class AuthService {
             })
             .then(response => {
                 if (response.data) {
-                    localStorage.setItem('user', JSON.stringify(response.data));
+                    var jwt = JSON.stringify(response.data);
+                    localStorage.setItem('user', jwt);
+                    var parsedJwt =  JSON.parse(atob(jwt.split('.')[1]));
+                    store.commit('setUsername', parsedJwt.sub);
                 }
 
                 return response.status;
@@ -23,6 +27,7 @@ class AuthService {
 
     logout() {
         localStorage.removeItem('user');
+        store.commit('setUsername','');
     }
 
     register(user) {
