@@ -9,288 +9,303 @@
                 align="center"
                 justify="center"
                 >
-                    <v-card
-                    shaped
-                    elevation
-                    class="elevation-12 card"
-                    >
-                        <h1
-                        class = "pa-5"
+                        <v-card
+                        shaped
+                        elevation
+                        class="elevation-12 card"
                         >
-                            Create a Tour
-                        </h1>
-                        <v-card-text>
-                            <v-form>
-                            <v-text-field
-                                outlined
-                                label="Tour Name"
-                                name="tourname"
-                                type="text"
-                                class = "pt-12"
-                            />
-
-                            <v-text-field
-                                outlined
-                                label="Location"
-                                name="location"
-                                type="text"
-                            />
-                            <v-row>
-                                <v-col
-                                :cols=2
-                                >
-                                    <v-subheader>
-                                        Duration
-                                    </v-subheader>
-                                </v-col>
-                                <v-col
-                                :cols=3
-                                >
-                                   <v-select
-                                        :items="dropdown_hours"
-                                        label="Hours"
-                                        v-model="duration_hours"
-                                    >
-                                    </v-select>
-                                </v-col>
-                                <v-col
-                                :cols=3
-                                >
-                                    <v-select
-                                        :items="dropdown_minutes"
-                                        label="Minutes"
-                                        v-model="duration_minutes"
-                                    >
-                                    </v-select>
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col
-                                :cols = 12>
-                                    <v-select
-                                        v-model="value"
-                                        :items="languages"
-                                        item-text="language"
-                                        item-value="value"
-                                        chips
-                                        label="In what language(s) will the Tour be done in?"
-                                        outlined
-                                        multiple
-                                        height = 50px
-                                    ></v-select>
-                                </v-col>
-                            </v-row>
-                            <v-textarea
-                            outlined
-                            name="description"
-                            label="Tour Description"
-                            ></v-textarea>
-                            <v-alert
-                            v-if="success_alert"
-                            type="success">
-                                I'm a success alert.
-                            </v-alert>
-                            <v-layout
-                            wrap
-                            justify-center>
-                                <v-flex
-                                xs8
-                                >
-                                    <!--
-                                        Main (Map) Card
-                                    -->
-                                    <v-card
-                                    height = "500px"
-                                    >
-                                        <div
-                                        class = "mapHolder"
-                                        >
-                                            <l-map
-                                                ref="myMap"
-                                                :zoom="zoom"
-                                                :center="center"
-                                                :zoomControl = "disabled"
-                                                :options="{
-                                                    doubleClickZoom:false,
-                                                    zoomControl : false
-                                                }"
-                                                @click="clearMarkerInfo"
-                                                @dblclick="loggerino"
-                                                >
-                                                <l-tile-layer :url="url">
-                                                </l-tile-layer>
-                                                <v-geosearch
-                                                :options="geosearchOptions"
-                                                >
-                                                </v-geosearch>
-
-                                                <!-- Provisional Marker -->
-                                                
-                                                <l-marker
-                                                v-if="current_lattitude"
-                                                :lat-lng="[current_lattitude, current_longitude]"
-                                                :icon = "red_icon"
-                                                >
-                                                    <l-icon
-                                                    :icon-size="[37,37]"
-                                                    :icon-anchor="[16,37]"
-                                                    :iconUrl="require('leaflet/dist/images/marker-24.png')"
-                                                    >
-                                                    </l-icon>
-                                                </l-marker>
-                                                
-                                                <!-- Saved Marker(s) -->
-
-                                                <l-marker
-                                                    v-for="(marker,index) in markers"
-                                                    :key="index"
-                                                    :lat-lng="[marker.position.lattitude, marker.position.longitude]"
-                                                    @click="markerInfo(index, marker)"
-                                                    @dblclick="removeMarker(index)"
-                                                >
-                                                    <l-icon
-                                                    :icon-size="marker.icon_size"
-                                                    :icon-anchor="marker.icon_anchor"
-                                                    :iconUrl="require('leaflet/dist/images/marker-icon.png')"
-                                                    >
-                                                    </l-icon>
-                                                </l-marker>
-                                            </l-map>
-                                        </div>
-                                    </v-card>
-                                </v-flex>
-                                <v-flex
-                                xs4
-                                >
-                                    <!--
-                                        Side Card - Add Marker
-                                    -->
-
-                                    <v-card
-                                    height = "500px"
-                                    v-if="current_lattitude || marker_index != null"
-                                    >
-                                        <v-card-title>
-                                            Marker Information
-                                        </v-card-title>
-                                        <v-card-subtitle
-                                            v-if="marker_index != null"
-                                        >
-                                            Marker Order: {{marker_index + 1}}
-                                        </v-card-subtitle>
-                                        <v-card-text>
-                                            
-                                            Marker Name:
-                                            <v-text-field
-                                                v-model="marker_name"
-                                                outlined   
-                                            >
-                                            </v-text-field>
-                                            
-                                            Marker Description:
-                                            <v-text-field
-                                                v-model="marker_description"
-                                                outlined
-                                            >
-                                            </v-text-field>
-                                            
-                                            <h5>
-                                                Lattitude: {{marker_lattitude}}
-                                            </h5>
-                                            
-                                            <h5>
-                                                Longitude: {{marker_longitude}}
-                                            </h5>
-
-                                        </v-card-text>
-                                        <div
-                                        class = "text-center pb-3 mb-3 pt-0">
-                                            <v-btn
-                                            @click="saveMarkerInfo"
-                                            >
-                                                Submit Marker Info
-                                            </v-btn>
-                                        </div>
-                                        <div
-                                        class = "text-center pb-3 mb-3 pt-0">
-                                            <v-btn
-                                            @click="clearMarkerInfo(index)"
-                                            >
-                                                Clear Info
-                                            </v-btn>
-                                        </div>
-                                    </v-card>
-
-                                    <!--
-                                        Side Card - Marker List
-                                    -->
-
-                                    <v-card
-                                    height = "500px"
-                                    width = "100%"
-                                    v-else
-                                    >
-                                        <v-list
-                                        style="max-height: 500px;"
-                                        class="overflow-y-auto"
-                                        >
-                                            <v-list-item
-                                            v-for="(marker, index) in markers"
-                                            :key="index"
-                                            class = "pb-1 ps-1 pe-1 pt-0"
-                                            >
-                                                <v-list-item-content
-                                                class = "pa-0"
-                                                >
-                                                    <v-card
-                                                    color="#ffeeee"
-                                                    width = "100%"
-                                                    @mouseover="mouseOverMarker(index)"
-                                                    @mouseleave="mouseLeavesMarker(index)"
-                                                    @click="editMarker(index)"
-                                                    >
-                                                        <v-card-text>
-                                                            <h3>
-                                                                Stop #{{index + 1}}
-                                                            </h3>
-                                                            <h4>
-                                                                Marker Name: {{marker.name}}
-                                                            </h4>
-                                                            <h4>
-                                                                Marker Description: {{marker.description}}
-                                                            </h4>
-                                                        </v-card-text>
-                                                    </v-card>
-                                                </v-list-item-content>
-                                        </v-list-item>
-                                        </v-list>
-                                    </v-card>
-                                </v-flex>
-                            </v-layout>
-                            <br>
-                            <v-file-input
-                            outlined
-                            small-chips
-                            multiple
-                            accept = ".png"
-                            label="Upload some pictures of what people will see in your tour"
+                            <h1
+                            class = "pa-5"
                             >
-                            </v-file-input>
+                                Create a Tour
+                            </h1>
+                            <v-form
+                                v-model="isFormValid"
+                                ref="form"
+                                class = "form"
+                            >
+                                <v-card-text>
+                                    <v-text-field
+                                        outlined
+                                        label="Tour Name"
+                                        v-model="tour_name"
+                                        :rules="[rules.required]" 
+                                        required
+                                        name="tourname"
+                                        type="text"
+                                        class = "pt-12"
+                                    />
+                                    <v-text-field
+                                        outlined
+                                        label="Location"
+                                        v-model="location"
+                                        :rules="[rules.required]"
+                                        required
+                                        name="location"
+                                        type="text"
+                                    />
+                                    <v-row>
+                                        <v-col
+                                        :cols=2
+                                        >
+                                            <v-subheader>
+                                                Duration
+                                            </v-subheader>
+                                        </v-col>
+                                        <v-col
+                                        :cols=3
+                                        >
+                                           <v-select
+                                                :items="dropdown_hours"
+                                                label="Hours"
+                                                v-model="duration_hours"
+                                            >
+                                            </v-select>
+                                        </v-col>
+                                        <v-col
+                                        :cols=3
+                                        >
+                                            <v-select
+                                                :items="dropdown_minutes"
+                                                label="Minutes"
+                                                v-model="duration_minutes"
+                                            >
+                                            </v-select>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col
+                                        :cols = 12>
+                                            <v-select
+                                                v-model="langs_array"
+                                                :items="languages"
+                                                item-text="language"
+                                                item-value="value"
+                                                chips
+                                                label="In what language(s) will the Tour be done in?"
+                                                :rules="[inputRules]"
+                                                required
+                                                outlined
+                                                multiple
+                                                height = 50px
+                                            ></v-select>
+                                        </v-col>
+                                    </v-row>
+                                    <v-textarea
+                                    outlined
+                                    name="description"
+                                    label="Tour Description"
+                                    :rules="[rules.required]"
+                                    required
+                                    v-model="description"
+                                    ></v-textarea>
+                                    <v-alert
+                                    v-if="success_alert"
+                                    type="success">
+                                        I'm a success alert.
+                                    </v-alert>
+                                    <v-layout
+                                    wrap
+                                    justify-center>
+                                        <v-flex
+                                        xs8
+                                        >
+                                            <!--
+                                                Main (Map) Card
+                                            -->
+                                            <v-card
+                                            height = "500px"
+                                            >
+                                                <div
+                                                class = "mapHolder"
+                                                >
+                                                    <l-map
+                                                        ref="myMap"
+                                                        :zoom="zoom"
+                                                        :center="center"
+                                                        :options="{
+                                                            doubleClickZoom:false,
+                                                            zoomControl : false
+                                                        }"
+                                                        @click="clearMarkerInfo"
+                                                        @dblclick="loggerino"
+                                                        >
+                                                        <l-tile-layer :url="url">
+                                                        </l-tile-layer>
+                                                        <v-geosearch
+                                                        :options="geosearchOptions"
+                                                        >
+                                                        </v-geosearch>
+
+                                                        <!-- Provisional Marker -->
+                                                        
+                                                        <l-marker
+                                                        v-if="current_lattitude"
+                                                        :lat-lng="[current_lattitude, current_longitude]"
+                                                        :icon = "red_icon"
+                                                        >
+                                                            <l-icon
+                                                            :icon-size="[37,37]"
+                                                            :icon-anchor="[16,37]"
+                                                            :iconUrl="require('leaflet/dist/images/marker-24.png')"
+                                                            >
+                                                            </l-icon>
+                                                        </l-marker>
+                                                        
+                                                        <!-- Saved Marker(s) -->
+
+                                                        <l-marker
+                                                            v-for="(marker,index) in markers"
+                                                            :key="index"
+                                                            :lat-lng="[marker.position.lattitude, marker.position.longitude]"
+                                                            @click="markerInfo(index, marker)"
+                                                            @dblclick="removeMarker(index)"
+                                                        >
+                                                            <l-icon
+                                                            :icon-size="marker.icon_size"
+                                                            :icon-anchor="marker.icon_anchor"
+                                                            :iconUrl="require('leaflet/dist/images/marker-icon.png')"
+                                                            >
+                                                            </l-icon>
+                                                        </l-marker>
+                                                    </l-map>
+                                                </div>
+                                            </v-card>
+                                        </v-flex>
+                                        <v-flex
+                                        xs4
+                                        >
+                                            <!--
+                                                Side Card - Add Marker
+                                            -->
+
+                                            <v-card
+                                            height = "500px"
+                                            v-if="current_lattitude || marker_index != null"
+                                            >
+                                                <v-card-title>
+                                                    Marker Information
+                                                </v-card-title>
+                                                <v-card-subtitle
+                                                    v-if="marker_index != null"
+                                                >
+                                                    Marker Order: {{marker_index + 1}}
+                                                </v-card-subtitle>
+                                                <v-card-text>
+                                                    
+                                                    Marker Name:
+                                                    <v-text-field
+                                                        v-model="marker_name"
+                                                        outlined   
+                                                    >
+                                                    </v-text-field>
+                                                    
+                                                    Marker Description:
+                                                    <v-text-field
+                                                        v-model="marker_description"
+                                                        outlined
+                                                    >
+                                                    </v-text-field>
+                                                    
+                                                    <h5>
+                                                        Lattitude: {{marker_lattitude}}
+                                                    </h5>
+                                                    
+                                                    <h5>
+                                                        Longitude: {{marker_longitude}}
+                                                    </h5>
+
+                                                </v-card-text>
+                                                <div
+                                                class = "text-center pb-3 mb-3 pt-0">
+                                                    <v-btn
+                                                    @click="saveMarkerInfo"
+                                                    >
+                                                        Submit Marker Info
+                                                    </v-btn>
+                                                </div>
+                                                <div
+                                                class = "text-center pb-3 mb-3 pt-0">
+                                                    <v-btn
+                                                    @click="clearMarkerInfo(index)"
+                                                    >
+                                                        Clear Info
+                                                    </v-btn>
+                                                </div>
+                                            </v-card>
+
+                                            <!--
+                                                Side Card - Marker List
+                                            -->
+
+                                            <v-card
+                                            height = "500px"
+                                            width = "100%"
+                                            v-else
+                                            >
+                                                <v-list
+                                                style="max-height: 500px;"
+                                                class="overflow-y-auto"
+                                                >
+                                                    <v-list-item
+                                                    v-for="(marker, index) in markers"
+                                                    :key="index"
+                                                    class = "pb-1 ps-1 pe-1 pt-0"
+                                                    >
+                                                        <v-list-item-content
+                                                        class = "pa-0"
+                                                        >
+                                                            <v-card
+                                                            color="#ffeeee"
+                                                            width = "100%"
+                                                            @mouseover="mouseOverMarker(index)"
+                                                            @mouseleave="mouseLeavesMarker(index)"
+                                                            @click="editMarker(index)"
+                                                            >
+                                                                <v-card-text>
+                                                                    <h3>
+                                                                        Stop #{{index + 1}}
+                                                                    </h3>
+                                                                    <h4>
+                                                                        Marker Name: {{marker.name}}
+                                                                    </h4>
+                                                                    <h4>
+                                                                        Marker Description: {{marker.description}}
+                                                                    </h4>
+                                                                </v-card-text>
+                                                            </v-card>
+                                                        </v-list-item-content>
+                                                </v-list-item>
+                                                </v-list>
+                                            </v-card>
+                                        </v-flex>
+                                    </v-layout>
+                                    <br>
+                                    <v-file-input
+                                    outlined
+                                    small-chips
+                                    multiple
+                                    accept = ".png"
+                                    label="Upload some pictures of what people will see in your tour"
+                                    required
+                                    >
+                                    </v-file-input>
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-layout justify-center>
+                                        <v-btn
+                                        large
+                                        primary
+                                        v-on:click="hours_print"
+                                        :disabled="!isFormValid"
+                                        >
+                                            Submit Tour
+                                        </v-btn>
+                                    </v-layout>
+                                </v-card-actions>
                             </v-form>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-layout justify-center>
-                                <v-btn
-                                large
-                                primary
-                                v-on:click="hours_print"
-                                >
-                                    Submit Tour
-                                </v-btn>
-                            </v-layout>
-                        </v-card-actions>
-                        <br>
-                    </v-card>
+                            <br>
+                        </v-card>
                 </v-row>
             </v-container>
         </v-content>
@@ -308,13 +323,40 @@ export default {
     },
     data () {
       return {
+        isFormValid : true,
         menu_date : false,
         start_time : false,
         end_time : false,
         date: new Date().toISOString().substr(0, 10),
         time: null,
+        tour_name : '',
+        location : '',
+        description : '',
+        langs_array : [],
         duration_hours : "0",
         duration_minutes : "0",
+        rules : {
+            required: value => !!value || 'Required field.',
+            dropdown : [
+                (v) => {
+                    if (!v || v.length < 1) return 'Input is Required.';
+                    else return true;
+                }
+            ]
+        },
+        inputRules : [
+            (v) => {
+                if (!v || v.length < 1)
+                    return 'Input is required';
+                else if (v.length > 0) {
+                for (let i = 0; i < v.length; i++) {
+                    if (v[i].length > 9)
+                        return 'Invalid Number';
+                }
+            }
+                else return true;
+            }
+        ],
         dropdown_hours : [
             {
                 text : '0'
@@ -332,7 +374,7 @@ export default {
                 text : '4'
             },
             {
-                text :'5'
+            text :'5'
             },
             {
                 text : '6'
@@ -426,7 +468,10 @@ export default {
     },
     methods: {
         hours_print(e){
-            console.log(this.duration_hours, this.duration_minutes);
+            console.log(this.tour_name, this.description, this.location);
+            console.log('hours and minutes', this.duration_hours, this.duration_minutes);
+            console.log(this.markers);
+            console.log(this.langs_array);
         },
         loggerino(e) {
             // sets sidecard info upon clicking in the map
@@ -440,14 +485,12 @@ export default {
         },
         removeMarker(index) {
             // removes a marker from the marker array and thus the map
-            console.log("Remove Marker at index: " + index);
             this.markers.splice(index, 1);
             this.clearMarkerInfo();
         },
         saveMarkerInfo() {
             // saves / updates the information pertaining to a marker
             if (this.marker_index != null) {
-                console.log("Asasdasd: " + this.marker_index);
                 this.markers[this.marker_index].name = this.marker_name;
                 this.markers[this.marker_index].description = this.marker_description;
                 this.markers[this.marker_index].position.lattitude = this.marker_lattitude;
@@ -474,7 +517,6 @@ export default {
         },
         markerInfo(index, marker) {
             // sets the sidecard info upon clicking of a marker
-            console.log("MarkerInfo: " + index);
             this.marker_index = index;
             this.marker_name = marker.name;
             this.marker_description = marker.description;
