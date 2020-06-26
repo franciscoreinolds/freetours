@@ -87,7 +87,15 @@ export default {
         login: async function () {
             this.status = await AuthService.login(this.user)
             switch (this.status) {
-
+                case 200:
+                    var token = localStorage.getItem('user')
+                        if (token != null) {
+                            var parseJwt = JSON.parse(atob(token.split('.')[1]))
+                            console.log(parseJwt)
+                            this.dialog = false;
+                            this.$router.go('/');
+                        }
+                    break;
                 case 401:
                     this.message = "*Invalid Credentials";
                     break;
@@ -96,7 +104,7 @@ export default {
                     this.message = "*Username doesn't exist";
                     break;
             }
-        }
+        },
     }
 }
 </script>

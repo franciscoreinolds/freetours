@@ -27,9 +27,26 @@
         >
         </v-text-field>
         <v-spacer></v-spacer>
+        <div
+        v-if="this.username==''"
+        >
+        <router-link
+        :to = "{path : '/signup'}"
+        class = "router-link"
+        >
+            <v-btn
+            text
+            >
+                Sign Up
+            </v-btn>
+        </router-link>
         <Login
             class = "login"
         />
+        </div>
+        <div
+        v-else
+        >
         <router-link
         :to = "{path : '/createtour'}"
         class = "router-link"
@@ -47,32 +64,58 @@
             <v-btn
             text
             >
-                Username
+                {{ user }}
             </v-btn>
         </router-link>
         <v-btn
         text
+        v-on:click="logout()"
         >
             Logout
         </v-btn>
+        </div>
         </v-app-bar>
     </div>
 </template>
 
 <script>
+import AuthService from '../services/auth_service';
 import Login from "./Login";
 
 export default {
     name : "Header",
     components: {Login},
+    computed : {
+        user : function() {
+            return this.username;
+        }
+    },
+    async created () {
+        var jwt = localStorage.getItem('user');
+        console.log(jwt)
+        if (jwt != null) {
+            var parsedJwt = JSON.parse(atob(jwt.split('.')[1]));
+            this.username = parsedJwt.sub;
+            console.log(this.username, parsedJwt.sub);
+            console.log(this.user);
+            this.$forceUpdate();
+        }
+    },
     data: () => ({
+        username : '',
         links : [
             {
                 text : "FreeTours",
                 link : "/"
             }
         ]
-    })
+    }),
+    methods : { 
+        logout: async function() {
+            AuthService.logout();
+            this.$router.go('/');
+        }
+    }
 }
 </script>
 
