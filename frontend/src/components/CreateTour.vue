@@ -35,16 +35,21 @@
                                         type="text"
                                         class = "pt-12"
                                     />
-                                    <v-text-field
-                                        outlined
-                                        label="Location"
-                                        v-model="location"
-                                        :rules="[rules.required]"
-                                        required
-                                        name="location"
-                                        type="text"
-                                    />
                                     <v-row>
+                                        <v-col
+                                        :cols = 6
+                                        >
+                                            <v-autocomplete
+                                            v-model = "location"
+                                            :items = "all_locations"
+                                            label = "Location"
+                                            :rules = "[rules.required]"
+                                            required
+                                            outlined
+                                            >
+
+                                            </v-autocomplete>
+                                        </v-col>
                                         <v-col
                                         :cols=2
                                         >
@@ -53,7 +58,7 @@
                                             </v-subheader>
                                         </v-col>
                                         <v-col
-                                        :cols=3
+                                        :cols=2
                                         >
                                            <v-select
                                                 :items="dropdown_hours"
@@ -63,7 +68,7 @@
                                             </v-select>
                                         </v-col>
                                         <v-col
-                                        :cols=3
+                                        :cols=2
                                         >
                                             <v-select
                                                 :items="dropdown_minutes"
@@ -83,7 +88,7 @@
                                                 item-value="value"
                                                 chips
                                                 label="In what language(s) will the Tour be done in?"
-                                                :rules="[inputRules]"
+                                                :rules="[(v) => !!v && v.length > 0|| 'You must give the Tour in at least 1 Language.']"
                                                 required
                                                 outlined
                                                 multiple
@@ -287,6 +292,7 @@
                                     multiple
                                     accept = ".png"
                                     label="Upload some pictures of what people will see in your tour"
+                                    :rules="[(v) => !!v && v.length > 0|| 'You must upload at least 1 photograph.']"
                                     required
                                     >
                                     </v-file-input>
@@ -337,25 +343,17 @@ export default {
         duration_minutes : "0",
         rules : {
             required: value => !!value || 'Required field.',
-            dropdown : [
-                (v) => {
-                    if (!v || v.length < 1) return 'Input is Required.';
-                    else return true;
-                }
-            ]
         },
-        inputRules : [
-            (v) => {
-                if (!v || v.length < 1)
-                    return 'Input is required';
-                else if (v.length > 0) {
-                for (let i = 0; i < v.length; i++) {
-                    if (v[i].length > 9)
-                        return 'Invalid Number';
-                }
-            }
-                else return true;
-            }
+        all_locations : [
+            'Amsterdam, Netherlands',
+            'Paris, France',
+            'Lisbon, Portugal',
+            'Porto, Portugal',
+            'Faro, Portugal',
+            'Braga, Portugal',
+            'Guimarães, Portugal',
+            'Famalicão, Portugal',
+            'Funchal, Portugal'
         ],
         dropdown_hours : [
             {
