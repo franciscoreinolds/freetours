@@ -23,6 +23,5 @@ public class HomeController {
         }catch (NoSuchElementException e) {
             throw new NotFoundException();
         }
-
    }
 }

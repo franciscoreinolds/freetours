@@ -26,6 +26,10 @@ public class UserService {
         return repo.findById(id).get();
     }
 
+    public User getByUsername(String username) throws NoSuchElementException {
+        return repo.findByUsername(username);
+    }
+
     public void delete(String id) {
         repo.deleteById(id);
     }
