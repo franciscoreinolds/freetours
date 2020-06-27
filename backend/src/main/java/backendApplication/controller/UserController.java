@@ -1,8 +1,9 @@
 package backendApplication.controller;
 
-import backendApplication.controller.expeptions.NotFoundException;
 import backendApplication.model.dao.UserService;
 import backendApplication.model.entities.User;
+import backendApplication.viewmodel.ProfileView;
+import backendApplication.viewmodel.ProfileViewAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,27 +22,18 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
-    public ResponseEntity<User> profile(@PathVariable String username) {
+    public ResponseEntity<ProfileView> profile(@PathVariable String username) {
 
-        try {
+        User u = userService.getByUsername(username);
 
-            String jwt_username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(u == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-            if(jwt_username.equals(username)){
+        String jwt_username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-                User u = userService.getByUsername(username);
-                return ResponseEntity.ok(u);
-
-            } else {
-
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
-            }
-
-        }catch (NoSuchElementException e) {
-            throw new NotFoundException();
-        }
-
+        return jwt_username.equals(username)
+                ? ResponseEntity.ok(new ProfileViewAll(u))
+                : ResponseEntity.ok(new ProfileView(u));
     }
 
 }
