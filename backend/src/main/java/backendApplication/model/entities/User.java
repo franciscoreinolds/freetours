@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -143,6 +144,10 @@ public class User implements UserDetails {
     public void setTours(List<Tour> tours) {
         this.tours = tours;
     }
+
+    public void addTour(Tour tour) {this.tours.add(tour);}
+
+    public void addScheduling(Scheduling scheduling) {this.schedules.add(scheduling);}
 
 
     // Returns next x schedule tours, from the current date

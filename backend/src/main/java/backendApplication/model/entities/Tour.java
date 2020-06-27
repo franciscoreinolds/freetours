@@ -15,16 +15,27 @@ public class Tour {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
+    private String name;
+    @NotNull
     private String description;
     @NotNull
-    private Time duration;
+    private int duration;
     @NotNull
     private int maxCapacity;
     @NotNull
     private int minCapacity;
     private String qrCode;
 
-    //private Set<String> images;
+    @NotNull
+    private String guideUsername;
+
+    @OneToOne
+    @NotNull
+    private City city;
+
+    @OneToMany
+    @NotNull
+    private Set<Image> images;
 
     @OneToMany
     @NotNull
@@ -58,6 +69,14 @@ public class Tour {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -66,11 +85,11 @@ public class Tour {
         this.description = description;
     }
 
-    public Time getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -96,6 +115,30 @@ public class Tour {
 
     public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
+    }
+
+    public String getGuideUsername() {
+        return guideUsername;
+    }
+
+    public void setGuideUsername(String guideUsername) {
+        this.guideUsername = guideUsername;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 
     public List<Place> getRoute() {
