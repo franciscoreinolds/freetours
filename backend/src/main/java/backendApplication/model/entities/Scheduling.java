@@ -3,6 +3,8 @@ package backendApplication.model.entities;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -78,4 +80,8 @@ public class Scheduling {
     public void setSignees(List<User> signees) {
         this.signees = signees;
     }
+
+    public void addQueue(User user) {this.queue.add(user);}
+
+    public void addSignee(User user) {this.signees.add(user);}
 }

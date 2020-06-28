@@ -14,8 +14,8 @@ public class SchedulingService {
     @Autowired
     SchedulingRepository repo;
 
-    public void save(Scheduling tour) {
-        repo.save(tour);
+    public void save(Scheduling scheduling) {
+        repo.save(scheduling);
     }
 
     public List<Scheduling> listAll() {
