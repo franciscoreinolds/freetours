@@ -144,6 +144,21 @@ public class User implements UserDetails {
         this.tours = tours;
     }
 
+    @Override
+    public String toString() {
+        return "User{\n" +
+                "username='" + username + "'\n" +
+                ", password='" + password + "'\n" +
+                ", email='" + email + "'\n" +
+                ", phoneNumber='" + phoneNumber + "'\n" +
+                ", dateOfBirth=" + dateOfBirth + "\n" +
+                ", aboutMe='" + aboutMe + "'\n" +
+                ", image='" + image + "'\n" +
+                ", languages=" + languages + "\n" +
+                ", schedules=" + schedules + "\n" +
+                ", tours=" + tours + "\n" +
+                '}' + "\n";
+    }
 
     // Returns next x schedule tours, from the current date
     public List<Scheduling> getNextTours(int x) {
