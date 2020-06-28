@@ -48,7 +48,7 @@ public class UserController {
      * @param username String that represents the username which is a PathVariable
      * @param user User that represents the user fields to change
      *
-     * @return ProfileView that represents only what is intended to show
+     * @return String and HTTP status for informing about the status of the operation
      * */
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.POST)
     public ResponseEntity<String> editProfile(@PathVariable String username, @RequestBody User user) {
