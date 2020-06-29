@@ -83,7 +83,13 @@ public class AuthController {
         return ResponseEntity.ok(jwt);
     }
 
-
+    /**
+     * Route that is called when a user wants to recover its password because he probably forgot
+     *
+     * @param userBody from which only the email is required
+     *
+     * @returns ResponseEntity<String> String and HTTP status for informing about the status of the operation
+     * */
     @RequestMapping(value = "/reset_password", method = RequestMethod.POST)
     public ResponseEntity<String> resetPassword(@RequestBody User userBody) {
 
@@ -106,7 +112,16 @@ public class AuthController {
 
     }
 
-
+    /**
+     * Route that is called with the token sent by email previously with /reset_password .
+     * If the operation is successful, either the token is expired or is not, but in any case all the tokens
+     *  in the database for that user are eliminated.
+     *
+     * @param token String that represents the token sent by email
+     * @param passwordChange PasswordChange that contains only the password and a confirmation that must be equal
+     *
+     * @returns ResponseEntity<String> String and HTTP status for informing about the status of the operation
+     * */
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
     public ResponseEntity<String> changePassword(@RequestParam("token") String token, @RequestBody PasswordChange passwordChange) {
 
@@ -132,11 +147,14 @@ public class AuthController {
             }
 
         }
-        else if (result.equals("Expired"))
+        else if (result.equals("Expired")) {
+
+            passwordResetTokenService.deleteAllByUser(token);
             return new ResponseEntity<>("Token expired. Please request a new one", HttpStatus.GONE);
 
+        }
         else
-            return new ResponseEntity<>("Token does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Token does not exist. Please request one", HttpStatus.NOT_FOUND);
 
     }
 
