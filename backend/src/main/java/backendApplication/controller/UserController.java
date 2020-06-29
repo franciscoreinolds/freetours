@@ -30,7 +30,7 @@ public class UserController {
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
     public ResponseEntity<ProfileView> profile(@PathVariable String username) {
 
-        User u = userService.getByUsername(username);
+        User u = userService.get(username);
 
         if(u == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -53,7 +53,7 @@ public class UserController {
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.POST)
     public ResponseEntity<String> editProfile(@PathVariable String username, @RequestBody User user) {
 
-        User u = userService.getByUsername(username);
+        User u = userService.get(username);
 
         if(u == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
