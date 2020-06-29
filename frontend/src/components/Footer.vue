@@ -2,41 +2,35 @@
     <div>
         <v-footer
         class = "footer"
-        color = "black"
+        dense
+        dark
         height = 150px
         max-height = 150px
         >
-            <v-card
-            class = "my_card"
-            height = "120px"
-            min-width = "200px"
-            color = "black"
+            <v-card-text
+                    class = "text-center white--text"
             >
-                <v-card-text
-                class = "my_card_text"
-                >
-                    <v-btn
-                    v-for="icon in icons"
-                    :key = "icon.index"
-                    class = "mx-4"
-                    dark
-                    icon
-                    >
-                        <v-icon
+                <v-btn
+                        v-for="icon in icons"
+                        :key = "icon.index"
+                        class = "mx-4"
                         dark
-                        size = "24px"
-                        >
-                            {{icon}}
-                        </v-icon>
-                    </v-btn>
-                </v-card-text>
-                <v-divider></v-divider>
-                <v-card-text
-                class = "text-center white--text"
+                        icon
                 >
-                    {{ new Date().getFullYear() }} - <strong>FreeTours</strong>
-                </v-card-text>
-            </v-card>
+                    <v-icon
+                            dark
+                            size = "24px"
+                    >
+                        {{icon}}
+                    </v-icon>
+                </v-btn>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-text
+                    class = "text-center white--text"
+            >
+                {{ new Date().getFullYear() }} - <strong>FreeTours</strong>
+            </v-card-text>
         </v-footer>
     </div>
 </template>
