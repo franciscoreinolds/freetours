@@ -1,5 +1,6 @@
 package backendApplication.model.dao;
 
+import backendApplication.model.entities.PasswordResetToken;
 import backendApplication.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,10 @@ public class UserService {
     public void delete(String id) {
         repo.deleteById(id);
     }
+
+    public User findUserByEmail(String email) {
+        return repo.findByEmail(email);
+    }
+
 }
 
