@@ -82,4 +82,6 @@ public class City{
     public void setTours(List<Tour> tours) {
         this.tours = tours;
     }
+
+    public void addTour(Tour tour) {this.tours.add(tour);}
 }

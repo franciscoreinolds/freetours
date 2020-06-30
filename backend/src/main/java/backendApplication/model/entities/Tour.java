@@ -29,7 +29,7 @@ public class Tour {
     @NotNull
     private String guideUsername;
 
-    @OneToOne
+    @ManyToOne
     @NotNull
     private City city;
 
@@ -188,4 +188,6 @@ public class Tour {
     public void setActive(List<Scheduling> active) {
         this.active = active;
     }
+
+    public void addActive(Scheduling s) {this.active.add(s);}
 }

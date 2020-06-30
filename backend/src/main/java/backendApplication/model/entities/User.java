@@ -31,10 +31,10 @@ public class User implements UserDetails {
     @OneToMany
     private List<Language> languages;
 
-    @OneToMany
+    @ManyToMany
     private List<Scheduling> schedules;
 
-    @OneToMany
+    @ManyToMany
     private List<Tour> tours;
 
     public User() {
