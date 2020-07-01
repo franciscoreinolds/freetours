@@ -18,14 +18,17 @@
             </v-toolbar-title>  
         </router-link> 
         <v-spacer></v-spacer>
-        <v-text-field
-            class = "text-field"
-            label="Destination"
+        <v-autocomplete
+            class = "my_autocomplete"
+            v-model = "destination"
+            :items = "all_destinations"
+            label = "Destination"
+            :rules = "[rules.required]"
+            required
             outlined
-            prop
             :append-icon="'mdi-map-marker'"
         >
-        </v-text-field>
+        </v-autocomplete>
         <v-spacer></v-spacer>
         <div
         v-if="this.user==''"
@@ -91,8 +94,24 @@ export default {
         }
     },
     async created () {
+        // GET Request that will fill all_destinations arrray which feeds the autocomplete Destination
     },
     data: () => ({
+        destination : "",
+        all_destinations : [
+            'Amsterdam, Netherlands',
+            'Paris, France',
+            'Lisbon, Portugal',
+            'Porto, Portugal',
+            'Faro, Portugal',
+            'Braga, Portugal',
+            'Guimarães, Portugal',
+            'Famalicão, Portugal',
+            'Funchal, Portugal'
+        ],
+        rules : {
+            required: value => !!value || 'Required field.',
+        },
         links : [
             {
                 text : "FreeTours",
@@ -111,7 +130,7 @@ export default {
 
 <style scoped>
 
-.text-field {
+.my_autocomplete {
   height : 60px;
   width : 50px
 }
