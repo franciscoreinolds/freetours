@@ -44,29 +44,71 @@
                                 </v-sheet>
                             </v-carousel-item>
                         </v-carousel>
-                        <v-card-text>
-                            <h2>
-                                Location: Berlin, Germany
-                            </h2>
-                            <h2>
-                                Starting Time: 09:30 05/05/2020
-                            </h2>
-                            <h2>
-                                Duration: 03h30m
-                            </h2>
-                            <h2>
-                                Capacity: 50 people
-                            </h2>
-                            <h2>
-                                Languages: FR EN
-                            </h2>
-                            <h2>
-                                Description: 
-                            </h2>
-                            <h2>
-                                Route:
-                            </h2>
-                        </v-card-text>
+                        <v-row>
+                            <v-col
+                            :cols = 8
+                            >
+                                <v-card-text>
+                                    <h2>
+                                        Location: Berlin, Germany
+                                    </h2>
+                                    <h2>
+                                        Starting Time: 09:30 05/05/2020
+                                    </h2>
+                                    <h2>
+                                        Duration: 03h30m
+                                    </h2>
+                                    <h2>
+                                        Capacity: 50 people
+                                    </h2>
+                                    <h2>
+                                        Languages: FR EN
+                                    </h2>
+                                    <h2>
+                                        Description:
+                                        Lorem Ipsum ist ein einfacher Demo-Text für die Print- und Schriftindustrie. Lorem Ipsum ist in der Industrie bereits der Standard Demo-Text seit 1500, als ein unbekannter Schriftsteller eine Hand voll Wörter nahm und diese durcheinander warf um ein Musterbuch zu erstellen. Es hat nicht nur 5 Jahrhunderte überlebt, sondern auch in Spruch in die elektronische Schriftbearbeitung geschafft (bemerke, nahezu unverändert). Bekannt wurde es 1960, mit dem erscheinen von "Letraset", welches Passagen von Lorem Ipsum enhielt, so wie Desktop Software wie "Aldus PageMaker" - ebenfalls mit Lorem Ipsum. 
+                                    </h2>
+                                    <h2>
+                                        Route:
+                                    </h2>
+                                </v-card-text>
+                            </v-col>
+                            <v-col
+                            :cols = 4
+                            >
+                                <v-list
+                                    style="max-height: 500px;"
+                                    class="overflow-y-auto"
+                                >
+                                    <v-list-item
+                                    v-for="(schedulling, index) in schedullings"
+                                    :key="index"
+                                    class = "pb-1 ps-1 pe-1 pt-0"
+                                    >
+                                        <v-list-item-content
+                                        class = "pa-0"
+                                        >
+                                            <v-card
+                                            color="#fafafa"
+                                            width = "100%"
+                                            >
+                                                <v-card-text>
+                                                    <h3>
+                                                        Date: {{schedulling.date}}
+                                                    </h3>
+                                                    <h4>
+                                                        Starting Time: {{schedulling.startingHours}}h{{schedulling.startingMinutes}}
+                                                    </h4>
+                                                    <h4>
+                                                        Number of people going: {{schedulling.currentAtendees}}
+                                                    </h4>
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-list-item-content>
+                                   </v-list-item>
+                                </v-list>
+                            </v-col>
+                        </v-row>
                         <v-layout
                         wrap
                         justify-center>
@@ -86,7 +128,6 @@
                                             ref="myMap"
                                             :zoom="zoom"
                                             :center="center"
-                                            :zoomControl = "disabled"
                                             :options="{
                                                 doubleClickZoom:false,
                                                 zoomControl : false
@@ -94,10 +135,12 @@
                                             >
                                             <l-tile-layer :url="url">
                                             </l-tile-layer>
+                                            <!--
                                             <v-geosearch
                                             :options="geosearchOptions"
                                             >
                                             </v-geosearch>
+                                            -->
                                             <l-marker
                                                 v-for="(marker,index) in markers"
                                                 :key="index"
@@ -117,47 +160,43 @@
                             <v-flex
                             xs4
                             >
-                                <v-card
-                                height = "500px"
-                                width = "100%"
+                                <v-list
+                                style="max-height: 500px;"
+                                class="overflow-y-auto"
                                 >
-                                    <v-list
-                                    style="max-height: 500px;"
-                                    class="overflow-y-auto"
+                                    <v-list-item
+                                    v-for="(marker, index) in markers"
+                                    :key="index"
+                                    class = "pb-1 ps-1 pe-1 pt-0"
                                     >
-                                        <v-list-item
-                                        v-for="(marker, index) in markers"
-                                        :key="index"
-                                        class = "pb-1 ps-1 pe-1 pt-0"
+                                        <v-list-item-content
+                                        class = "pa-0"
                                         >
-                                            <v-list-item-content
-                                            class = "pa-0"
+                                            <v-card
+                                            color="#fafafa"
+                                            width = "100%"
+                                            @mouseover="mouseOverMarker(index)"
+                                            @mouseleave="mouseLeavesMarker(index)"
                                             >
-                                                <v-card
-                                                color="#ffeeee"
-                                                width = "100%"
-                                                @mouseover="mouseOverMarker(index)"
-                                                @mouseleave="mouseLeavesMarker(index)"
-                                                >
-                                                    <v-card-text>
-                                                        <h3>
-                                                            Stop #{{index + 1}}
-                                                        </h3>
-                                                        <h4>
-                                                            Marker Name: {{marker.name}}
-                                                        </h4>
-                                                        <h4>
-                                                            Marker Description: {{marker.description}}
-                                                        </h4>
-                                                    </v-card-text>
-                                                </v-card>
-                                            </v-list-item-content>
-                                       </v-list-item>
-                                    </v-list>
-                                </v-card>
+                                                <v-card-text>
+                                                    <h3>
+                                                        Stop #{{index + 1}}
+                                                    </h3>
+                                                    <h4>
+                                                        Marker Name: {{marker.name}}
+                                                    </h4>
+                                                    <h4>
+                                                        Marker Description: {{marker.description}}
+                                                    </h4>
+                                                </v-card-text>
+                                            </v-card>
+                                        </v-list-item-content>
+                                   </v-list-item>
+                                </v-list>
                             </v-flex>
                         </v-layout>
                         <br>
+                        <!--
                         <v-card-actions>
                             <v-layout justify-center>
                                 <v-btn
@@ -168,6 +207,7 @@
                                 </v-btn>
                             </v-layout>
                         </v-card-actions>
+                        -->
                         <v-card-text>
                             <!--
                                 Comments
@@ -226,6 +266,7 @@
                             </v-layout>
                         </v-card-text>
                         <br>
+                        <!--
                         <v-card-actions>
                             <v-layout justify-center>
                                 <v-btn
@@ -237,6 +278,7 @@
                             </v-layout>
                         </v-card-actions>
                         <br>
+                        -->
                     </v-card>
                 </v-row>
             </v-container>
@@ -268,6 +310,38 @@ export default {
             'Third',
             'Fourth',
             'Fifth',
+            ],
+            schedullings : [
+                {
+                    'date' : '30/07/2020',
+                    'startingHours' : '09',
+                    'startingMinutes' : '30',
+                    'currentAtendees' : '30'
+                },
+                {
+                    'date' : '31/07/2020',
+                    'startingHours' : '09',
+                    'startingMinutes' : '30',
+                    'currentAtendees' : '30'
+                },
+                {
+                    'date' : '01/08/2020',
+                    'startingHours' : '09',
+                    'startingMinutes' : '30',
+                    'currentAtendees' : '30'
+                },
+                {
+                    'date' : '02/08/2020',
+                    'startingHours' : '09',
+                    'startingMinutes' : '30',
+                    'currentAtendees' : '30'
+                },
+                {
+                    'date' : '03/08/2020',
+                    'startingHours' : '09',
+                    'startingMinutes' : '30',
+                    'currentAtendees' : '30'
+                },
             ],
             markers : [
                 {

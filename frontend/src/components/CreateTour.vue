@@ -261,7 +261,7 @@
                                                         class = "pa-0"
                                                         >
                                                             <v-card
-                                                            color="#ffeeee"
+                                                            color="#fafafa"
                                                             width = "100%"
                                                             @mouseover="mouseOverMarker(index)"
                                                             @mouseleave="mouseLeavesMarker(index)"
