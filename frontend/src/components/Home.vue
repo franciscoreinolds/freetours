@@ -5,25 +5,24 @@
             <v-carousel
             cycle
             show-arrows-on-hover
-            height = "300px"
+            height = "400px"
             class = "carousel"
             >
                 <v-carousel-item
                 v-for="(slide, i) in slides"
                 :key="i"
                 >
-                    <v-sheet
-                        :color="colors[i]"
-                        height="100%"
+                    <v-parallax
+                        :src="require(`@/assets/${slide.image.image}`)"   
                     >
                         <v-row
-                        class="fill-height"
                         align="center"
                         justify="center"
                         >
-                        <div class="display-3">{{ slide }} Slide</div>
+                       
+                        <h1 class="display-1 font-weight-thin mb-4">{{slide.name}}</h1>
                         </v-row>
-                    </v-sheet>
+                    </v-parallax>
                 </v-carousel-item>
             </v-carousel>
         </div>
@@ -95,8 +94,9 @@
             </v-col>
         </v-row>
 
-        <h2>Where will your next Tour be?</h2>
-
+        <h2 v-if="user.username == ''">Where will your next Tour be?</h2>
+        <h2 v-else>Next tours:</h2>
+        
         <!-- Cards -->
         <v-carousel
         hide-delimiters
@@ -121,19 +121,18 @@
                             class = "align-center"
                             >
                                 <div>
-                                    <h3 class="headline mb-0">Card {{i}}-{{j}}</h3>
+                                    <h3 class="headline mb-0">{{tours[i-1].city.name}}</h3>
                                 </div>
                             </v-card-title>
                         
                             <v-img
-                            src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+                            src="@/assets/Barcelona.jpeg"
                             ></v-img>
                             
                             <v-card-subtitle>
-                                Subtitle
                             </v-card-subtitle>
                             <v-card-text>
-                                Text
+                                {{tours[i-1].description}}
                             </v-card-text>
                         </v-card>
                     </v-flex>
@@ -152,6 +151,9 @@
 
 <script>
 import CatService from '../services/cat_service'
+import HomeService from '../services/home_service'
+import HomeModel from '../models/home_model'
+import User from '../models/user'
 
 export default {
     name : "Home",
@@ -164,17 +166,13 @@ export default {
             'red lighten-1',
             'deep-purple accent-4',
             ],
-            slides : [
-            'First',
-            'Second',
-            'Third',
-            'Fourth',
-            'Fifth',
-            ],
+            slides : [],
+            tours : [],
             date: new Date().toISOString().substr(0, 10),
             categories : [],
             category : '',
             menu2: false,
+            user: new User('','','')
         }
     },
     async created() {
@@ -183,6 +181,12 @@ export default {
             this.categories = cat_resp.data;
         }
         else console.log('Cat_Response Status not 200')
+
+
+        var home_response = await HomeService.getHome();
+        this.slides = home_response.data.mostPopularCities
+        this.tours = home_response.data.suggestedTours
+        console.log(this.$props)
     }
 }
 </script

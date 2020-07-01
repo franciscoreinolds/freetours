@@ -24,7 +24,12 @@ public class Tour {
     private int minCapacity;
     private String qrCode;
 
-    //private Set<String> images;
+    @NotNull
+    @ManyToOne
+    private City city;
+
+    @OneToMany
+    private Set<Image> images;
 
     @OneToMany
     @NotNull
@@ -146,5 +151,19 @@ public class Tour {
         this.active = active;
     }
 
+    public City getCity() {
+        return city;
+    }
 
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
 }

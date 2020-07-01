@@ -18,7 +18,7 @@ public class Scheduling {
     @NotNull
     private boolean paid;
 
-    @OneToOne
+    @ManyToOne
     @NotNull
     private Tour tour;
 

@@ -62,6 +62,10 @@ public class HomeController {
         r.putAll(Collections.singletonMap("nextTours", nextTours));
         r.putAll(Collections.singletonMap("suggestedTours", suggestedTours));
 
+        for(City i : mostPopularCities.subList(0,6)){
+            System.out.println(i.getName());
+            System.out.println(i.getImage().getImage());
+        }
         return r;
    }
 }

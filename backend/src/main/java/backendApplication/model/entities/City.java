@@ -25,6 +25,9 @@ public class City{
     @NotNull
     private Country country;
 
+    @OneToOne
+    private Image image;
+
     @OneToMany
     private List<Tour> tours;
 
@@ -92,5 +95,13 @@ public class City{
         }
 
         return null;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

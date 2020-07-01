@@ -23,15 +23,15 @@ VALUES ('userA', 'I''m user A', '1998-01-01 14:43:04.000000', 'userA@gmail.com',
 
 
 
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, qr_code, category_id)
-VALUES (1, 'Beautiful tour in Barcelona', '00:45:00', 15, 8, null, 2),
-       (2, 'Beautiful tour in Paris', '01:00:00', 20, 10, null, 3),
-       (3, 'Beautiful tour in Madrid', '00:45:00', 15, 8, null, 2),
-       (4, 'Beautiful tour in Lisbon', '00:30:00', 10, 5, null, 3),
-       (5, 'Beautiful tour in Tokyo', '00:45:00', 15, 8, null, 2),
-       (6, 'Beautiful tour in Rome', '01:15:00', 15, 5, null, 4),
-       (7, 'Beautiful tour in Barcelona', '00:30:00', 10, 5, null, 2),
-       (8, 'Beautiful tour in Rome', '00:45:00', 20, 10, null, 2);
+INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, qr_code, category_id, city_id)
+VALUES (1, 'Beautiful tour in Barcelona', '00:45:00', 15, 8, null, 2, 4466),
+       (2, 'Beautiful tour in Paris', '01:00:00', 20, 10, null, 3, 2011),
+       (3, 'Beautiful tour in Madrid', '00:45:00', 15, 8, null, 2, 6738),
+       (4, 'Beautiful tour in Lisbon', '00:30:00', 10, 5, null, 3, 3287),
+       (5, 'Beautiful tour in Tokyo', '00:45:00', 15, 8, null, 2, 620),
+       (6, 'Beautiful tour in Rome', '01:15:00', 15, 5, null, 4, 1125),
+       (7, 'Beautiful tour in Barcelona', '00:30:00', 10, 5, null, 2, 4466),
+       (8, 'Beautiful tour in Rome', '00:45:00', 20, 10, null, 2, 1125);
 
 
 INSERT INTO public.city_tours (city_id, tours_id)
@@ -63,6 +63,10 @@ VALUES (1, '2020-06-27 16:45:24.000000', true, 1),
        (4, '2020-06-27 16:45:24.000000', true, 2),
        (5, '2020-06-27 16:45:24.000000', true, 3);
 
+INSERT INTO public.image (id, image) VALUES (4, 'Rome.jpg');
+INSERT INTO public.image (id, image) VALUES (3, 'Paris.jpeg');
+INSERT INTO public.image (id, image) VALUES (2, 'Madrid.jpeg');
+INSERT INTO public.image (id, image) VALUES (1, 'Barcelona.jpeg');
 
 INSERT INTO public.tour_active (tour_id, active_id)
 VALUES (1, 1),

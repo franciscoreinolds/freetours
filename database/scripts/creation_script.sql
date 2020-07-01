@@ -103,9 +103,9 @@ INSERT INTO country(name, continent_id) VALUES ('Switzerland',(SELECT id FROM co
 INSERT INTO country(name, continent_id) VALUES ('United States',(SELECT id FROM continent WHERE name='America'));
 INSERT INTO country(name, continent_id) VALUES ('Guinea-Bissau',(SELECT id FROM continent WHERE name='Africa'));
 INSERT INTO country(name, continent_id) VALUES ('Sao Tome and Principe',(SELECT id FROM continent WHERE name='Africa'));
-INSERT INTO country(name, continent_id) VALUES ('Trinidad and Tobago'),(SELECT id FROM continent WHERE name='America');
-INSERT INTO country(name, continent_id) VALUES ('Singapore',(SELECT id FROM continent WHERE name='Asia'));
 INSERT INTO country(name, continent_id) VALUES ('Sweden',(SELECT id FROM continent WHERE name='Europe'));
+INSERT INTO country(name, continent_id) VALUES ('Trinidad and Tobago',(SELECT id FROM continent WHERE name='America'));
+INSERT INTO country(name, continent_id) VALUES ('Singapore',(SELECT id FROM continent WHERE name='Asia'));
 INSERT INTO country(name, continent_id) VALUES ('Slovakia',(SELECT id FROM continent WHERE name='Europe'));
 INSERT INTO country(name, continent_id) VALUES ('Paraguay',(SELECT id FROM continent WHERE name='America'));
 INSERT INTO country(name, continent_id) VALUES ('Mongolia',(SELECT id FROM continent WHERE name='Asia'));
@@ -4674,7 +4674,7 @@ INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM 
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Russian Federation'), 43.22597, 44.77323, 'Nazran’');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Russian Federation'), 69.3535, 88.2027, 'Norilsk');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Libyan Arab Jamahiriya'), 32.64861, 14.26191, 'Al Khums');
-INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Venezuela, Bolivarian Rep. of'), 10.13625, -64.68618, 'Barcelona');
+INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Spain'), 10.13625, -64.68618, 'Barcelona');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='United States'), 42.45008, -73.24538, 'Pittsfield');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Japan'), 34.86877, 138.31952, 'Yaizu');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Somalia'), 8.47738, 47.35971, 'Laascaanood');
