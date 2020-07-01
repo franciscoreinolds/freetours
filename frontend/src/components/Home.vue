@@ -34,14 +34,16 @@
             <v-col
             :cols = 6
             >
-                <v-text-field
-                    class = "text-field"
-                    label="Destination"
+                <v-autocomplete
+                    v-model = "destination"
+                    :items = "all_destinations"
+                    label = "Destination"
+                    :rules = "[rules.required]"
+                    required
                     outlined
-                    prop
                     :append-icon="'mdi-map-marker'"
                 >
-                </v-text-field>
+                </v-autocomplete>
             </v-col>
             <v-col
             :cols = 2
@@ -157,6 +159,21 @@ export default {
     name : "Home",
     data() {
         return {
+            destination : '',
+            all_destinations : [
+                'Amsterdam, Netherlands',
+                'Paris, France',
+                'Lisbon, Portugal',
+                'Porto, Portugal',
+                'Faro, Portugal',
+                'Braga, Portugal',
+                'Guimarães, Portugal',
+                'Famalicão, Portugal',
+                'Funchal, Portugal'
+            ],
+            rules : {
+                required: value => !!value || 'Required field.',
+            },
             colors: [
             'indigo',
             'warning',
