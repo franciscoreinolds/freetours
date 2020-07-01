@@ -341,7 +341,7 @@ export default {
         langs_array : [],
         duration_hours : "0",
         duration_minutes : "0",
-        rules : {
+        rules : { 
             required: value => !!value || 'Required field.',
         },
         all_locations : [

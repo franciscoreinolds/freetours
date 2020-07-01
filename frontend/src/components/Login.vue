@@ -14,8 +14,11 @@
                 <span class="headline">Login</span>
             </v-card-title>
             <v-card-text>
-                <v-card-text>
-                    <v-form>
+                <v-form
+                    ref="form"
+                    v-model="isFormValid"
+                >
+                    <v-card-text>
                         <v-text-field
                                 outlined
                                 v-model="user.username"
@@ -24,6 +27,8 @@
                                 type="text"
                                 class = "pt-12"
                                 @input="message = ''"
+                                required
+                                :rules = "[rules.required]"
                         />
 
                         <v-text-field
@@ -35,34 +40,37 @@
                                 type="password"
                                 class = "pt-6"
                                 @input="message = ''"
-                        />
-                    </v-form>
-                </v-card-text>
-                <v-card-text class="red--text" v-if="message">{{message}}</v-card-text>
-                <v-card-actions>
-                    <v-layout justify-center>
-                        <v-btn
-                                large
-                                primary
-                                v-on:click="login()"
-                        >
-                            Login
-                        </v-btn>
-                    </v-layout>
-                </v-card-actions>
-                <v-card-actions
-                        class = "pt-4"
-                >
-                    <v-layout justify-center>
-                        <v-btn
-                                large
-                                primary
-                                @click="dialog = false"
-                        >
-                            I Forgot my Password
-                        </v-btn>
-                    </v-layout>
-                </v-card-actions>
+                                required
+                                :rules = "[rules.required]"
+                            />
+                        </v-card-text>
+                    <v-card-text class="red--text" v-if="message">{{message}}</v-card-text>
+                    <v-card-actions>
+                        <v-layout justify-center>
+                            <v-btn
+                                    large
+                                    primary
+                                    v-on:click="login()"
+                                    :disabled = "!isFormValid"
+                            >
+                                Login
+                            </v-btn>
+                        </v-layout>
+                    </v-card-actions>
+                    <v-card-actions
+                            class = "pt-4"
+                    >
+                        <v-layout justify-center>
+                            <v-btn
+                                    large
+                                    primary
+                                    @click="dialog = false"
+                            >
+                                I Forgot my Password
+                            </v-btn>
+                        </v-layout>
+                    </v-card-actions>
+                </v-form>
             </v-card-text>
         </v-card>
     </v-dialog>
@@ -80,7 +88,11 @@ export default {
     data: () => ({
         dialog: false,
         user: new User('', '', ''),
-        message: ''
+        message: '',
+        isFormValid : true,
+        rules : { 
+            required: value => !!value || 'Required field.',
+        },
     }),
     methods: {
         // Login when called
