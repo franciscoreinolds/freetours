@@ -6,13 +6,14 @@ import backendApplication.model.entities.User;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class ProfileView {
     private String username;
     private Date dateOfBirth;
     private String aboutMe;
     private String image;
-    private List<Language> languages;
+    private Set<Language> languages;
     private List<Tour> tours;
 
     public ProfileView(User user) {
@@ -56,11 +57,11 @@ public class ProfileView {
         this.image = image;
     }
 
-    public List<Language> getLanguages() {
+    public Set<Language> getLanguages() {
         return languages;
     }
 
-    public void setLanguages(List<Language> languages) {
+    public void setLanguages(Set<Language> languages) {
         this.languages = languages;
     }
 

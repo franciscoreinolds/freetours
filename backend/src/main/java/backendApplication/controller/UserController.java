@@ -29,7 +29,7 @@ public class UserController {
     * */
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
     public ResponseEntity<ProfileView> profile(@PathVariable String username) {
-
+        System.out.println("profile/" + username);
         User u = userService.get(username);
 
         if(u == null)
