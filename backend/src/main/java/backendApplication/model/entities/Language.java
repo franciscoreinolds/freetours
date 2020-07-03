@@ -2,12 +2,15 @@ package backendApplication.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties({"users"})
 @Entity(name = "Language")
 public class Language {
     @Id
@@ -30,10 +33,10 @@ public class Language {
     private String country_code;
 
     @ManyToMany(
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             mappedBy = "user__languages"
     )
-    @JsonIgnore
+    @JsonIgnoreProperties({"password","languages", "tours", "schedules"})
     private Set<User> users;
 
 

@@ -28,21 +28,22 @@ public class User implements UserDetails {
     private String image;
 
     @ManyToMany(
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     @JoinTable(
             name = "user__languages",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "language_id")
     )
+    @JsonIgnoreProperties({"users", "country_code"})
     private Set<Language> user__languages;
 
-    @OneToMany(
-            fetch = FetchType.LAZY
-    )
+    @OneToMany
     private List<Scheduling> schedules;
 
-    @OneToMany
+    @OneToMany(
+            fetch = FetchType.EAGER
+    )
     private List<Tour> tours;
 
     public User() {

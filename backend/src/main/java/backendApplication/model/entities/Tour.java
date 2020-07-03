@@ -1,14 +1,18 @@
 package backendApplication.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.List;
 import java.util.Set;
 
+@JsonIgnoreProperties({"languages", "city", "finished", "active"})
 @Entity(name = "Tour")
-public class Tour {
+public class Tour implements Serializable {
     @Id
     //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="tour_sequence")
     //@SequenceGenerator(name="tour_sequence", sequenceName="tour_seq")
@@ -29,6 +33,7 @@ public class Tour {
     @NotNull
     private String guideUsername;
 
+    @JsonProperty("city")
     @OneToOne
     @NotNull
     private City city;
@@ -45,6 +50,7 @@ public class Tour {
     @NotNull
     private Category category;
 
+    @JsonProperty("languages")
     @OneToMany
     @NotNull
     private List<Language> languages;
