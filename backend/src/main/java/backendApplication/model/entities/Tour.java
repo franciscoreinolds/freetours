@@ -10,7 +10,6 @@ import java.sql.Time;
 import java.util.List;
 import java.util.Set;
 
-@JsonIgnoreProperties({"languages", "city", "finished", "active"})
 @Entity(name = "Tour")
 public class Tour implements Serializable {
     @Id
@@ -50,10 +49,18 @@ public class Tour implements Serializable {
     @NotNull
     private Category category;
 
-    @JsonProperty("languages")
-    @OneToMany
+    @ManyToMany(
+            fetch = FetchType.EAGER
+    )
+    @JoinTable(
+            name = "tour_languages",
+            joinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"tour_id", "language_id"})}
+    )
     @NotNull
-    private List<Language> languages;
+    @JsonIgnoreProperties({"tours"})
+    private Set<Language> languages;
 
     @OneToMany
     private List<Review> reviews;
@@ -163,11 +170,11 @@ public class Tour implements Serializable {
         this.category = category;
     }
 
-    public List<Language> getLanguages() {
+    public Set<Language> getLanguages() {
         return languages;
     }
 
-    public void setLanguages(List<Language> languages) {
+    public void setLanguages(Set<Language> languages) {
         this.languages = languages;
     }
 

@@ -2,6 +2,7 @@ package backendApplication.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -32,13 +33,14 @@ public class User implements UserDetails {
     )
     @JoinTable(
             name = "user__languages",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "language_id")
+            joinColumns = @JoinColumn(name = "user_username", referencedColumnName = "username"),
+            inverseJoinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"user_username", "language_id"})}
     )
-    @JsonIgnoreProperties({"users", "country_code"})
     private Set<Language> user__languages;
 
     @OneToMany
+    @JsonIgnore
     private List<Scheduling> schedules;
 
     @OneToMany(

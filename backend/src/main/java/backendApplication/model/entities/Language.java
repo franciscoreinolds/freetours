@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIgnoreProperties({"users"})
 @Entity(name = "Language")
 public class Language {
     @Id
@@ -33,12 +32,29 @@ public class Language {
     private String country_code;
 
     @ManyToMany(
-            fetch = FetchType.EAGER,
-            mappedBy = "user__languages"
+            fetch = FetchType.EAGER
     )
-    @JsonIgnoreProperties({"password","languages", "tours", "schedules"})
+    @JoinTable(
+            name = "user__languages",
+            joinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_username", referencedColumnName = "username"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"language_id", "user_username"})}
+    )
+    @JsonIgnore
     private Set<User> users;
 
+    @ManyToMany(
+            fetch = FetchType.EAGER
+    )
+    @JoinTable(
+            name = "tour_languages",
+            joinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"language_id", "tour_id"})}
+    )
+    @NotNull
+    @JsonIgnoreProperties({"languages"})
+    private Set<Tour> tours;
 
     public Language() {
     }
@@ -89,6 +105,14 @@ public class Language {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Set<Tour> getTours() {
+        return tours;
+    }
+
+    public void setTours(Set<Tour> tours) {
+        this.tours = tours;
     }
 
 }
