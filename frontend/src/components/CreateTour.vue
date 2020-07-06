@@ -261,7 +261,7 @@
                                                         class = "pa-0"
                                                         >
                                                             <v-card
-                                                            color="#ffeeee"
+                                                            color="#fafafa"
                                                             width = "100%"
                                                             @mouseover="mouseOverMarker(index)"
                                                             @mouseleave="mouseLeavesMarker(index)"
@@ -341,7 +341,7 @@ export default {
         langs_array : [],
         duration_hours : "0",
         duration_minutes : "0",
-        rules : {
+        rules : { 
             required: value => !!value || 'Required field.',
         },
         all_locations : [

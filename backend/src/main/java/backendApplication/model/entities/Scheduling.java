@@ -24,10 +24,10 @@ public class Scheduling {
     @NotNull
     private Tour tour;
 
-    @OneToMany
+    @ManyToMany
     private List<User> queue;
 
-    @OneToMany
+    @ManyToMany
     private List<User> signees;
 
     public Scheduling() {
@@ -84,4 +84,5 @@ public class Scheduling {
     public void addQueue(User user) {this.queue.add(user);}
 
     public void addSignee(User user) {this.signees.add(user);}
+
 }

@@ -46,6 +46,9 @@ public class User implements UserDetails {
     @OneToMany(
             fetch = FetchType.EAGER
     )
+    private List<Scheduling> schedules;
+
+    @ManyToMany
     private List<Tour> tours;
 
     public User() {

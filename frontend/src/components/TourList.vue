@@ -7,14 +7,14 @@
             <template 
             v-for="i in 10"
             >
-                <v-list-tile
+                <v-list-item
                     :key="i"
                 >
-                    <v-list-tile-content>
+                    <v-list-item-content>
                             <v-card
                             outlined
                             elevation
-                            color = "#ffeeee"
+                            color = "#fafafa"
                             class="tour_card mb-5 elevation-12"
                             >
                             <v-container
@@ -26,19 +26,6 @@
                                 wrap
                                 >
                                     <v-flex>
-                                        <!--
-                                        <v-card>
-                                            <v-container
-                                            fill-height fluid pa-2
-                                            >
-                                                <v-flex>
-                                                    <h1>
-                                                        City Tour #{{i}}
-                                                    </h1>
-                                                </v-flex>
-                                            </v-container>
-                                        </v-card>
-                                        -->
                                         <h1>
                                             City Tour #{{i}}
                                         </h1>
@@ -66,32 +53,6 @@
                                     xs7
                                     min-width = "200px"
                                     class = "text-center">
-                                        <!--
-                                        <v-card
-                                        width = 100%
-                                        height = 300px
-                                        >
-                                            <v-container
-                                            fill-height fluid pa-4
-                                            >
-                                                <v-flex>
-                                                    <h4
-                                                    v-for="tour in tour_data"
-                                                    :key="tour.index"
-                                                    >
-                                                        {{tour.text}} : {{tour.value}}
-                                                    </h4>
-                                                    <v-btn
-                                                    large
-                                                    primary
-                                                    class = "mb-12"
-                                                    >
-                                                        More info
-                                                    </v-btn>
-                                                </v-flex>
-                                            </v-container>
-                                        </v-card>
-                                        -->
                                         <h4
                                         v-for="tour in tour_data"
                                         :key="tour.index"
@@ -114,8 +75,8 @@
                                 </v-layout>
                             </v-container>
                         </v-card>
-                    </v-list-tile-content>
-                </v-list-tile>        
+                    </v-list-item-content>
+                </v-list-item>        
             </template>    
         </v-list>
     </div>

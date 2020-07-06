@@ -29,5 +29,9 @@ public class CityService {
     public void delete(Integer id) {
         repo.deleteById(id);
     }
+
+    public City getByName(String name) throws NoSuchElementException {
+        return repo.findByName(name);
+    }
 }
 

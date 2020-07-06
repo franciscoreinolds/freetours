@@ -32,8 +32,7 @@ public class Tour implements Serializable {
     @NotNull
     private String guideUsername;
 
-    @JsonProperty("city")
-    @OneToOne
+    @ManyToOne
     @NotNull
     private City city;
 
@@ -201,4 +200,6 @@ public class Tour implements Serializable {
     public void setActive(List<Scheduling> active) {
         this.active = active;
     }
+
+    public void addActive(Scheduling s) {this.active.add(s);}
 }
