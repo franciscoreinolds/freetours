@@ -24,18 +24,20 @@
                         {{icon}}
                     </v-icon>
                 </v-btn>
+
             </v-card-text>
+
             <v-divider></v-divider>
-            <v-card-text
-                    class = "text-center white--text"
-            >
-                {{ new Date().getFullYear() }} - <strong>FreeTours</strong>
+
+            <v-card-text class="text-center white--text">
+                <strong>© FreeTours</strong> {{ new Date().getFullYear() }}. Made with ❤️ by <strong>EAMasters</strong>.
             </v-card-text>
         </v-footer>
     </div>
 </template>
 
 <script>
+
 export default {
     name : "Footer",
     data: () => ({
@@ -46,8 +48,6 @@ export default {
         ]
     }),
 }
-
-
 
 </script>
 
