@@ -61,7 +61,7 @@
             </v-btn>
         </router-link>
         <router-link
-        :to = "{path : '/profile'}"
+        :to = "{path : '/profile/' + this.user}"
         class = "router-link"
         >
             <v-btn

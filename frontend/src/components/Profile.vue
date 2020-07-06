@@ -149,6 +149,7 @@
 
 <script>
 import TourList from './TourList.vue'
+import ProfileService from '../services/profile_service'
 
 export default {
     name : "Profile",
@@ -292,5 +293,9 @@ export default {
             ]
         }
     },
+    created: async function () {
+        let status = await ProfileService.get(this.$route.params.username)
+        console.log(status)
+    }
 }
 </script>
