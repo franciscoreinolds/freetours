@@ -28,7 +28,7 @@ public class Tour {
     @ManyToOne
     private City city;
 
-    @OneToMany
+    @ManyToMany
     private Set<Image> images;
 
     @OneToMany
