@@ -36,8 +36,6 @@ public class UserController {
 
             User u = userService.get(username);
 
-            System.out.println(u.toString());
-
             String jwt_username = SecurityContextHolder.getContext().getAuthentication().getName();
 
             return jwt_username.equals(username)
