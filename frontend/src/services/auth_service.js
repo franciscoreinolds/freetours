@@ -11,6 +11,7 @@ class AuthService {
                 password: user.password
             })
             .then(response => {
+                console.log(response)
                 if (response.data) {
                     var jwt = JSON.stringify(response.data);
                     localStorage.setItem('user', jwt);
@@ -57,6 +58,23 @@ class AuthService {
             .catch(error => {
                 return error.response.status;
             });
+    }
+
+    forgot_password(email) {
+        return axios
+            .post(API_URL + '/reset_password', {
+                email : email
+            })
+            .then(response => {
+                if (response.data) {
+                    console.log(response.data)
+                }
+                return response
+            })
+            .catch(error => {
+                return error.response;
+            });
+
     }
 }
 
