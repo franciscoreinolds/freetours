@@ -1,5 +1,19 @@
 <template>
     <div>
+        <v-alert
+            dismissible
+            v-if = 'success'
+            type = 'success'
+        >
+            Successful sign up. You can now login.
+        </v-alert>
+        <v-alert
+            dismissible
+            v-if = 'error'
+            type = 'error'
+        >
+            A user already exists with that username / email.    
+        </v-alert>
         <h1
         class = "pl-12 pt-6"
         >
@@ -20,135 +34,145 @@
                     elevation
                     class="elevation-12 card"
                     >
-                        <v-card-text>
-                            <v-form>
-                            <v-text-field
-                                outlined
-                                label="Username"
-                                name="username"
-                                type="text"
-                                class = "pt-12"
-                            />
-
-                            <v-text-field
-                                outlined
-                                id="password"
-                                label="Password"
-                                name="password"
-                                type="password"
-                            />
-                            <v-text-field
-                                outlined
-                                label="Email"
-                                name="password"
-                                type="text"
-                            />
-                            <v-row>
-                                <v-col
-                                :cols = 3>
-                                    <v-select
-                                        v-model="value"
-                                        :items="country_codes"
-                                        item-text="country_code"
-                                        item-value="value"
-                                        chips
-                                        label="Country Code"
-                                        outlined
-                                        height = 50px
-                                    ></v-select>
-                                </v-col>
-                                <v-col
-                                :cols = 9
-                                >
-                                    <v-text-field
-                                        outlined
-                                        label="Phone Number"
-                                        name="phone_number"
-                                        type="text"
-                                    />
-                                </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col
-                                :cols = 3
-                                >
-                                    <v-file-input
-                                    outlined
-                                    small-chips
-                                    accept = ".png"
-                                    label="Profile Photo"
-                                    >
-                                    </v-file-input>
-                                </v-col>
-                                <v-col
-                                :cols = 9
-                                >
-                                    <v-menu
-                                        ref="menu_date"
-                                        v-model="menu_date"
-                                        :close-on-content-click="false"
-                                        :return-value.sync="date"
-                                        transition="scale-transition"
-                                        offset-y
-                                        min-width="290px"
-                                    >
-                                        <template v-slot:activator="{ on }">
-                                            <v-text-field
-                                                outlined
-                                                v-model="date"
-                                                label="Date of Birth"
-                                                readonly
-                                                v-on="on"
-                                            ></v-text-field>
-                                        </template>
-                                        <v-date-picker v-model="date" no-title scrollable>
-                                            <v-spacer></v-spacer>
-                                            <v-btn text color="primary" @click="menu_date = false">Cancel</v-btn>
-                                            <v-btn text color="primary" @click="$refs.menu_date.save(date)">OK</v-btn>
-                                        </v-date-picker>
-                                    </v-menu>
-                                </v-col>
-                            </v-row>
-                            <v-select
-                                v-model="value"
-                                :items="languages"
-                                item-text="language"
-                                item-value="value"
-                                chips
-                                label="What languages do you speak"
-                                outlined
-                                multiple
-                                height = 50px
-                            ></v-select>
-                            <v-textarea
-                            outlined
-                            name="description"
-                            label="Description about yourself"
-                            ></v-textarea>
-                            </v-form>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-layout justify-center>
-                                <v-btn
-                                large
-                                primary
-                                >
-                                    Login
-                                </v-btn>
-                            </v-layout>
-                        </v-card-actions>
-                        <v-card-actions
-                        class = "pt-4 pb-6"
+                        <v-form
+                           v-model="isFormValid" 
                         >
-                            <v-layout justify-center>
-                                <v-btn
-                                large
-                                primary
-                                >
-                                    I Forgot my Password
-                                </v-btn>
-                            </v-layout>
-                        </v-card-actions>
+                            <v-card-text>
+                                <v-text-field
+                                    v-model = "user.username"
+                                    outlined
+                                    label="Username"
+                                    name="username"
+                                    type="text"
+                                    class = "pt-12"
+                                    :rules="[rules.required]" 
+                                    required
+                                />
+
+                                <v-text-field
+                                    outlined
+                                    v-model = "user.password"
+                                    id="password"
+                                    label="Password"
+                                    name="password"
+                                    type="password"
+                                    :rules="[rules.required]" 
+                                    required
+                                />
+                                <v-text-field
+                                    v-model = "user.email"
+                                    outlined
+                                    label="Email"
+                                    name="email"
+                                    type="text"
+                                    :rules="[rules.required]" 
+                                    required
+                                />
+                                <v-row>
+                                    <v-col
+                                    :cols = 3>
+                                        <v-select
+                                            v-model="user.country_code"
+                                            :items="country_codes"
+                                            item-text="country_code"
+                                            item-value="value"
+                                            chips
+                                            label="Country Code"
+                                            outlined
+                                            height = 50px
+                                            :rules="[(v) => !!v || 'You must select a country code.']"
+                                            required
+                                        ></v-select>
+                                    </v-col>
+                                    <v-col
+                                    :cols = 9
+                                    >
+                                        <v-text-field
+                                            outlined
+                                            v-model = "user.phone_nr"
+                                            label="Phone Number"
+                                            name="phone_number"
+                                            type="text"
+                                            :rules = "[rules.required]"
+                                            required
+                                        />
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col
+                                    :cols = 3
+                                    >
+                                        <v-file-input
+                                        outlined
+                                        small-chips
+                                        accept = ".png"
+                                        label="Profile Photo"
+                                        >
+                                        </v-file-input>
+                                    </v-col>
+                                    <v-col
+                                    :cols = 9
+                                    >
+                                        <v-menu
+                                            ref="menu_date"
+                                            v-model="menu_date"
+                                            :close-on-content-click="false"
+                                            :return-value.sync="user.dob"
+                                            transition="scale-transition"
+                                            offset-y
+                                            min-width="290px"
+                                        >
+                                            <template v-slot:activator="{ on }">
+                                                <v-text-field
+                                                    outlined
+                                                    v-model="user.dob"
+                                                    label="Date of Birth"
+                                                    readonly
+                                                    v-on="on"
+                                                ></v-text-field>
+                                            </template>
+                                            <v-date-picker v-model="user.dob" no-title scrollable>
+                                                <v-spacer></v-spacer>
+                                                <v-btn text color="primary" @click="menu_date = false">Cancel</v-btn>
+                                                <v-btn text color="primary" @click="$refs.menu_date.save(user.dob)">OK</v-btn>
+                                            </v-date-picker>
+                                        </v-menu>
+                                    </v-col>
+                                </v-row>
+                                <v-select
+                                    v-model="sel_languages"
+                                    :items="languages"
+                                    item-text="name"
+                                    item-value="name"
+                                    chips
+                                    label="What languages do you speak"
+                                    outlined
+                                    multiple
+                                    height = 50px
+                                    :rules="[(l) => !!l && l.length > 0|| 'You must select at least 1 language.']"
+                                    required
+                                ></v-select>
+                                <v-textarea
+                                    v-model = "user.description"
+                                    outlined
+                                    name="description"
+                                    label="Description about yourself"
+                                ></v-textarea>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-layout justify-center>
+                                    <v-btn
+                                    large
+                                    primary
+                                    :disabled = "!isFormValid"
+                                    v-on:click="signup()"
+                                    >
+                                        Sign Up
+                                    </v-btn>
+                                </v-layout>
+                            </v-card-actions>
+                            <br>
+                        </v-form>
                     </v-card>
                 </v-row>
             </v-container>
@@ -157,70 +181,76 @@
 </template>
 
 <script>
+import AuthService from '../services/auth_service';
+import LangService from '../services/lang_service';
+
 export default {
     name : "Login",
     props: {
       source: String,
     },
     data: () => ({
-        languages : [
-            {
-                language : "Portuguese",
-                value : 1
-            },
-            {
-                language : "Spanish",
-                value : 2
-            },
-            {
-                language : "French",
-                value : 3
-            },
-            {
-                language : "German",
-                value : 4
-            },
-            {
-                language : "English",
-                value : 5
-            },
-            {
-                language : "Dutch",
-                value : 6
-            },
-        ],
-        country_codes : [
-            {
-                country_code : "PT: +351",
-                value : 1
-            },
-            {
-                country_code : "ES: +34",
-                value : 2
-            },
-            {
-                country_code : "FR: +33",
-                value : 3
-            },
-            {
-                country_code : "DE: +49",
-                value : 4
-            },
-            {
-                country_code : "UK: +44",
-                value : 5
-            },
-            {
-                country_code : "NL: +31",
-                value : 6
-            },
-            {
-                country_code : "BE: +32",
-                value : 7
-            },
-        ],
-        menu_date : false
+        success : false,
+        error : false,
+        isFormValid : true,
+        rules : {
+            required: value => !!value || 'Required field.',
+        },
+        languages : [],
+        sel_languages : [],
+        country_codes : [],
+        sel_country_code : "",
+        menu_date : false,
+        user : {
+            username : '',
+            email : '',
+            password : '',
+            country_code : '',
+            phone_nr : '',
+            dob: new Date().toISOString().substr(0, 10),
+            languages : [],
+            description : ''
+        }
     }),
+    async created() {
+        var lang_array = await LangService.get();
+        console.log(lang_array);
+        for (var i = 0; i < lang_array.data.length; i++) {
+            //var toi_lang = {};
+            var toi_code = {};
+
+            /*
+            toi_lang.name = lang_array.data[i].name;
+            toi_lang.id = lang_array.data[i].id;
+            this.languages.push(toi_lang);
+            */
+            this.languages.push(lang_array.data[i]);
+            toi_code.country_code =  lang_array.data[i].abbreviation + " : " + lang_array.data[i].country_code;
+            toi_code.value = lang_array.data[i].id;
+            this.country_codes.push(toi_code);
+        }
+    },
+    methods: {
+        //signup
+        signup: async function() {
+            for (var i = 0 ; i < this.sel_languages.length ; i++) {
+                var language = this.languages.find(obj => {
+                    return obj.name == this.sel_languages[i]
+                })
+                this.user.languages.push(language);
+            }
+            this.status = await AuthService.register(this.user);
+            switch(this.status) {
+                case 201:
+                    this.success = true;
+                    break;
+                case 409:
+                    this.error = true;
+                    console.log('409');
+                    break;
+            }
+        }
+    }
 }
 </script>
 

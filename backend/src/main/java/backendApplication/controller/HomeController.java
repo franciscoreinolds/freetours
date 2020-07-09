@@ -49,12 +49,14 @@ public class HomeController {
             City c = mostPopularCities.get(i);
             Tour t = c.getRandomActiveTour();
             if(t != null) {
+                System.out.println(t.getImages().size());
                 t.setActive(new ArrayList<>());
                 suggestedTours.add(t);
             }
-            if(suggestedTours.size() >= 3)
+            if(suggestedTours.size() >= 9)
                 break;
         }
+
         for(City c: mostPopularCities)
             c.setTours(new ArrayList<>());
 
@@ -62,10 +64,6 @@ public class HomeController {
         r.putAll(Collections.singletonMap("nextTours", nextTours));
         r.putAll(Collections.singletonMap("suggestedTours", suggestedTours));
 
-        for(City i : mostPopularCities.subList(0,6)){
-            System.out.println(i.getName());
-            System.out.println(i.getImage().getImage());
-        }
         return r;
    }
 }

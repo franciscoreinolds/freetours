@@ -7,6 +7,7 @@ class HomeService {
         const auth = localStorage.getItem('user')
         let config = {};
 
+        console.log(auth)
         if (auth) {
             config = {
                 headers: {

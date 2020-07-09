@@ -1,11 +1,15 @@
 package backendApplication;
 
+import backendApplication.model.dao.CityService;
+import backendApplication.model.entities.City;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class BackendApplication extends SpringBootServletInitializer {
@@ -21,24 +25,21 @@ public class BackendApplication extends SpringBootServletInitializer {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	/*
+
 	@Bean
-	public CommandLineRunner demo(CityService cityservice, CountryService countryservice) {
+	public CommandLineRunner demo(CityService cityservice) {
 		return (args) -> {
-			countryservice.save(new Country("Portugal"));
 
-			Country c = countryservice.get(1);
+			City c = new City();
+			c.setName("London");
 
-			cityservice.save(new City("Famalicão", c));
+			cityservice.save(c);
 
-			City city = cityservice.get(1);
-
-			System.out.println(city.getName() + " belongs to " + city.getCountry().getName());
 
 			//for (Administrator admin : service.listAll()) {
 			//	System.out.println(admin.getEmail());
 			//}
 		};
 	}
-	*/
+
 }

@@ -93,7 +93,6 @@ public class City{
                 return t;
             }
         }
-
         return null;
     }
 
@@ -104,4 +103,7 @@ public class City{
     public void setImage(Image image) {
         this.image = image;
     }
+
+    public void addTour(Tour tour) {this.tours.add(tour);}
+
 }

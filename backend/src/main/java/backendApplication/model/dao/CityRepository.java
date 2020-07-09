@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface CityRepository extends CrudRepository<City, Integer> {
 
-    @Query("from City c order by c.tours.size desc")
+
+    @Query("from City c order by size(c.tours) desc")
     List<City> findMostPopularCities();
+
+    City findByName(String name);
 }
 

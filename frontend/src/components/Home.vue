@@ -33,14 +33,16 @@
             <v-col
             :cols = 6
             >
-                <v-text-field
-                    class = "text-field"
-                    label="Destination"
+                <v-autocomplete
+                    v-model = "destination"
+                    :items = "all_destinations"
+                    label = "Destination"
+                    :rules = "[rules.required]"
+                    required
                     outlined
-                    prop
                     :append-icon="'mdi-map-marker'"
                 >
-                </v-text-field>
+                </v-autocomplete>
             </v-col>
             <v-col
             :cols = 2
@@ -94,8 +96,7 @@
             </v-col>
         </v-row>
 
-        <h2 v-if="user.username == ''">Where will your next Tour be?</h2>
-        <h2 v-else>Next tours:</h2>
+        <h2>{{this.h2}}</h2>
         
         <!-- Cards -->
         <v-carousel
@@ -106,12 +107,12 @@
         class = "carousel"
         >
             <v-carousel-item 
-            v-for="i in 3" 
+            v-for="(chunk, i) in tours" 
             :key="i"
             class = "carousel_item"
             >
                 <v-layout row>
-                    <v-flex sm4 v-for="j in 3" :key="j" pl-2 pr-2>
+                    <v-flex sm4 v-for="(tour, j) in chunk" :key="j" pl-2 pr-2>
                         <v-card
                         class = "card"
                         width = "100%"
@@ -119,20 +120,21 @@
                             <v-card-title
                             primary-title
                             class = "align-center"
-                            >
+                            >   
                                 <div>
-                                    <h3 class="headline mb-0">{{tours[i-1].city.name}}</h3>
+                                    <h3 class="headline mb-0">{{tour.city.name}}</h3>
                                 </div>
                             </v-card-title>
                         
                             <v-img
-                            src="@/assets/Barcelona.jpeg"
+                            :src="require(`@/assets/${tour.images[0].image}`)" 
                             ></v-img>
                             
                             <v-card-subtitle>
+                                {{tour.name}}
                             </v-card-subtitle>
                             <v-card-text>
-                                {{tours[i-1].description}}
+                                {{tour.description}}
                             </v-card-text>
                         </v-card>
                     </v-flex>
@@ -154,11 +156,27 @@ import CatService from '../services/cat_service'
 import HomeService from '../services/home_service'
 import HomeModel from '../models/home_model'
 import User from '../models/user'
+import {chunkArray} from './../utils/utils'
 
 export default {
     name : "Home",
     data() {
         return {
+            destination : '',
+            all_destinations : [
+                'Amsterdam, Netherlands',
+                'Paris, France',
+                'Lisbon, Portugal',
+                'Porto, Portugal',
+                'Faro, Portugal',
+                'Braga, Portugal',
+                'Guimarães, Portugal',
+                'Famalicão, Portugal',
+                'Funchal, Portugal'
+            ],
+            rules : {
+                required: value => !!value || 'Required field.',
+            },
             colors: [
             'indigo',
             'warning',
@@ -171,8 +189,8 @@ export default {
             date: new Date().toISOString().substr(0, 10),
             categories : [],
             category : '',
+            h2: 'Where will your next Tour be?',
             menu2: false,
-            user: new User('','','')
         }
     },
     async created() {
@@ -182,11 +200,19 @@ export default {
         }
         else console.log('Cat_Response Status not 200')
 
-
-        var home_response = await HomeService.getHome();
+        var home_response = await HomeService.getHome()
+        console.log(home_response.data.mostPopularCities)
         this.slides = home_response.data.mostPopularCities
-        this.tours = home_response.data.suggestedTours
-        console.log(this.$props)
+        if(home_response.data.nextTours.length){
+            this.tours = chunkArray(home_response.data.nextTours, 3)
+            this.h2 = 'Next tours:'
+        }else {
+            this.tours = chunkArray(home_response.data.suggestedTours, 3)
+        }
+
+        
+       
+        
     }
 }
 </script

@@ -3,17 +3,20 @@ package backendApplication.model.entities;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.List;
 import java.util.Set;
 
 @Entity(name = "Tour")
-public class Tour {
+public class Tour implements Serializable {
     @Id
     //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="tour_sequence")
     //@SequenceGenerator(name="tour_sequence", sequenceName="tour_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull
+    private String name;
     @NotNull
     private String description;
     @NotNull
@@ -28,7 +31,11 @@ public class Tour {
     @ManyToOne
     private City city;
 
+    @ManyToOne
+    private User guide;
+
     @ManyToMany
+    @NotNull
     private Set<Image> images;
 
     @OneToMany
@@ -41,7 +48,7 @@ public class Tour {
 
     @ManyToMany
     @NotNull
-    private List<Language> languages;
+    private Set<Language> languages;
 
     @OneToMany
     private List<Review> reviews;
@@ -61,6 +68,14 @@ public class Tour {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -103,6 +118,15 @@ public class Tour {
         this.qrCode = qrCode;
     }
 
+    public User getGuide() {
+        return guide;
+    }
+
+    public void setGuideUsername(User guide) {
+        this.guide = guide;
+    }
+
+
     public List<Place> getRoute() {
         return route;
     }
@@ -119,11 +143,11 @@ public class Tour {
         this.category = category;
     }
 
-    public List<Language> getLanguages() {
+    public Set<Language> getLanguages() {
         return languages;
     }
 
-    public void setLanguages(List<Language> languages) {
+    public void setLanguages(Set<Language> languages) {
         this.languages = languages;
     }
 
@@ -166,4 +190,7 @@ public class Tour {
     public void setImages(Set<Image> images) {
         this.images = images;
     }
+
+    public void addActive(Scheduling s) {this.active.add(s);}
+
 }

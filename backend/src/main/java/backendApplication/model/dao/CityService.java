@@ -30,8 +30,13 @@ public class CityService {
         repo.deleteById(id);
     }
 
+
     public List<City> findMostPopularCities() {
         return repo.findMostPopularCities();
+    }
+
+    public City getByName(String name) throws NoSuchElementException {
+        return repo.findByName(name);
     }
 }
 

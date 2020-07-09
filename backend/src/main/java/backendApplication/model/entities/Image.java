@@ -1,13 +1,13 @@
 package backendApplication.model.entities;
 
 import com.sun.istack.NotNull;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "Image")
-public class Image {
+public class Image{
     @Id
+    //@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="image_sequence")
+    //@SequenceGenerator(name="image_sequence", sequenceName="image_seq")
     private int id;
     @NotNull
     private String image;
@@ -27,4 +27,5 @@ public class Image {
     public void setImage(String image) {
         this.image = image;
     }
+
 }

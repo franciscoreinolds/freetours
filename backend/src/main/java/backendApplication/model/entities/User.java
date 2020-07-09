@@ -6,9 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity(name="User_")
@@ -27,8 +25,8 @@ public class User implements UserDetails {
     private String aboutMe;
     private String image;
 
-    @OneToMany
-    private List<Language> languages;
+    @ManyToMany
+    private Set<Language> languages;
 
     @OneToMany
     private List<Scheduling> schedules;
@@ -120,11 +118,11 @@ public class User implements UserDetails {
         this.image = image;
     }
 
-    public List<Language> getLanguages() {
+    public Set<Language> getLanguages() {
         return languages;
     }
 
-    public void setLanguages(List<Language> languages) {
+    public void setLanguages(Set<Language> languages) {
         this.languages = languages;
     }
 
@@ -143,6 +141,26 @@ public class User implements UserDetails {
     public void setTours(List<Tour> tours) {
         this.tours = tours;
     }
+
+    @Override
+    public String toString() {
+        return "User{\n" +
+                "username='" + username + "'\n" +
+                ", password='" + password + "'\n" +
+                ", email='" + email + "'\n" +
+                ", phoneNumber='" + phoneNumber + "'\n" +
+                ", dateOfBirth=" + dateOfBirth + "\n" +
+                ", aboutMe='" + aboutMe + "'\n" +
+                ", image='" + image + "'\n" +
+                ", languages=" + languages + "\n" +
+                ", schedules=" + schedules + "\n" +
+                ", tours=" + tours + "\n" +
+                '}' + "\n";
+    }
+
+    public void addTour(Tour tour) {this.tours.add(tour);}
+
+    public void addScheduling(Scheduling scheduling) {this.schedules.add(scheduling);}
 
 
     // Returns next x schedule tours, from the current date
