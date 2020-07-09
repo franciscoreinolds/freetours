@@ -3,7 +3,7 @@ package backendApplication.model.emailBuilder;
 /**
  * Class that represents the Director. Constructs an object using the EmailBuilder interface.
  * */
-public class Builder {
+public class EmailDirector {
     /* Represents the concrete class */
     private EmailBuilder emailBuilder;
 
@@ -12,7 +12,7 @@ public class Builder {
      *
      * @param eb EmailBuilder represents the concreteBuilder.
      * */
-    public Builder(EmailBuilder eb) {
+    public EmailDirector(EmailBuilder eb) {
         this.emailBuilder = eb;
     }
 
