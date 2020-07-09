@@ -34,6 +34,18 @@ public class City{
     public City() {
     }
 
+    public City(City c) {
+        this.id = c.getId();
+        this.tours = c.getTours();
+        this.country = c.getCountry();
+        this.image = c.getImage();
+        this.name = c.getName();
+        this.latitude = c.getLatitude();
+        this.longitude = c.getLongitude();
+    }
+
+
+
     public City(String name, Country country) {
         this.name = name;
         this.country = country;
@@ -106,4 +118,8 @@ public class City{
 
     public void addTour(Tour tour) {this.tours.add(tour);}
 
+    @Override
+    public Object clone(){
+        return new City(this);
+    }
 }

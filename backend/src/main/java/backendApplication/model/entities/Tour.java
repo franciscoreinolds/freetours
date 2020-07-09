@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity(name = "Tour")
 public class Tour implements Serializable {
@@ -60,6 +61,25 @@ public class Tour implements Serializable {
     private List<Scheduling> active;
 
     public Tour() {
+    }
+
+    public Tour(Tour t) {
+        this.id = t.getId();
+        this.name = t.getName();
+        this.description = t.getDescription();
+        this.duration = t.getDuration();
+        this.minCapacity = t.getMinCapacity();
+        this.maxCapacity = t.getMaxCapacity();
+        this.qrCode = t.getQrCode();
+        this.active = t.getActive();
+        this.route = t.getRoute();
+        this.reviews = t.getReviews();
+        this.languages = t.getLanguages();
+        this.guide = t.getGuide();
+        this.images = t.getImages();
+        this.category = t.getCategory();
+        this.finished = t.getFinished();
+        this.city = t.getCity();
     }
 
     public int getId() {
@@ -193,4 +213,8 @@ public class Tour implements Serializable {
 
     public void addActive(Scheduling s) {this.active.add(s);}
 
+    @Override
+    public Object clone(){
+        return new Tour(this);
+    }
 }

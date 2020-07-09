@@ -10630,3 +10630,8 @@ INSERT INTO public.tour_images (tour_id, images_id) VALUES (5, 5);
 INSERT INTO public.tour_images (tour_id, images_id) VALUES (6, 4);
 INSERT INTO public.tour_images (tour_id, images_id) VALUES (7, 1);
 INSERT INTO public.tour_images (tour_id, images_id) VALUES (8, 4);
+
+
+--User_schedules
+INSERT INTO public.user__schedules (user__username, schedules_id) VALUES ('userA', 1);
+INSERT INTO public.user__schedules (user__username, schedules_id) VALUES ('userA', 6);

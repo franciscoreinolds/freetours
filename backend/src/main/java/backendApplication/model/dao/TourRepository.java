@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface TourRepository extends CrudRepository<Tour, Integer> {
 
-    @Query("from Tour t where not t.active.size = 0")
+    @Query("from Tour t where not size(t.active) = 0")
     List<Tour> findRandomActiveTours(Pageable pageable);
 }

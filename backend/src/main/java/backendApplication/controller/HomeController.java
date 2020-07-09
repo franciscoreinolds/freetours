@@ -29,6 +29,7 @@ public class HomeController {
    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public Map<String,Object> home() {
 
+
         Map<String, Object> r = new HashMap<>();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<Tour> nextTours = new ArrayList<>();
@@ -36,7 +37,7 @@ public class HomeController {
             String username = auth.getName();
             User u = userService.get(username);
 
-            nextTours = u.getNextTours(3).stream().map(s -> s.getTour())
+            nextTours = u.getNextTours(9).stream().map(s -> (Tour) s.getTour().clone())
                     .collect(Collectors.toList());
             for(Tour t : nextTours){
                 t.setActive(new ArrayList<>());
@@ -49,7 +50,7 @@ public class HomeController {
             City c = mostPopularCities.get(i);
             Tour t = c.getRandomActiveTour();
             if(t != null) {
-                System.out.println(t.getImages().size());
+                t = (Tour) t.clone();
                 t.setActive(new ArrayList<>());
                 suggestedTours.add(t);
             }
@@ -57,9 +58,12 @@ public class HomeController {
                 break;
         }
 
-        for(City c: mostPopularCities)
+        for(City c: mostPopularCities.subList(0,6)) {
             c.setTours(new ArrayList<>());
+        }
 
+        for(int i=0; i<6; i++)
+            mostPopularCities.set(i, (City) mostPopularCities.get(i).clone());
         r.putAll(Collections.singletonMap("mostPopularCities", mostPopularCities.subList(0,6)));
         r.putAll(Collections.singletonMap("nextTours", nextTours));
         r.putAll(Collections.singletonMap("suggestedTours", suggestedTours));
