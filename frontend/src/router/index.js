@@ -6,6 +6,7 @@ import Profile from '../components/Profile.vue'
 import Search from '../components/Search.vue'
 import CreateTour from '../components/CreateTour.vue'
 import Tour from '../components/Tour.vue'
+import ForgotPassword from '../components/ForgotPassword.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     name : "Tour",
     path : "/tour",
     component : Tour
+  },
+  {
+    name : "ForgotPassword",
+    path : "/forgotpassword",
+    component : ForgotPassword
   }
 ]
 
