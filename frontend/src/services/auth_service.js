@@ -12,7 +12,7 @@ class AuthService {
             })
             .then(response => {
                 if (response.data) {
-                    var jwt = JSON.stringify(response.data);
+                    var jwt = response.data;
                     localStorage.setItem('user', jwt);
                     var parsedJwt =  JSON.parse(atob(jwt.split('.')[1]));
                     store.commit('setUsername', parsedJwt.sub);

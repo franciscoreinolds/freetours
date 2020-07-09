@@ -10,8 +10,6 @@ class ProfileService {
 
         if(jwt != null) {
 
-            jwt = jwt.substring(1, jwt.length - 1);
-
             promise = axios.get(API_URL + '/profile/' + user, { headers: {"Authorization": jwt}});
 
         } else {
