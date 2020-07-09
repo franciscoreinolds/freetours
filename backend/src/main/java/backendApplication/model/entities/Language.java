@@ -32,9 +32,6 @@ public class Language {
     private String country_code;
 
     @ManyToMany
-    private Set<User> users;
-
-    @ManyToMany
     private Set<Tour> tours;
 
     public Language() {
@@ -78,14 +75,6 @@ public class Language {
 
     public void setCountry_code(String country_code) {
         this.country_code = country_code;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public Set<Tour> getTours() {
