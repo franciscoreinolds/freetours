@@ -74,7 +74,27 @@ class AuthService {
             .catch(error => {
                 return error.response;
             });
+    }
 
+    change_password(token, pass, pass_conf) {
+
+        if (pass !== pass_conf)
+            return false
+
+        return axios
+            .post(API_URL + '/change_password?token=' + token, {
+                password : pass,
+                password_confirmation : pass_conf,
+            })
+            .then(response => {
+                if (response.data) {
+                    console.log(response.data)
+                }
+                return response
+            })
+            .catch(error => {
+                return error.response;
+            });
     }
 }
 

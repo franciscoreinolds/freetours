@@ -19,24 +19,33 @@
                         <h1
                                 class = "pl-12 pt-6"
                         >
-                            Forgot Password
+                            Change Password
                         </h1>
-
-                        <v-card-text class = "pl-12 pt-6">
-                            Insert your email and you'll receive one mail with the instructions to reset your password.
-                        </v-card-text>
 
                         <v-form
                                 v-model="isFormValid"
                         >
                             <v-card-text>
                                 <v-text-field
-                                        v-model = "email"
                                         outlined
-                                        label="Email"
-                                        name="email"
-                                        type="text"
+                                        v-model = "password"
+                                        id="password"
+                                        label="Password"
+                                        name="password"
+                                        type="password"
                                         :rules="[rules.required]"
+                                        @input="this.restore_variables"
+                                        required
+                                />
+                                <v-text-field
+                                        outlined
+                                        v-model = "password_conf"
+                                        id="password_conf"
+                                        label="Password Confirmation"
+                                        name="password_conf"
+                                        type="password"
+                                        :rules="[rules.required]"
+                                        @input="this.restore_variables"
                                         required
                                 />
                             </v-card-text>
@@ -60,9 +69,9 @@
                                             large
                                             primary
                                             :disabled = "!isFormValid"
-                                            v-on:click="send()"
+                                            v-on:click="change_password()"
                                     >
-                                        Send an email
+                                        Change Password
                                     </v-btn>
                                 </v-layout>
                             </v-card-actions>
@@ -76,11 +85,10 @@
 </template>
 
 <script>
-
     import AuthService from "../services/auth_service";
 
     export default {
-        name: "ForgotPassword",
+        name: "ChangePassword",
         data: () => ({
             success : false,
             error : false,
@@ -89,26 +97,38 @@
             rules : {
                 required: value => !!value || 'Required field.',
             },
-            email : "",
+            password: "",
+            password_conf: "",
         }),
         methods: {
-            //send mail
-            send:  async function () {
-                this.success = this.error = false
-                let response = await AuthService.forgot_password(this.email);
+            // change pass
+            change_password: async function () {
+                this.restore_variables()
+                let response = await AuthService.change_password(this.$route.params.token, this.password, this.password_conf);
+                console.log(response)
+                if (response === false) {
+                    this.message = 'Password and Password Confirmation are different'
+                    this.error = true
+                    return
+                }
                 this.message = response.data
                 switch (response.status) {
-                    case 201:
+                    case 200:
                         this.success = true;
                         break;
                     case 400:
+                    case 404:
+                    case 410:
                         this.error = true;
                         break;
                 }
+            },
+            restore_variables: function () {
+                this.success = this.error = false
+                this.message = ""
             }
         }
     }
-
 </script>
 
 <style scoped>
