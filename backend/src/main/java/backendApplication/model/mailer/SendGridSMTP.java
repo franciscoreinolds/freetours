@@ -7,7 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SendGridSMTP implements MailerStrategy{
+public class SendGridSMTP implements MailerStrategy {
 
     @Autowired
     private JavaMailSender mailSender;
