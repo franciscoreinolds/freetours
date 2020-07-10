@@ -29,7 +29,7 @@ public class EmailBuilderTests {
 
         EmailDirector builder = new EmailDirector(new WelcomeEmail());
 
-        Email email = builder.createEmail("no-reply@freetours.example.com", "user1@example.com", "user1", null);
+        Email email = builder.createEmail("user1@example.com", "user1", null);
         assertNotNull(email, "Email construction");
         System.out.println(email.toString());
 

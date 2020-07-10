@@ -4,6 +4,7 @@ import backendApplication.MyUserDetailsService;
 import backendApplication.model.dao.PasswordResetTokenService;
 import backendApplication.model.emailBuilder.Email;
 import backendApplication.model.emailBuilder.EmailDirector;
+import backendApplication.model.emailBuilder.ResetPasswordEmail;
 import backendApplication.model.emailBuilder.WelcomeEmail;
 import backendApplication.model.mailer.MailerContext;
 import backendApplication.utils.JwtUtil;
@@ -12,6 +13,7 @@ import backendApplication.model.entities.User;
 import backendApplication.viewmodel.PasswordChange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +51,9 @@ public class AuthController {
 
     @Autowired
     private MailerContext mailerContext;
+
+    @Autowired
+    private Environment env;
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
     public ResponseEntity<HttpStatus> registerUser(@RequestBody User user) {
@@ -116,9 +121,9 @@ public class AuthController {
         String token = UUID.randomUUID().toString();
         passwordResetTokenService.createPasswordResetTokenForUser(user, token);
 
-        // send mail to user
-        // ..
-        // ..
+        EmailDirector builder = new EmailDirector(new ResetPasswordEmail());
+        Email email = builder.createEmail(user.getEmail(), null, env.getProperty("frontend.url") + "/changepassword/" + token);
+        mailerContext.send(email);
 
         return new ResponseEntity<>("A reset password mail was sent to your email", HttpStatus.CREATED);
 
