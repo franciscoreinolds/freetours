@@ -1,7 +1,6 @@
 package backendApplication;
 
-import backendApplication.model.dao.CityService;
-import backendApplication.model.entities.City;
+import backendApplication.model.mailer.SendGridWEBAPIStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -27,18 +26,9 @@ public class BackendApplication extends SpringBootServletInitializer {
 
 
 	@Bean
-	public CommandLineRunner demo(CityService cityservice) {
+	public CommandLineRunner demo(SendGridWEBAPIStrategy emailService) {
 		return (args) -> {
-
-			City c = new City();
-			c.setName("London");
-
-			cityservice.save(c);
-
-
-			//for (Administrator admin : service.listAll()) {
-			//	System.out.println(admin.getEmail());
-			//}
+			emailService.sendEmail("");
 		};
 	}
 
