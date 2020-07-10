@@ -1,9 +1,16 @@
 package backendApplication.model.emailBuilder;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
 /**
  * Class that represents the Director. Constructs an object using the EmailBuilder interface.
  * */
 public class EmailDirector {
+
+    @Autowired
+    private Environment env;
+
     /* Represents the concrete class */
     private EmailBuilder emailBuilder;
 
@@ -23,16 +30,15 @@ public class EmailDirector {
     /**
      * Method for creating an email.
      *
-     * @param from String that has information for from
      * @param to String that has information for to
      * @param subject String that has information for subject
      * @param text String that has information for text
      *
      * @return Email Constructed email
      * */
-    public Email createEmail(String from, String to, String subject, String text) {
+    public Email createEmail(String to, String subject, String text) {
         emailBuilder.createNewEmail();
-        emailBuilder.setFrom(from);
+        emailBuilder.setFrom(env.getProperty("app.email"));
         emailBuilder.setTo(to);
         emailBuilder.setSubject(subject);
         emailBuilder.setText(text);

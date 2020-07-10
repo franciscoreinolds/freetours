@@ -2,11 +2,16 @@ package backendApplication.controller;
 
 import backendApplication.MyUserDetailsService;
 import backendApplication.model.dao.PasswordResetTokenService;
+import backendApplication.model.emailBuilder.Email;
+import backendApplication.model.emailBuilder.EmailDirector;
+import backendApplication.model.emailBuilder.WelcomeEmail;
+import backendApplication.model.mailer.MailerContext;
 import backendApplication.utils.JwtUtil;
 import backendApplication.model.dao.UserService;
 import backendApplication.model.entities.User;
 import backendApplication.viewmodel.PasswordChange;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +47,9 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
+    @Autowired
+    private MailerContext mailerContext;
+
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
     public ResponseEntity<HttpStatus> registerUser(@RequestBody User user) {
 
@@ -57,6 +65,10 @@ public class AuthController {
                 // logger ex.printStackTrace();
                 return new ResponseEntity<> (HttpStatus.NOT_ACCEPTABLE);
             }
+
+            EmailDirector builder = new EmailDirector(new WelcomeEmail());
+            Email email = builder.createEmail(user.getEmail(), user.getUsername(), null);
+            mailerContext.send(email);
 
             return new ResponseEntity<> (HttpStatus.CREATED);
         }catch ( InvalidDataAccessApiUsageException e) {
