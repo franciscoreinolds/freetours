@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class SendGridWEBAPIStrategy implements MailerStrategy{
+public class SendGridWebAPI implements MailerStrategy{
 
     @Autowired
     SendGrid sendGrid;
@@ -40,7 +40,9 @@ public class SendGridWEBAPIStrategy implements MailerStrategy{
             System.out.println(response.getHeaders());
 
         } catch (IOException e) {
+
             e.printStackTrace();
+
         }
     }
 }
