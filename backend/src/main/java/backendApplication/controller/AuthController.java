@@ -72,7 +72,7 @@ public class AuthController {
             }
 
             EmailDirector builder = new EmailDirector(new WelcomeEmail());
-            Email email = builder.createEmail(user.getEmail(), user.getUsername(), null);
+            Email email = builder.createEmail(env.getProperty("app.email"), user.getEmail(), user.getUsername(), null);
             mailerContext.send(email);
 
             return new ResponseEntity<> (HttpStatus.CREATED);
@@ -122,7 +122,7 @@ public class AuthController {
         passwordResetTokenService.createPasswordResetTokenForUser(user, token);
 
         EmailDirector builder = new EmailDirector(new ResetPasswordEmail());
-        Email email = builder.createEmail(user.getEmail(), null, env.getProperty("frontend.url") + "/changepassword/" + token);
+        Email email = builder.createEmail(env.getProperty("app.email"), user.getEmail(), null, env.getProperty("frontend.url") + "/#/changepassword/" + token);
         mailerContext.send(email);
 
         return new ResponseEntity<>("A reset password mail was sent to your email", HttpStatus.CREATED);
