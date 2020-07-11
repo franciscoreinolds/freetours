@@ -1,40 +1,35 @@
 package backendApplication.model;
 
 
+import backendApplication.model.dao.TourService;
 import backendApplication.model.entities.Scheduling;
 import backendApplication.model.entities.Tour;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-@Component
+
+@Service
 public class SwapManager {
 
-    public void addSchedule(Scheduling s) {
-        long finishesIn = s.getDate().getTime() - new Date().getTime();
-        new FinishSchedule(s, finishesIn).start();
-    }
-}
+    @Autowired
+    TourService tourService;
 
-class FinishSchedule extends Thread {
-
-    private Scheduling scheduling;
-    private long finishesIn;
-
-    public FinishSchedule(Scheduling s, long finishesIn) {
-        this.scheduling = s;
-        this.finishesIn = finishesIn;
-    }
-
-    @Override
-    public void run() {
-        try {
-            Thread.sleep(this.finishesIn);
-            Tour t = scheduling.getTour();
-            t.removeActive(this.scheduling);
-            t.addFinished(this.scheduling);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    @Async
+    public CompletableFuture addSchedule(Scheduling scheduling) throws InterruptedException{
+        long finishesIn = scheduling.getDate().getTime() - new Date().getTime();
+        System.out.println(finishesIn);
+        Thread.sleep(finishesIn);
+        Tour t = scheduling.getTour();
+        t.removeActive(scheduling);
+        t.addFinished(scheduling);
+        tourService.save(t);
+        System.out.println("completou o schedule");
+        return CompletableFuture.completedFuture(null);
     }
 }

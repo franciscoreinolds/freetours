@@ -68,18 +68,21 @@ public class TourController {
                 s.setTour(tour);
                 schedulingService.save(s);
 
-                // Save scheduling on user
+                /*// Save scheduling on user
                 String username = SecurityContextHolder.getContext().getAuthentication().getName();
                 User user = userService.get(username);
                 user.addScheduling(s);
                 userService.save(user);
+                */
 
                 // Save scheduling active on tour
                 tour.addActive(s);
                 tourService.save(tour);
 
                 // Add schedule to swap manager
+                System.out.println("Adicionou ao swap");
                 swapManager.addSchedule(s);
+
             }
 
         }catch (Exception ex) {
