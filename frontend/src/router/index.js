@@ -6,6 +6,7 @@ import Profile from '../components/Profile.vue'
 import Search from '../components/Search.vue'
 import CreateTour from '../components/CreateTour.vue'
 import Tour from '../components/Tour.vue'
+import User from '../models/user'
 import ForgotPassword from '../components/ForgotPassword.vue'
 import ChangePassword from '../components/ChangePassword.vue'
 

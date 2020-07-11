@@ -124,7 +124,7 @@ public class TourController {
             Tour tour = tourService.get(Integer.parseInt(id));
 
             // If not the tour guide ...
-            if(!username.equals(tour.getGuideUsername())) {
+            if(!username.equals(tour.getGuide().getUsername())) {
 
                 // Get active schedulings on tour
                 List<Scheduling> schedulings = tour.getActive();

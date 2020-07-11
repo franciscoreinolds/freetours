@@ -31,29 +31,7 @@ public class Language {
     @NotNull
     private String country_code;
 
-    @ManyToMany(
-            fetch = FetchType.EAGER
-    )
-    @JoinTable(
-            name = "user__languages",
-            joinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_username", referencedColumnName = "username"),
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"language_id", "user_username"})}
-    )
-    @JsonIgnore
-    private Set<User> users;
-
-    @ManyToMany(
-            fetch = FetchType.EAGER
-    )
-    @JoinTable(
-            name = "tour_languages",
-            joinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"language_id", "tour_id"})}
-    )
-    @NotNull
-    @JsonIgnoreProperties({"languages"})
+    @ManyToMany
     private Set<Tour> tours;
 
     public Language() {
@@ -97,14 +75,6 @@ public class Language {
 
     public void setCountry_code(String country_code) {
         this.country_code = country_code;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public Set<Tour> getTours() {

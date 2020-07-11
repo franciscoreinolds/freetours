@@ -5,25 +5,24 @@
             <v-carousel
             cycle
             show-arrows-on-hover
-            height = "300px"
+            height = "400px"
             class = "carousel"
             >
                 <v-carousel-item
                 v-for="(slide, i) in slides"
                 :key="i"
                 >
-                    <v-sheet
-                        :color="colors[i]"
-                        height="100%"
+                    <v-parallax
+                        :src="require(`@/assets/${slide.image.image}`)"   
                     >
                         <v-row
-                        class="fill-height"
                         align="center"
                         justify="center"
                         >
-                        <div class="display-3">{{ slide }} Slide</div>
+                       
+                        <h1 class="display-1 font-weight-thin mb-4">{{slide.name}}</h1>
                         </v-row>
-                    </v-sheet>
+                    </v-parallax>
                 </v-carousel-item>
             </v-carousel>
         </div>
@@ -97,8 +96,8 @@
             </v-col>
         </v-row>
 
-        <h2>Where will your next Tour be?</h2>
-
+        <h2>{{this.h2}}</h2>
+        
         <!-- Cards -->
         <v-carousel
         hide-delimiters
@@ -108,12 +107,12 @@
         class = "carousel"
         >
             <v-carousel-item 
-            v-for="i in 3" 
+            v-for="(chunk, i) in tours" 
             :key="i"
             class = "carousel_item"
             >
                 <v-layout row>
-                    <v-flex sm4 v-for="j in 3" :key="j" pl-2 pr-2>
+                    <v-flex sm4 v-for="(tour, j) in chunk" :key="j" pl-2 pr-2>
                         <v-card
                         class = "card"
                         width = "100%"
@@ -121,21 +120,21 @@
                             <v-card-title
                             primary-title
                             class = "align-center"
-                            >
+                            >   
                                 <div>
-                                    <h3 class="headline mb-0">Card {{i}}-{{j}}</h3>
+                                    <h3 class="headline mb-0">{{tour.city.name}}</h3>
                                 </div>
                             </v-card-title>
                         
                             <v-img
-                            src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+                            :src="require(`@/assets/${tour.images[0].image}`)" 
                             ></v-img>
                             
                             <v-card-subtitle>
-                                Subtitle
+                                {{tour.name}}
                             </v-card-subtitle>
                             <v-card-text>
-                                Text
+                                {{tour.description}}
                             </v-card-text>
                         </v-card>
                     </v-flex>
@@ -154,6 +153,10 @@
 
 <script>
 import CatService from '../services/cat_service'
+import HomeService from '../services/home_service'
+import HomeModel from '../models/home_model'
+import User from '../models/user'
+import {chunkArray} from './../utils/utils'
 
 export default {
     name : "Home",
@@ -181,16 +184,12 @@ export default {
             'red lighten-1',
             'deep-purple accent-4',
             ],
-            slides : [
-            'First',
-            'Second',
-            'Third',
-            'Fourth',
-            'Fifth',
-            ],
+            slides : [],
+            tours : [],
             date: new Date().toISOString().substr(0, 10),
             categories : [],
             category : '',
+            h2: 'Where will your next Tour be?',
             menu2: false,
         }
     },
@@ -200,6 +199,20 @@ export default {
             this.categories = cat_resp.data;
         }
         else console.log('Cat_Response Status not 200')
+
+        var home_response = await HomeService.getHome()
+        console.log(home_response.data.mostPopularCities)
+        this.slides = home_response.data.mostPopularCities
+        if(home_response.data.nextTours.length){
+            this.tours = chunkArray(home_response.data.nextTours, 3)
+            this.h2 = 'Next tours:'
+        }else {
+            this.tours = chunkArray(home_response.data.suggestedTours, 3)
+        }
+
+        
+       
+        
     }
 }
 </script

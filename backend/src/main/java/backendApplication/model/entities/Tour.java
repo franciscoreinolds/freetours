@@ -1,7 +1,5 @@
 package backendApplication.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -9,6 +7,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity(name = "Tour")
 public class Tour implements Serializable {
@@ -22,7 +21,7 @@ public class Tour implements Serializable {
     @NotNull
     private String description;
     @NotNull
-    private int duration;
+    private Time duration;
     @NotNull
     private int maxCapacity;
     @NotNull
@@ -30,13 +29,13 @@ public class Tour implements Serializable {
     private String qrCode;
 
     @NotNull
-    private String guideUsername;
-
     @ManyToOne
-    @NotNull
     private City city;
 
-    @OneToMany
+    @ManyToOne
+    private User guide;
+
+    @ManyToMany
     @NotNull
     private Set<Image> images;
 
@@ -48,17 +47,8 @@ public class Tour implements Serializable {
     @NotNull
     private Category category;
 
-    @ManyToMany(
-            fetch = FetchType.EAGER
-    )
-    @JoinTable(
-            name = "tour_languages",
-            joinColumns = @JoinColumn(name = "tour_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"),
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"tour_id", "language_id"})}
-    )
+    @ManyToMany
     @NotNull
-    @JsonIgnoreProperties({"tours"})
     private Set<Language> languages;
 
     @OneToMany
@@ -71,6 +61,25 @@ public class Tour implements Serializable {
     private List<Scheduling> active;
 
     public Tour() {
+    }
+
+    public Tour(Tour t) {
+        this.id = t.getId();
+        this.name = t.getName();
+        this.description = t.getDescription();
+        this.duration = t.getDuration();
+        this.minCapacity = t.getMinCapacity();
+        this.maxCapacity = t.getMaxCapacity();
+        this.qrCode = t.getQrCode();
+        this.active = t.getActive();
+        this.route = t.getRoute();
+        this.reviews = t.getReviews();
+        this.languages = t.getLanguages();
+        this.guide = t.getGuide();
+        this.images = t.getImages();
+        this.category = t.getCategory();
+        this.finished = t.getFinished();
+        this.city = t.getCity();
     }
 
     public int getId() {
@@ -97,11 +106,11 @@ public class Tour implements Serializable {
         this.description = description;
     }
 
-    public int getDuration() {
+    public Time getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Time duration) {
         this.duration = duration;
     }
 
@@ -129,29 +138,14 @@ public class Tour implements Serializable {
         this.qrCode = qrCode;
     }
 
-    public String getGuideUsername() {
-        return guideUsername;
+    public User getGuide() {
+        return guide;
     }
 
-    public void setGuideUsername(String guideUsername) {
-        this.guideUsername = guideUsername;
+    public void setGuideUsername(User guide) {
+        this.guide = guide;
     }
 
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public Set<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(Set<Image> images) {
-        this.images = images;
-    }
 
     public List<Place> getRoute() {
         return route;
@@ -201,6 +195,22 @@ public class Tour implements Serializable {
         this.active = active;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
+
     public void addActive(Scheduling s) {this.active.add(s);}
 
     public void removeActive(Scheduling scheduling) {
@@ -209,5 +219,10 @@ public class Tour implements Serializable {
 
     public void addFinished(Scheduling scheduling) {
         this.finished.add(scheduling);
+    }
+    
+    @Override
+    public Object clone(){
+        return new Tour(this);
     }
 }

@@ -1,5 +1,6 @@
 package backendApplication.model.entities;
 
+import backendApplication.controller.expeptions.NotFoundException;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -24,11 +25,26 @@ public class City{
     @NotNull
     private Country country;
 
+    @OneToOne
+    private Image image;
+
     @OneToMany
     private List<Tour> tours;
 
     public City() {
     }
+
+    public City(City c) {
+        this.id = c.getId();
+        this.tours = c.getTours();
+        this.country = c.getCountry();
+        this.image = c.getImage();
+        this.name = c.getName();
+        this.latitude = c.getLatitude();
+        this.longitude = c.getLongitude();
+    }
+
+
 
     public City(String name, Country country) {
         this.name = name;
@@ -83,5 +99,27 @@ public class City{
         this.tours = tours;
     }
 
+    public Tour getRandomActiveTour() {
+        for (Tour t : tours) {
+            if(!t.getActive().isEmpty()){
+                return t;
+            }
+        }
+        return null;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     public void addTour(Tour tour) {this.tours.add(tour);}
+
+    @Override
+    public Object clone(){
+        return new City(this);
+    }
 }

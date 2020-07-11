@@ -4,7 +4,20 @@
 insert into category (name) values ('Walking Tour'), ('Bike Tour'), ('Bus Tour'), ('Day Tour'), ('Night Life'), ('Romantic Tour');
 
 -- Language
-insert into language (abbreviation, logo, name, country_code) values ('PT', '../database/flags/portugal.png', 'Portuguese', '+351'),  ('EN', '../database/flags/britain.png', 'English', '+44'),  ('ES', '../database/flags/spain.png', 'Spanish', '+34'), ('NL', '../database/flags/netherlands.png', 'Dutch', '+31'),  ('DE', '../database/flags/germany.png', 'German', '+49'),  ('FR', '../database/flags/france.png', 'French', '+33');
+insert into language (abbreviation, logo, name) values ('PT', '../database/flags/portugal.png', 'Portuguese'),
+                                                       ('EN', '../database/flags/britain.png', 'English'),
+                                                       ('ES', '../database/flags/spain.png', 'Spanish'),
+                                                       ('NL', '../database/flags/netherlands.png', 'Dutch'),
+                                                       ('DE', '../database/flags/germany.png', 'German'),
+                                                       ('FR', '../database/flags/france.png', 'French');
+
+--Images
+INSERT INTO public.image (id, image) VALUES (4, 'Rome.jpg');
+INSERT INTO public.image (id, image) VALUES (3, 'Paris.jpeg');
+INSERT INTO public.image (id, image) VALUES (2, 'Madrid.jpeg');
+INSERT INTO public.image (id, image) VALUES (1, 'Barcelona.jpeg');
+INSERT INTO public.image (id, image) VALUES (5, 'Tokyo.jpeg');
+INSERT INTO public.image (id, image) VALUES (6, 'Lisbon.jpeg');
 
 -- Continent
 
@@ -828,7 +841,7 @@ INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM 
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Pakistan'), 31.75583, 72.91972, 'Rabwāh');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Brazil'), -21.75227, -41.33044, 'Campos');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='France'), 44.81011, -0.64129, 'Pessac');
-INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Japan'), 35.6895, 139.69171, 'Tokyo');
+INSERT INTO city(country_id, latitude, longitude, name, image_id) VALUES ((SELECT id FROM country WHERE name='Japan'), 35.6895, 139.69171, 'Tokyo', 5);
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Romania'), 46.56667, 23.78333, 'Turda');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Poland'), 54.4418, 18.56003, 'Sopot');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Uzbekistan'), 42.40043, 59.46005, 'Khŭjayli');
@@ -1333,7 +1346,7 @@ INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM 
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Turkey'), 38.49457, 43.38323, 'Van');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='India'), 21.735, 81.94711, 'Bhātāpāra');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='United States'), 42.90339, -78.75475, 'Cheektowaga');
-INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Italy'), 41.89193, 12.51133, 'Rome');
+INSERT INTO city(country_id, latitude, longitude, name, image_id) VALUES ((SELECT id FROM country WHERE name='Italy'), 41.89193, 12.51133, 'Rome', 4);
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Brazil'), -21.79444, -48.17556, 'Araraquara');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='India'), 34.28671, 74.47228, 'Sopur');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Indonesia'), -7.59939, 112.8186, 'Bangil');
@@ -2219,7 +2232,7 @@ INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM 
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Russian Federation'), 54.06387, 44.9509, 'Ruzayevka');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Brazil'), -9.91333, -63.04083, 'Ariquemes');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Germany'), 50.86991, 6.69691, 'Kerpen');
-INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='France'), 48.85341, 2.3488, 'Paris');
+INSERT INTO city(country_id, latitude, longitude, name, image_id) VALUES ((SELECT id FROM country WHERE name='France'), 48.85341, 2.3488, 'Paris', 3);
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Germany'), 52.53661, 13.15057, 'Staaken');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Mexico'), 22.76843, -102.58141, 'Zacatecas');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Brazil'), -23.46278, -46.53333, 'Guarulhos');
@@ -3495,7 +3508,7 @@ INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM 
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Thailand'), 17.41567, 102.78589, 'Udon Thani');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Netherlands'), 52.99667, 6.5625, 'Assen');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='India'), 12.54614, 77.42099, 'Kanakapura');
-INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Portugal'), 38.71667, -9.13333, 'Lisbon');
+INSERT INTO city(country_id, latitude, longitude, name, image_id) VALUES ((SELECT id FROM country WHERE name='Portugal'), 38.71667, -9.13333, 'Lisbon', 6);
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='United States'), 28.53834, -81.37924, 'Orlando');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Philippines'), 14.45903, 120.92903, 'Bacoor');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Germany'), 51.31667, 6.28333, 'Nettetal');
@@ -4674,7 +4687,7 @@ INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM 
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Russian Federation'), 43.22597, 44.77323, 'Nazran’');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Russian Federation'), 69.3535, 88.2027, 'Norilsk');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Libyan Arab Jamahiriya'), 32.64861, 14.26191, 'Al Khums');
-INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Venezuela, Bolivarian Rep. of'), 10.13625, -64.68618, 'Barcelona');
+INSERT INTO city(country_id, latitude, longitude, name, image_id) VALUES ((SELECT id FROM country WHERE name='Spain'), 10.13625, -64.68618, 'Barcelona', 1);
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='United States'), 42.45008, -73.24538, 'Pittsfield');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Japan'), 34.86877, 138.31952, 'Yaizu');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Somalia'), 8.47738, 47.35971, 'Laascaanood');
@@ -6946,7 +6959,7 @@ INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM 
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Greece'), 41.15283, 24.1473, 'Dráma');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Brazil'), -22.41139, -47.56139, 'Rio Claro');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Japan'), 37.05, 140.88333, 'Iwaki');
-INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Spain'), 40.4165, -3.70256, 'Madrid');
+INSERT INTO city(country_id, latitude, longitude, name, image_id) VALUES ((SELECT id FROM country WHERE name='Spain'), 40.4165, -3.70256, 'Madrid', 2);
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Congo, Democratic Republic of the'), -3.31687, 17.38063, 'Bandundu');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='South Africa'), -24.88333, 28.28333, 'Warmbaths');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Cameroon'), 2.9, 11.15, 'Ébolowa');
@@ -10525,8 +10538,100 @@ INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM 
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Sweden'), 59.36667, 18.13333, 'Lidingö');
 INSERT INTO city(country_id, latitude, longitude, name) VALUES ((SELECT id FROM country WHERE name='Argentina'), -33.13067, -64.34992, 'Río Cuarto');
 
+
+-- Users (pass=user)
+INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number)
+VALUES ('userA', 'I''m user A', '1998-01-01 14:43:04.000000', 'userA@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000000'),
+       ('userB', 'I''m user B', '1998-01-01 14:43:04.000000', 'userB@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000001'),
+       ('userC', 'I''m user C', '1998-01-01 14:43:04.000000', 'userC@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000002'),
+       ('userD', 'I''m user D', '1998-01-01 14:43:04.000000', 'userD@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000003'),
+       ('userE', 'I''m user E', '1998-01-01 14:43:04.000000', 'userE@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000004'),
+       ('userF', 'I''m user F', '1998-01-01 14:43:04.000000', 'userF@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000005'),
+       ('userG', 'I''m user G', '1998-01-01 14:43:04.000000', 'userH@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000006'),
+       ('userH', 'I''m user H', '1998-01-01 14:43:04.000000', 'userG@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000007'),
+       ('userI', 'I''m user I', '1998-01-01 14:43:04.000000', 'userI@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000008'),
+       ('userJ', 'I''m user J', '1998-01-01 14:43:04.000000', 'userJ@gmail.com', null,
+        '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000009');
+
+--Tours
+INSERT INTO public.tour (id, name, description, duration, max_capacity, min_capacity, qr_code, category_id, city_id)
+VALUES (1, 'Come visit Messi', 'Beautiful tour in Barcelona', '00:45:00', 15, 8, null, 2, 4467),
+       (2, 'Tour in Paris', 'Beautiful tour in Paris', '01:00:00', 20, 10, null, 3, 2012),
+       (3, 'Tour in Madrid' ,'Beautiful tour in Madrid', '00:45:00', 15, 8, null, 2, 6739),
+       (4, 'Tour in Lisbon', 'Beautiful tour in Lisbon', '00:30:00', 10, 5, null, 3, 3288),
+       (5, 'Tour in Tokyo', 'Beautiful tour in Tokyo', '00:45:00', 15, 8, null, 2, 621),
+       (6, 'Tour in Rome', 'Beautiful tour in Rome', '01:15:00', 15, 5, null, 4, 1126),
+       (7, 'Tour in Barcelona', 'Beautiful tour in Barcelona', '00:30:00', 10, 5, null, 2, 4467),
+       (8, 'Tour in Rome', 'Beautiful tour in Rome', '00:45:00', 20, 10, null, 2, 1126);
+
+
+--City_Tours
+INSERT INTO public.city_tours (city_id, tours_id)
+VALUES (4467, 1),
+       (2012, 2),
+       (6739, 3),
+       (3288, 4),
+       (621, 5),
+       (1126, 6),
+       (4467, 7),
+       (1126, 8);
+
+--Tour_languages
+INSERT INTO public.tour_languages (tour_id, languages_id)
+VALUES (1,3),
+       (2,4),
+       (3,3),
+       (4,2),
+       (5,2),
+       (6,4),
+       (7,3),
+       (8,3),
+       (1,5);
+
+
 -- Place
 
 -- Review
 
 -- Schedulling
+INSERT INTO public.scheduling (id, date, paid, tour_id)
+VALUES (1, NOW() + INTERVAL '1 DAY', true, 1),
+       (2, NOW() + INTERVAL '1 DAY', true, 1),
+       (3, '2020-06-27 16:45:24.000000', true, 2),
+       (4, '2020-06-27 16:45:24.000000', true, 2),
+       (5, NOW() + INTERVAL '1 DAY', true, 3),
+       (6, NOW() + INTERVAL '1 DAY', true, 8);
+
+
+INSERT INTO public.tour_active (tour_id, active_id)
+VALUES (1, 1),
+       (1, 2),
+       (8, 6),
+       (3, 5);
+
+
+
+
+--Tour_images
+INSERT INTO public.tour_images (tour_id, images_id) VALUES (1, 1);
+INSERT INTO public.tour_images (tour_id, images_id) VALUES (2, 3);
+INSERT INTO public.tour_images (tour_id, images_id) VALUES (3, 2);
+INSERT INTO public.tour_images (tour_id, images_id) VALUES (4, 6);
+INSERT INTO public.tour_images (tour_id, images_id) VALUES (5, 5);
+INSERT INTO public.tour_images (tour_id, images_id) VALUES (6, 4);
+INSERT INTO public.tour_images (tour_id, images_id) VALUES (7, 1);
+INSERT INTO public.tour_images (tour_id, images_id) VALUES (8, 4);
+
+
+--User_schedules
+INSERT INTO public.user__schedules (user__username, schedules_id) VALUES ('userA', 1);
+INSERT INTO public.user__schedules (user__username, schedules_id) VALUES ('userA', 6);

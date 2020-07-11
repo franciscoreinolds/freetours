@@ -28,6 +28,13 @@ export default {
   data: () => ({
     //
   }),
+  async created(){
+    const jwt = localStorage.getItem('user', jwt);
+    if(jwt != ''){
+      var parsedJwt =  JSON.parse(atob(jwt.split('.')[1]));
+      store.commit('setUsername', parsedJwt.sub);
+    }   
+  }
 };
 </script>
 

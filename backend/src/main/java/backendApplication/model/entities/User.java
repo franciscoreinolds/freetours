@@ -1,8 +1,5 @@
 package backendApplication.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -28,26 +25,13 @@ public class User implements UserDetails {
     private String aboutMe;
     private String image;
 
-    @ManyToMany(
-            fetch = FetchType.EAGER
-    )
-    @JoinTable(
-            name = "user__languages",
-            joinColumns = @JoinColumn(name = "user_username", referencedColumnName = "username"),
-            inverseJoinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"),
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"user_username", "language_id"})}
-    )
-    private Set<Language> user__languages;
+    @ManyToMany
+    private Set<Language> languages;
 
-    @JsonIgnore
-    @OneToMany(
-            fetch = FetchType.EAGER
-    )
+    @OneToMany
     private List<Scheduling> schedules;
 
-    @ManyToMany(
-            fetch = FetchType.EAGER
-    )
+    @OneToMany
     private List<Tour> tours;
 
     public User() {
@@ -135,11 +119,11 @@ public class User implements UserDetails {
     }
 
     public Set<Language> getLanguages() {
-        return user__languages;
+        return languages;
     }
 
     public void setLanguages(Set<Language> languages) {
-        this.user__languages = languages;
+        this.languages = languages;
     }
 
     public List<Scheduling> getSchedules() {
@@ -168,7 +152,7 @@ public class User implements UserDetails {
                 ", dateOfBirth=" + dateOfBirth + "\n" +
                 ", aboutMe='" + aboutMe + "'\n" +
                 ", image='" + image + "'\n" +
-                ", languages=" + user__languages + "\n" +
+                ", languages=" + languages + "\n" +
                 ", schedules=" + schedules + "\n" +
                 ", tours=" + tours + "\n" +
                 '}' + "\n";
@@ -181,9 +165,14 @@ public class User implements UserDetails {
 
     // Returns next x schedule tours, from the current date
     public List<Scheduling> getNextTours(int x) {
-        return schedules.stream()
+        List<Scheduling> nextTours = schedules.stream()
                         .filter(scheduling -> scheduling.getDate().compareTo(new Date()) > 0) // filtra os schedules que ja foram
-                        .collect(Collectors.toList())
-                        .subList(0, x);
+                        .collect(Collectors.toList());
+
+        if(nextTours.size() > x) {
+            return nextTours.subList(0,x);
+        }else {
+            return nextTours;
+        }
     }
 }
