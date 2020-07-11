@@ -1,9 +1,5 @@
 package backendApplication.model.emailBuilder;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
-
 /**
  * Class that represents the Director. Constructs an object using the EmailBuilder interface.
  * */
