@@ -22,31 +22,31 @@
                         <v-card-text>
                             <v-row>
                                 <v-col>
-                                    Username: francisco.reinolds
+                                    Username: {{ this.username }}
                                 </v-col>
                                 <v-col>
-                                    Email: francisco.reinolds@email.com
+                                    Email: {{ this.email }}
                                 </v-col>
                                 <v-col>
-                                    Date of Birth: 17/04/98
+                                    Date of Birth: {{ this.dateOfBirth }}
                                 </v-col>
                             </v-row>
                             <v-row>
                                 <v-col>
-                                    Password: ********
+                                    Phone Number: {{ this.phoneNumber }}
                                 </v-col>
                                 <v-col>
                                     Rating: 4.5
-                                </v-col>
-                                <v-col>
-                                    Phone Number: +351*********
                                 </v-col>
                             </v-row>
                             <v-row>
                                 <v-col
                                 :cols = 8
                                 >
-                                    Languages: PT | EN | ES | FR | DE | NL
+                                    Languages:
+                                    <span v-for="language in this.spoken_languages">
+                                        {{ language.abbreviation }} ||
+                                    </span>
                                 </v-col>
                                 <v-col
                                 :cols = 4
@@ -71,8 +71,9 @@
                                     </span>
                                     <v-textarea
                                     outlined
-                                    value = "Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen. Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw, toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken. Het heeft niet alleen vijf eeuwen overleefd maar is ook, vrijwel onveranderd, overgenomen in elektronische letterzetting. Het is in de jaren '60 populair geworden met de introductie van Letraset vellen met Lorem Ipsum passages en meer recentelijk door desktop publishing software zoals Aldus PageMaker die versies van Lorem Ipsum bevatten."
+                                    :value = "this.aboutMe"
                                     >
+                                        {{ this.aboutMe }}
                                     </v-textarea>
                                 </v-col>
                             </v-row>
@@ -149,6 +150,7 @@
 
 <script>
 import TourList from './TourList.vue'
+import ProfileService from '../services/profile_service'
 
 export default {
     name : "Profile",
@@ -289,8 +291,25 @@ export default {
                 color: "brown",
                 flex: 10
                 }
-            ]
+            ],
+            username : "",
+            email: "",
+            dateOfBirth: "",
+            phoneNumber: "",
+            spoken_languages: "",
+            aboutMe: ""
         }
     },
+    created: async function () {
+        let profile = await ProfileService.get(this.$route.params.username)
+        this.username = profile.data.username
+        this.email = profile.data.email
+        this.dateOfBirth = profile.data.dateOfBirth
+        this.phoneNumber = profile.data.phoneNumber
+        this.spoken_languages = profile.data.languages
+        this.aboutMe = profile.data.aboutMe
+        this.tours = profile.data.tours
+        console.log(profile)
+    }
 }
 </script>

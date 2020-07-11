@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
+
 @RestController
 public class UserController {
 
@@ -28,18 +30,23 @@ public class UserController {
     * @return ProfileView that represents only what is intended to show
     * */
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
-    public ResponseEntity<ProfileView> profile(@PathVariable String username) {
-        System.out.println("profile/" + username);
-        User u = userService.get(username);
+    public ResponseEntity<?> profile(@PathVariable String username) {
 
-        if(u == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
 
-        String jwt_username = SecurityContextHolder.getContext().getAuthentication().getName();
+            User u = userService.get(username);
 
-        return jwt_username.equals(username)
-                ? ResponseEntity.ok(new ProfileViewAll(u))
-                : ResponseEntity.ok(new ProfileView(u));
+            String jwt_username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            return jwt_username.equals(username)
+                    ? ResponseEntity.ok(new ProfileViewAll(u))
+                    : ResponseEntity.ok(new ProfileView(u));
+
+        } catch (NoSuchElementException e){
+
+            return new ResponseEntity<>("User doesn't exist.", HttpStatus.NOT_FOUND);
+
+        }
     }
 
     /*

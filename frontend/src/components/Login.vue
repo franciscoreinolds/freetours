@@ -64,7 +64,7 @@
                             <v-btn
                                     large
                                     primary
-                                    @click="dialog = false"
+                                    v-on:click="forgot_password()"
                             >
                                 I Forgot my Password
                             </v-btn>
@@ -113,6 +113,11 @@ export default {
                     break;
             }
         },
+        // Go to Forgot Password page
+        forgot_password: function () {
+            this.dialog = false
+            this.$router.push('/forgotpassword')
+        }
     }
 }
 </script>
