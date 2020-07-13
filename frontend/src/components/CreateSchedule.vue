@@ -46,6 +46,7 @@ import ScheduleService from './../services/schedule_service'
 export default {
     name: "CreateSchedule",
     props: {
+        id: String
     },
     data () {
       return {
@@ -72,8 +73,9 @@ export default {
     methods: {
         createSchedule: async function () {
           console.log(this.dates)
-          const response = await ScheduleService.createSchedules(this.dates)
+          const response = await ScheduleService.createSchedules(this.$props.id, this.dates)
           console.log("Resp:" + response)
+          this.$router.push('/');
         }
     },
     components: {

@@ -313,7 +313,7 @@
                                                     Submit
                                                 </v-btn>
                                             </template>
-                                            <CreateSchedule />
+                                            <CreateSchedule :id="id"/>
                                         </v-dialog>
                                     </v-layout>
                                 </v-card-actions>
@@ -339,6 +339,7 @@ export default {
     },
     data () {
       return {
+        id: 0,
         isFormValid : true,
         menu_date : false,
         start_time : false,
@@ -480,6 +481,7 @@ export default {
             console.log('hours and minutes', this.duration_hours, this.duration_minutes);
             console.log(this.markers);
             console.log(this.langs_array);
+            this.id = "1";
         },
         createSchedule(){console.log("a criar")},
         loggerino(e) {
