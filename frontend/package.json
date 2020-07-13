@@ -13,14 +13,17 @@
     "leaflet": "^1.6.0",
     "leaflet-defaulticon-compatibility": "^0.1.1",
     "leaflet-geosearch": "^2.7.0",
+    "luxon": "^1.24.1",
     "material-design-icons-iconfont": "^5.0.1",
     "vue": "^2.6.11",
+    "vue-datetime": "^1.0.0-beta.13",
     "vue-router": "^3.1.5",
     "vue2-leaflet": "^2.5.2",
     "vue2-leaflet-geosearch": "^1.0.6",
     "vuetify": "^2.2.19",
     "vuetify-datetime-picker": "^2.1.1",
-    "vuex": "^3.1.2"
+    "vuex": "^3.1.2",
+    "weekstart": "^1.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
