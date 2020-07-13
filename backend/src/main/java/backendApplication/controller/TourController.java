@@ -39,10 +39,6 @@ public class TourController {
     @Autowired
     SwapManager swapManager;
 
-
-    ThreadPoolTaskScheduler taskScheduler;
-
-
     @RequestMapping(value = "/createTour", method = RequestMethod.POST)
     public Integer createTour(@RequestBody Tour tour) {
         try{
@@ -91,6 +87,7 @@ public class TourController {
                 // Add schedule to swap manager
                 System.out.println("Adicionou schedule");
                 swapManager.addSchedule(s);
+
             }
 
         }catch (Exception ex) {

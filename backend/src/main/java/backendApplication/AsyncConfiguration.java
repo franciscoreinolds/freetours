@@ -1,3 +1,4 @@
+
 package backendApplication;
 
 import org.slf4j.Logger;
@@ -20,7 +21,6 @@ public class AsyncConfiguration {
     }
 
     /* private static final Logger LOGGER = LoggerFactory.getLogger(AsyncConfiguration.class);
-
     @Bean(name = "taskExecutor")
     public Executor taskExecutor() {
         LOGGER.debug("Creating Async Task Executor");
