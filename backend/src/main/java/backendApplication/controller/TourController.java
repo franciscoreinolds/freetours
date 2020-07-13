@@ -1,6 +1,7 @@
 package backendApplication.controller;
 
 import backendApplication.controller.expeptions.NotFoundException;
+import backendApplication.model.SwapManager;
 import backendApplication.model.dao.*;
 import backendApplication.model.entities.*;
 import backendApplication.viewmodel.RegisterScheduling;
@@ -30,6 +31,8 @@ public class TourController {
     @Autowired
     CityService cityService;
 
+    @Autowired
+    SwapManager swapManager;
 
     @RequestMapping(value = "/createTour", method = RequestMethod.POST)
     public Integer createTour(@RequestBody Tour tour) {
@@ -65,15 +68,21 @@ public class TourController {
                 s.setTour(tour);
                 schedulingService.save(s);
 
-                // Save scheduling on user
+                /*// Save scheduling on user
                 String username = SecurityContextHolder.getContext().getAuthentication().getName();
                 User user = userService.get(username);
                 user.addScheduling(s);
                 userService.save(user);
+                */
 
                 // Save scheduling active on tour
                 tour.addActive(s);
                 tourService.save(tour);
+
+                // Add schedule to swap manager
+                System.out.println("Adicionou ao swap");
+                swapManager.addSchedule(s);
+
             }
 
         }catch (Exception ex) {

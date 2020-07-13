@@ -213,6 +213,14 @@ public class Tour implements Serializable {
 
     public void addActive(Scheduling s) {this.active.add(s);}
 
+    public void removeActive(Scheduling scheduling) {
+        this.active.remove(scheduling);
+    }
+
+    public void addFinished(Scheduling scheduling) {
+        this.finished.add(scheduling);
+    }
+
     @Override
     public Object clone(){
         return new Tour(this);

@@ -41,6 +41,8 @@ public class HomeController {
                     .collect(Collectors.toList());
             for(Tour t : nextTours){
                 t.setActive(new ArrayList<>());
+                t.setCity( (City) t.getCity().clone());
+                t.getCity().setTours(new ArrayList<>());
             }
         }
 
@@ -52,6 +54,8 @@ public class HomeController {
             if(t != null) {
                 t = (Tour) t.clone();
                 t.setActive(new ArrayList<>());
+                t.setCity( (City) t.getCity().clone());
+                t.getCity().setTours(new ArrayList<>());
                 suggestedTours.add(t);
             }
             if(suggestedTours.size() >= 9)
@@ -60,10 +64,9 @@ public class HomeController {
 
         for(City c: mostPopularCities.subList(0,6)) {
             c.setTours(new ArrayList<>());
+            c.clone();
         }
 
-        for(int i=0; i<6; i++)
-            mostPopularCities.set(i, (City) mostPopularCities.get(i).clone());
         r.putAll(Collections.singletonMap("mostPopularCities", mostPopularCities.subList(0,6)));
         r.putAll(Collections.singletonMap("nextTours", nextTours));
         r.putAll(Collections.singletonMap("suggestedTours", suggestedTours));
