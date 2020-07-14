@@ -248,9 +248,10 @@ public class TourController {
             if(username.equals(tour.getGuide().getUsername())){
 
                 // notify signees by email
+                String emailText = tour.getName() + " at " + register.getDate().toString();
                 for(User signee : register.getSignees()){
                     EmailDirector builder = new EmailDirector(new SchedulingCancellation());
-                    Email email = builder.createEmail(env.getProperty("app.email"), signee.getEmail(), null, null);
+                    Email email = builder.createEmail(env.getProperty("app.email"), signee.getEmail(), null, emailText);
                     mailerContext.send(email);
                 }
 
