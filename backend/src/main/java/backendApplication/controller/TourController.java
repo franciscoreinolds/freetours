@@ -158,8 +158,7 @@ public class TourController {
             int maxCapacity = tour.getMaxCapacity();
 
             if (register.getSignees().size() + s.getNrPeople() < maxCapacity) {
-                // Save tour and scheduling on user
-                user.addTour(tour);
+                // Save scheduling on user
                 user.addScheduling(register);
                 userService.save(user);
 
@@ -253,8 +252,7 @@ public class TourController {
 
             }else{ // If is a tourist ...
 
-                // Remove tour and scheduling from user
-                user.removeTour(tour);
+                // Remove scheduling from user
                 user.removeScheduling(register);
                 userService.save(user);
 

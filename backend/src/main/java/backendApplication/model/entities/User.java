@@ -185,11 +185,6 @@ public class User implements UserDetails {
 
     public void removeScheduling(Scheduling scheduling) {this.schedules.remove(scheduling);}
 
-    @Override
-    public Object clone(){
-        return new User(this);
-    }
-
     // Returns next x schedule tours, from the current date
     public List<Scheduling> getNextTours(int x) {
         List<Scheduling> nextTours = schedules.stream()

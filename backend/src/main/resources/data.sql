@@ -10603,13 +10603,13 @@ VALUES (1,3),
 -- Review
 
 -- Schedulling
-INSERT INTO public.scheduling (id, date, paid, tour_id)
-VALUES (1, NOW() + INTERVAL '1 DAY', true, 1),
-       (2, NOW() + INTERVAL '1 DAY', true, 1),
-       (3, '2020-06-27 16:45:24.000000', true, 2),
-       (4, '2020-06-27 16:45:24.000000', true, 2),
-       (5, NOW() + INTERVAL '1 DAY', true, 3),
-       (6, NOW() + INTERVAL '1 DAY', true, 8);
+INSERT INTO public.scheduling (id, date, tour_id)
+VALUES (1, NOW() + INTERVAL '1 DAY', 1),
+       (2, NOW() + INTERVAL '1 DAY', 1),
+       (3, '2020-06-27 16:45:24.000000', 2),
+       (4, '2020-06-27 16:45:24.000000', 2),
+       (5, NOW() + INTERVAL '1 DAY', 3),
+       (6, NOW() + INTERVAL '1 DAY', 8);
 
 
 INSERT INTO public.tour_active (tour_id, active_id)
