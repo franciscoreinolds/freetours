@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,13 +29,26 @@ public class User implements UserDetails {
     @ManyToMany
     private Set<Language> languages;
 
-    @OneToMany
+    @ManyToMany
     private List<Scheduling> schedules;
 
-    @OneToMany
+    @ManyToMany
     private List<Tour> tours;
 
     public User() {
+    }
+
+    public User(User u){
+        this.username = u.getUsername();
+        this.password = u.getPassword();
+        this.email = u.getEmail();
+        this.phoneNumber = u.getPhoneNumber();
+        this.dateOfBirth = u.getDateOfBirth();
+        this.aboutMe = u.getAboutMe();
+        this.image = u.getImage();
+        this.languages = u.getLanguages();
+        this.schedules = u.getSchedules();
+        this.tours = u.getTours();
     }
 
     public String getUsername() {
@@ -162,11 +176,19 @@ public class User implements UserDetails {
 
     public void addScheduling(Scheduling scheduling) {this.schedules.add(scheduling);}
 
+    public void removeTour(Tour tour) {this.tours.remove(tour);}
+
+    public void removeScheduling(Scheduling scheduling) {this.schedules.remove(scheduling);}
+
+    @Override
+    public Object clone(){
+        return new User(this);
+    }
 
     // Returns next x schedule tours, from the current date
     public List<Scheduling> getNextTours(int x) {
         List<Scheduling> nextTours = schedules.stream()
-                        .filter(scheduling -> scheduling.getDate().compareTo(new Date()) > 0) // filtra os schedules que ja foram
+                        .filter(scheduling -> scheduling.getDate().isAfter(LocalDateTime.now())) // filtra os schedules que ja foram
                         .collect(Collectors.toList());
 
         if(nextTours.size() > x) {
@@ -174,5 +196,12 @@ public class User implements UserDetails {
         }else {
             return nextTours;
         }
+    }
+
+    public boolean allParametersFilled(){
+        if (this.username != null && this.password != null && this.email != null &&
+                this.phoneNumber != null && this.dateOfBirth != null && this.aboutMe != null &&
+                this.image != null && this.languages != null) return true;
+        else return false;
     }
 }

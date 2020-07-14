@@ -1,6 +1,7 @@
 package backendApplication.model.entities;
 
 import backendApplication.controller.expeptions.NotFoundException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -99,6 +100,7 @@ public class City{
         this.tours = tours;
     }
 
+    @JsonIgnore
     public Tour getRandomActiveTour() {
         for (Tour t : tours) {
             if(!t.getActive().isEmpty()){
@@ -121,5 +123,18 @@ public class City{
     @Override
     public Object clone(){
         return new City(this);
+    }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", country=" + country +
+                ", image=" + image +
+                ", tours=" + tours +
+                '}';
     }
 }
