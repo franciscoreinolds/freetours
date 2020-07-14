@@ -3,14 +3,16 @@ package backendApplication.controller;
 import backendApplication.controller.expeptions.NotFoundException;
 import backendApplication.model.SwapManager;
 import backendApplication.model.dao.*;
+import backendApplication.model.emailBuilder.Email;
+import backendApplication.model.emailBuilder.EmailDirector;
+import backendApplication.model.emailBuilder.SchedulingCancellation;
 import backendApplication.model.entities.*;
+import backendApplication.model.mailer.MailerContext;
 import backendApplication.viewmodel.RegisterScheduling;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +21,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -43,6 +41,12 @@ public class TourController {
 
     @Autowired
     SwapManager swapManager;
+
+    @Autowired
+    private MailerContext mailerContext;
+
+    @Autowired
+    private Environment env;
 
     @RequestMapping(value = "/createTour", method = RequestMethod.POST)
     public Integer createTour(@RequestBody Tour tour) {
@@ -243,8 +247,12 @@ public class TourController {
             // If is the tour guide ...
             if(username.equals(tour.getGuide().getUsername())){
 
-                // Send email to tourists
-                // ...
+                // notify signees by email
+                for(User signee : register.getSignees()){
+                    EmailDirector builder = new EmailDirector(new SchedulingCancellation());
+                    Email email = builder.createEmail(env.getProperty("app.email"), signee.getEmail(), null, null);
+                    mailerContext.send(email);
+                }
 
                 // Delete scheduling
                 tour.removeActive(register);
