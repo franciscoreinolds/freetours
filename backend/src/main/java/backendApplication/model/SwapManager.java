@@ -9,6 +9,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.concurrent.Future;
 
@@ -23,7 +25,13 @@ public class SwapManager {
 
     @Async("threadPoolTaskExecutor")
     public Future<String> addSchedule(Scheduling scheduling){
-        long finishesIn = scheduling.getDate().getTime() - new Date().getTime();
+        //long finishesIn = scheduling.getDate().getTime() - new Date().getTime();
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime schedulingMoment = scheduling.getDate();
+        Duration duration = Duration.between(now, schedulingMoment);
+        long finishesIn = Math.abs(duration.toMinutes());
+  
         System.out.println(finishesIn);
         try {
             Thread.sleep(finishesIn);
