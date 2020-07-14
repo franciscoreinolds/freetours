@@ -6,15 +6,24 @@ import backendApplication.model.dao.*;
 import backendApplication.model.entities.*;
 import backendApplication.viewmodel.RegisterScheduling;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -74,7 +83,7 @@ public class TourController {
 
             // Get tour
             Tour tour = tourService.get(Integer.parseInt(id));
-
+            System.out.println(Arrays.toString(schedulings.toArray()));
             for (Scheduling s : schedulings){
                 // Associate tour and save scheduling
                 s.setTour(tour);

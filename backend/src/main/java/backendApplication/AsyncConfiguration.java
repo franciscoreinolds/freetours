@@ -1,4 +1,5 @@
-/*package backendApplication;
+
+package backendApplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,14 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 public class AsyncConfiguration {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncConfiguration.class);
+    @Bean(name = "threadPoolTaskExecutor")
+    public Executor threadPoolTaskExecutor() {
+        final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(10);
+        return executor;
+    }
 
+    /* private static final Logger LOGGER = LoggerFactory.getLogger(AsyncConfiguration.class);
     @Bean(name = "taskExecutor")
     public Executor taskExecutor() {
         LOGGER.debug("Creating Async Task Executor");
@@ -24,5 +31,5 @@ public class AsyncConfiguration {
         executor.setThreadNamePrefix("SwapThread-");
         executor.initialize();
         return executor;
-    }
-}*/
+    }*/
+}
