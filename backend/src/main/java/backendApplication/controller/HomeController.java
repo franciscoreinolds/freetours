@@ -41,6 +41,7 @@ public class HomeController {
                     .collect(Collectors.toList());
             for(Tour t : nextTours){
                 t.setActive(new ArrayList<>());
+                t.setFinished(new ArrayList<>());
                 t.setCity( (City) t.getCity().clone());
                 t.getCity().setTours(new ArrayList<>());
             }
@@ -54,6 +55,7 @@ public class HomeController {
             if(t != null) {
                 t = (Tour) t.clone();
                 t.setActive(new ArrayList<>());
+                t.setFinished(new ArrayList<>());
                 t.setCity( (City) t.getCity().clone());
                 t.getCity().setTours(new ArrayList<>());
                 suggestedTours.add(t);

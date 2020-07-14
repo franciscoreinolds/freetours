@@ -18,7 +18,7 @@
                         <h1
                         class = "pa-5"
                         >
-                            Tour name
+                            tour.name
                         </h1>
                         <v-carousel
                         cycle
@@ -289,6 +289,7 @@
 <script>
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import TourList from './TourList.vue';
+import TourService from './../services/tour_service'
 
 export default {
     name : "Tour",
@@ -297,6 +298,7 @@ export default {
     },
     data() {
         return {
+            tour: null,
             colors: [
             'indigo',
             'warning',
@@ -445,6 +447,10 @@ export default {
                 },
             ],
         }
+    },
+    async created(){
+        const tour = await TourService.getTour(this.$route.params.id)
+        this.description = tour.description
     },
     mounted: {
     },

@@ -40,7 +40,7 @@ const routes = [
   },
   {
     name : "Tour",
-    path : "/tour",
+    path : "/tour/:id",
     component : Tour
   },
   {

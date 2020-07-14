@@ -114,6 +114,7 @@
                 <v-layout row>
                     <v-flex sm4 v-for="(tour, j) in chunk" :key="j" pl-2 pr-2>
                         <v-card
+                        @click="$router.push('/tour/' + tour.id);"
                         class = "card"
                         width = "100%"
                         >
