@@ -48,7 +48,6 @@
                     width = "100%"
                     range
                 ></v-date-picker>
-                    </v-list-item>
                 <v-list-item>
                         <v-btn
                         class = "mb-5"

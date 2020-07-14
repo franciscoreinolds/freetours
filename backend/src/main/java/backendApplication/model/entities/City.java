@@ -124,4 +124,17 @@ public class City{
     public Object clone(){
         return new City(this);
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", country=" + country +
+                ", image=" + image +
+                ", tours=" + tours +
+                '}';
+    }
 }

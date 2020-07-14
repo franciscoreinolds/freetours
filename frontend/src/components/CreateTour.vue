@@ -120,6 +120,7 @@
                                             -->
                                             <v-card
                                             height = "500px"
+                                            style = "z-index: 1"
                                             >
                                                 <div
                                                 class = "mapHolder"
@@ -299,14 +300,21 @@
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-layout justify-center>
-                                        <v-btn
-                                        large
-                                        primary
-                                        v-on:click="hours_print"
-                                        :disabled="!isFormValid"
-                                        >
-                                            Submit Tour
-                                        </v-btn>
+                                        <v-dialog v-model="dialog" max-width="600px">
+                                            <template v-slot:activator="{ on, attrs }">
+                                                <v-btn
+                                                        v-bind="attrs"
+                                                        v-on="on"
+                                                        large
+                                                        primary
+                                                        v-on:click="hours_print"
+                                                        
+                                                >
+                                                    Submit
+                                                </v-btn>
+                                            </template>
+                                            <CreateSchedule :id="id"/>
+                                        </v-dialog>
                                     </v-layout>
                                 </v-card-actions>
                             </v-form>
@@ -321,14 +329,17 @@
 <script>
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import VGeosearch from 'vue2-leaflet-geosearch';
+import CreateSchedule from './CreateSchedule'
 
 export default {
     name : "CreateTour",
     components : {
-        VGeosearch
+        VGeosearch,
+        CreateSchedule
     },
     data () {
       return {
+        id: 0,
         isFormValid : true,
         menu_date : false,
         start_time : false,
@@ -470,7 +481,9 @@ export default {
             console.log('hours and minutes', this.duration_hours, this.duration_minutes);
             console.log(this.markers);
             console.log(this.langs_array);
+            this.id = "1";
         },
+        createSchedule(){console.log("a criar")},
         loggerino(e) {
             // sets sidecard info upon clicking in the map
             this.marker_index = null;
