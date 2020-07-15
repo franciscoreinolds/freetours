@@ -52,7 +52,7 @@
                                 :cols = 4
                                 >
                                     <v-img
-                                    src="https://picsum.photos/510/300?random"
+                                    v-bind:src="this.image"
                                     aspect-ratio = 1.8
                                     max-height = "300px"
                                     max-width = "300px"
@@ -151,6 +151,8 @@
 <script>
 import TourList from './TourList.vue'
 import ProfileService from '../services/profile_service'
+
+const FRONTEND_URL = process.env.VUE_APP_FRONTEND_URL
 
 export default {
     name : "Profile",
@@ -297,10 +299,12 @@ export default {
             dateOfBirth: "",
             phoneNumber: "",
             spoken_languages: "",
-            aboutMe: ""
+            aboutMe: "",
+            image: "",
         }
     },
     created: async function () {
+        this.image = FRONTEND_URL + '/images/' + this.$route.params.username + '.png'
         let profile = await ProfileService.get(this.$route.params.username)
         this.username = profile.data.username
         this.email = profile.data.email

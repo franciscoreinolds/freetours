@@ -19,6 +19,8 @@ COPY deployment_utils/marker-24.png ./node_modules/leaflet/dist/images/marker-24
 # Env variable
 ARG VUE_APP_API_URL
 ENV VUE_APP_API_URL $VUE_APP_API_URL
+ARG VUE_APP_FRONTEND_URL
+ENV VUE_APP_FRONTEND_URL $VUE_APP_FRONTEND_URL
 
 # build app for production with minification
 RUN npm run build
