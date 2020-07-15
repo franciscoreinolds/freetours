@@ -38,7 +38,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(User u){
+    public User(User u) {
         this.username = u.getUsername();
         this.password = u.getPassword();
         this.email = u.getEmail();
@@ -172,6 +172,11 @@ public class User implements UserDetails {
                 '}' + "\n";
     }
 
+    @Override
+    public Object clone(){
+        return new User(this);
+    }
+
     public void addTour(Tour tour) {this.tours.add(tour);}
 
     public void addScheduling(Scheduling scheduling) {this.schedules.add(scheduling);}
@@ -179,11 +184,6 @@ public class User implements UserDetails {
     public void removeTour(Tour tour) {this.tours.remove(tour);}
 
     public void removeScheduling(Scheduling scheduling) {this.schedules.remove(scheduling);}
-
-    @Override
-    public Object clone(){
-        return new User(this);
-    }
 
     // Returns next x schedule tours, from the current date
     public List<Scheduling> getNextTours(int x) {

@@ -1,6 +1,8 @@
 package backendApplication.controller;
 
 import backendApplication.model.dao.UserService;
+import backendApplication.model.entities.Scheduling;
+import backendApplication.model.entities.Tour;
 import backendApplication.model.entities.User;
 import backendApplication.viewmodel.ProfileView;
 import backendApplication.viewmodel.ProfileViewAll;
@@ -11,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -35,12 +38,13 @@ public class UserController {
         try {
 
             User u = userService.get(username);
+            User user = recursionTreatment(u);
 
             String jwt_username = SecurityContextHolder.getContext().getAuthentication().getName();
 
             return jwt_username.equals(username)
-                    ? ResponseEntity.ok(new ProfileViewAll(u))
-                    : ResponseEntity.ok(new ProfileView(u));
+                    ? ResponseEntity.ok(new ProfileViewAll(user))
+                    : ResponseEntity.ok(new ProfileView(user));
 
         } catch (NoSuchElementException e){
 
@@ -110,6 +114,27 @@ public class UserController {
 
     }
 
+    private User recursionTreatment(User u) {
+        User user = (User) u.clone();
 
+        for(Scheduling scheduling : user.getSchedules()){
+            tourTreatment(scheduling.getTour());
+            scheduling.setSignees(null);
+            scheduling.setQueue(null);
+        }
+
+        for(Tour tour : user.getTours())
+            tourTreatment(tour);
+
+        return user;
+    }
+
+    private void tourTreatment(Tour tour) {
+        tour.getCity().setTours(new ArrayList<>());
+        //tour.getGuide().setSchedules(null);
+        //tour.getGuide().setTours(null);
+        tour.setActive(null);
+        tour.setFinished(null);
+    }
 
 }

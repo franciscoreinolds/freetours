@@ -3,9 +3,14 @@ package backendApplication.controller;
 import backendApplication.controller.expeptions.NotFoundException;
 import backendApplication.model.SwapManager;
 import backendApplication.model.dao.*;
+import backendApplication.model.emailBuilder.Email;
+import backendApplication.model.emailBuilder.EmailDirector;
+import backendApplication.model.emailBuilder.SchedulingCancellation;
 import backendApplication.model.entities.*;
+import backendApplication.model.mailer.MailerContext;
 import backendApplication.viewmodel.RegisterScheduling;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +23,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 
 @RestController
@@ -37,6 +43,12 @@ public class TourController {
 
     @Autowired
     SwapManager swapManager;
+
+    @Autowired
+    private MailerContext mailerContext;
+
+    @Autowired
+    private Environment env;
 
     @RequestMapping(value = "/createTour", method = RequestMethod.POST)
     public Integer createTour(@RequestBody Tour tour) {
@@ -174,8 +186,7 @@ public class TourController {
             int maxCapacity = tour.getMaxCapacity();
 
             if (register.getSignees().size() + s.getNrPeople() < maxCapacity) {
-                // Save tour and scheduling on user
-                user.addTour(tour);
+                // Save scheduling on user
                 user.addScheduling(register);
                 userService.save(user);
 
@@ -259,8 +270,13 @@ public class TourController {
             // If is the tour guide ...
             if(username.equals(tour.getGuide().getUsername())){
 
-                // Send email to tourists
-                // ...
+                // notify signees by email
+                String emailText = tour.getName() + " at " + register.getDate().toString();
+                for(User signee : register.getSignees()){
+                    EmailDirector builder = new EmailDirector(new SchedulingCancellation());
+                    Email email = builder.createEmail(env.getProperty("app.email"), signee.getEmail(), null, emailText);
+                    mailerContext.send(email);
+                }
 
                 // Delete scheduling
                 tour.removeActive(register);
@@ -269,8 +285,7 @@ public class TourController {
 
             }else{ // If is a tourist ...
 
-                // Remove tour and scheduling from user
-                user.removeTour(tour);
+                // Remove scheduling from user
                 user.removeScheduling(register);
                 userService.save(user);
 
