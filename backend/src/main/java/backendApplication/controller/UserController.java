@@ -15,7 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @RestController
 public class UserController {
@@ -119,8 +121,9 @@ public class UserController {
         User user = (User) u.clone();
 
         for(Scheduling scheduling : user.getSchedules()){
-            scheduling.setTour((Tour)scheduling.getTour().clone());
-            tourTreatment(scheduling.getTour());
+            Tour t = (Tour) scheduling.getTour().clone();
+            tourTreatment(t);
+            scheduling.setTour(t);
             scheduling.setSignees(null);
             scheduling.setQueue(null);
         }
@@ -132,12 +135,14 @@ public class UserController {
     }
 
     private void tourTreatment(Tour tour) {
-        City city = (City)tour.getCity().clone();
+        City city = (City) tour.getCity().clone();
         city.setTours(null);
         city.setCountry(null);
         tour.setCity(city);
-        //tour.getGuide().setSchedules(null);
-        //tour.getGuide().setTours(null);
+        User u = (User) tour.getGuide().clone();
+        u.setSchedules(null);
+        u.setTours(null);
+        tour.setGuideUsername(u);
         tour.setActive(null);
         tour.setFinished(null);
         tour.setLanguages(null);

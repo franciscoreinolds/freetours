@@ -26,13 +26,13 @@ public class User implements UserDetails {
     private String aboutMe;
     private String image;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private Set<Language> languages;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private Set<Scheduling> schedules;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private Set<Tour> tours;
 
     public User() {

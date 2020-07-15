@@ -32,7 +32,7 @@ public class Language {
     @NotNull
     private String country_code;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private Set<Tour> tours;
 
     public Language() {
