@@ -10,7 +10,7 @@ public interface CityRepository extends CrudRepository<City, Integer> {
 
 
     @Query("from City c order by size(c.tours) desc")
-    List<City> findTop20MostPopularCities();
+    List<City>  findMostPopularCities();
 
     City findByName(String name);
 }

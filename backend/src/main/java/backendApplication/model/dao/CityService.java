@@ -32,7 +32,7 @@ public class CityService {
 
 
     public List<City> findMostPopularCities() {
-        return repo.findTop20MostPopularCities();
+        return repo.findMostPopularCities();
     }
 
     public City getByName(String name) throws NoSuchElementException {

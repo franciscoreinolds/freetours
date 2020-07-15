@@ -13,6 +13,7 @@
                 :key="i"
                 >
                     <v-parallax
+                        
                         :src="require(`@/assets/${slide.image.image}`)"   
                     >
                         <v-row
@@ -202,7 +203,7 @@ export default {
         else console.log('Cat_Response Status not 200')
 
         var home_response = await HomeService.getHome()
-        console.log(home_response.data.mostPopularCities)
+        console.log(home_response.data.mostPopularCities[0])
         this.slides = home_response.data.mostPopularCities
         if(home_response.data.nextTours.length){
             this.tours = chunkArray(home_response.data.nextTours, 3)

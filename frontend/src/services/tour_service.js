@@ -25,6 +25,7 @@ class TourService {
                 return error.response.status;
             });
     }
+
 }
 
 export default new TourService();

@@ -5,7 +5,7 @@
         class="overflow-y-auto"
         >
             <template 
-            v-for="i in 10"
+            v-for="(tour, i) in tour_data"
             >
                 <v-list-item
                     :key="i"
@@ -27,7 +27,7 @@
                                 >
                                     <v-flex>
                                         <h1>
-                                            City Tour #{{i}}
+                                            {{tour.name}}
                                         </h1>
                                     </v-flex>
                                 </v-layout>
@@ -45,7 +45,7 @@
                                         <v-card
                                         width = 100%
                                         height = 300px
-                                        img = "https://picsum.photos/510/300?random"
+                                        :img="require(`@/assets/${tour.images[0].image}`)" 
                                         >
                                         </v-card>
                                     </v-flex>
@@ -54,13 +54,11 @@
                                     min-width = "200px"
                                     class = "text-center">
                                         <h4
-                                        v-for="tour in tour_data"
-                                        :key="tour.index"
                                         >
-                                            {{tour.text}} : {{tour.value}}
+                                            {{tour.description}}
                                         </h4>
                                         <router-link
-                                        :to = "{path : '/tour'}"
+                                        :to="{path : '/tour/' + tour.id}"
                                         class = "router-link"
                                         >
                                             <v-btn
@@ -68,7 +66,7 @@
                                             primary
                                             class = "mb-12"
                                             >
-                                                More info
+                                                More info {{tour.id}}
                                             </v-btn>
                                         </router-link>
                                     </v-flex>
@@ -85,9 +83,10 @@
 <script>
 export default {
     name : "TourList",
-    props : [
-        'tour_data'
-    ]
+    props : {
+        tour_data: Array,
+        routeId: String
+    }
 }
 </script>
 

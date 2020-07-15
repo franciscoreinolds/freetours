@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-content>
+        <v-main>
             <v-container
                 class="fill-height"
                 fluid
@@ -18,7 +18,7 @@
                         <h1
                         class = "pa-5"
                         >
-                            tour.name
+                            {{tour.name}}
                         </h1>
                         <v-carousel
                         cycle
@@ -27,21 +27,10 @@
                         class = "carousel"
                         >
                             <v-carousel-item
-                            v-for="(slide, i) in slides"
-                            :key="i"
+                            v-for="(slide, i) in tour.images"
+                            :key="i"  
+                            :src="require(`@/assets/${slide.image}`)" 
                             >
-                                <v-sheet
-                                    :color="colors[i]"
-                                    height="100%"
-                                >
-                                    <v-row
-                                    class="fill-height"
-                                    align="center"
-                                    justify="center"
-                                    >
-                                    <div class="display-3">{{ slide }} Slide</div>
-                                    </v-row>
-                                </v-sheet>
                             </v-carousel-item>
                         </v-carousel>
                         <v-row>
@@ -50,23 +39,20 @@
                             >
                                 <v-card-text>
                                     <h2>
-                                        Location: Berlin, Germany
+                                        Location: {{tour.city.name}}
                                     </h2>
                                     <h2>
-                                        Starting Time: 09:30 05/05/2020
-                                    </h2>
-                                    <h2>
-                                        Duration: 03h30m
+                                        Duration: {{tour.duration}}
                                     </h2>
                                     <h2>
                                         Capacity: 50 people
                                     </h2>
                                     <h2>
-                                        Languages: FR EN
+                                        Languages: {{tour.languages.map( l => l.abbreviation).join()}}
                                     </h2>
                                     <h2>
                                         Description:
-                                        Lorem Ipsum ist ein einfacher Demo-Text für die Print- und Schriftindustrie. Lorem Ipsum ist in der Industrie bereits der Standard Demo-Text seit 1500, als ein unbekannter Schriftsteller eine Hand voll Wörter nahm und diese durcheinander warf um ein Musterbuch zu erstellen. Es hat nicht nur 5 Jahrhunderte überlebt, sondern auch in Spruch in die elektronische Schriftbearbeitung geschafft (bemerke, nahezu unverändert). Bekannt wurde es 1960, mit dem erscheinen von "Letraset", welches Passagen von Lorem Ipsum enhielt, so wie Desktop Software wie "Aldus PageMaker" - ebenfalls mit Lorem Ipsum. 
+                                        {{tour.description}}                                    
                                     </h2>
                                     <h2>
                                         Route:
@@ -81,7 +67,7 @@
                                     class="overflow-y-auto"
                                 >
                                     <v-list-item
-                                    v-for="(schedulling, index) in schedullings"
+                                    v-for="(schedulling, index) in tour.active"
                                     :key="index"
                                     class = "pb-1 ps-1 pe-1 pt-0"
                                     >
@@ -94,13 +80,13 @@
                                             >
                                                 <v-card-text>
                                                     <h3>
-                                                        Date: {{schedulling.date}}
+                                                        Date: {{schedulling.date.slice(0,10)}}
                                                     </h3>
                                                     <h4>
-                                                        Starting Time: {{schedulling.startingHours}}h{{schedulling.startingMinutes}}
+                                                        Starting Time: {{schedulling.date.slice(11  ,16)}}
                                                     </h4>
                                                     <h4>
-                                                        Number of people going: {{schedulling.currentAtendees}}
+                                                        Number of people going: {{schedulling.signees.length}}
                                                     </h4>
                                                 </v-card-text>
                                             </v-card>
@@ -126,8 +112,8 @@
                                     >
                                         <l-map
                                             ref="myMap"
-                                            :zoom="zoom"
-                                            :center="center"
+                                            :zoom="15"
+                                            :center="[tour.route[0].latitude, tour.route[0].longitude]"
                                             :options="{
                                                 doubleClickZoom:false,
                                                 zoomControl : false
@@ -142,12 +128,12 @@
                                             </v-geosearch>
                                             -->
                                             <l-marker
-                                                v-for="(marker,index) in markers"
+                                                v-for="(place,index) in tour.route"
                                                 :key="index"
-                                                :lat-lng="[marker.position.lattitude, marker.position.longitude]"
+                                                :lat-lng="[place.latitude, place.longitude]"
                                             >
                                                 <l-icon
-                                                :icon-size="marker.icon_size"
+                                                :icon-size="[37,37] "
                                                 :icon-anchor="[16, 37]"
                                                 :iconUrl="require('leaflet/dist/images/marker-icon.png')"
                                                 >
@@ -165,7 +151,7 @@
                                 class="overflow-y-auto"
                                 >
                                     <v-list-item
-                                    v-for="(marker, index) in markers"
+                                    v-for="(place, index) in tour.route"
                                     :key="index"
                                     class = "pb-1 ps-1 pe-1 pt-0"
                                     >
@@ -175,19 +161,14 @@
                                             <v-card
                                             color="#fafafa"
                                             width = "100%"
-                                            @mouseover="mouseOverMarker(index)"
-                                            @mouseleave="mouseLeavesMarker(index)"
                                             >
                                                 <v-card-text>
                                                     <h3>
                                                         Stop #{{index + 1}}
                                                     </h3>
                                                     <h4>
-                                                        Marker Name: {{marker.name}}
-                                                    </h4>
-                                                    <h4>
-                                                        Marker Description: {{marker.description}}
-                                                    </h4>
+                                                        Marker Name: {{place.name}}
+                                                    </h4>   
                                                 </v-card-text>
                                             </v-card>
                                         </v-list-item-content>
@@ -228,14 +209,43 @@
                                     class="overflow-y-auto"
                                     >
                                         <v-list-item
-                                        v-for="(comment, index) in comments"
+                                        v-for="(review, index) in tour.reviews"
                                         :key="index"
                                         >
                                             <v-list-item-content>
                                                 <v-card
-                                                height = "100px"
-                                                >
-                                                    Comment
+                                                outlined
+                                                elevation
+                                                color = "#fafafa"
+                                                class="tour_card mb-5 elevation-12"
+                                                >   
+                                                    <v-card
+                                                    >
+                                                        <v-card-title>
+                                                        <span class="title font-weight-light">Comment</span>
+                                                        </v-card-title>
+
+                                                        <v-card-text class="headline font-weight-bold">
+                                                            {{review.comment}}
+                                                        </v-card-text>
+
+                                                        <v-card-actions>
+                                                        <v-list-item class="grow">
+                                                            <v-list-item-avatar color="grey darken-3">
+                                                            <v-img
+                                                                class="elevation-6"
+                                                                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                                                            ></v-img>
+                                                            </v-list-item-avatar>
+
+                                                            <v-list-item-content>
+                                                            <v-list-item-title v-on:click="$router.push('/profile/' + review.user.username)">{{review.user.username}}</v-list-item-title>
+                                                            </v-list-item-content>
+
+                                    
+                                                        </v-list-item>
+                                                        </v-card-actions>
+                                                    </v-card>                 
                                                 </v-card>
                                             </v-list-item-content>
                                         </v-list-item>
@@ -260,29 +270,16 @@
                                     elevation
                                     class="elevation-12"
                                     >   
-                                        <TourList :tour_data="tours"/>                    
+                                        <TourList :tour_data="moreTours" />                    
                                     </v-card>
                                 </v-flex>
                             </v-layout>
                         </v-card-text>
                         <br>
-                        <!--
-                        <v-card-actions>
-                            <v-layout justify-center>
-                                <v-btn
-                                large
-                                primary
-                                >
-                                    More Tours by:
-                                </v-btn>
-                            </v-layout>
-                        </v-card-actions>
-                        <br>
-                        -->
                     </v-card>
                 </v-row>
             </v-container>
-        </v-content>
+        </v-main>
     </div>
 </template>
 
@@ -299,102 +296,8 @@ export default {
     data() {
         return {
             tour: null,
-            colors: [
-            'indigo',
-            'warning',
-            'pink darken-2',
-            'red lighten-1',
-            'deep-purple accent-4',
-            ],
-            slides : [
-            'First',
-            'Second',
-            'Third',
-            'Fourth',
-            'Fifth',
-            ],
-            schedullings : [
-                {
-                    'date' : '30/07/2020',
-                    'startingHours' : '09',
-                    'startingMinutes' : '30',
-                    'currentAtendees' : '30'
-                },
-                {
-                    'date' : '31/07/2020',
-                    'startingHours' : '09',
-                    'startingMinutes' : '30',
-                    'currentAtendees' : '30'
-                },
-                {
-                    'date' : '01/08/2020',
-                    'startingHours' : '09',
-                    'startingMinutes' : '30',
-                    'currentAtendees' : '30'
-                },
-                {
-                    'date' : '02/08/2020',
-                    'startingHours' : '09',
-                    'startingMinutes' : '30',
-                    'currentAtendees' : '30'
-                },
-                {
-                    'date' : '03/08/2020',
-                    'startingHours' : '09',
-                    'startingMinutes' : '30',
-                    'currentAtendees' : '30'
-                },
-            ],
-            markers : [
-                {
-                    name : "Aeroporto Lisboa",
-                    description : "Aeroporto Desc",
-                    position : {
-                        lattitude : 38.77008,
-                        longitude: -9.12612
-                    },
-                    icon_size : [37,37]
-                },
-                {
-                    name : "Areeiro",
-                    description : "Areeiro Desc",
-                    position : {
-                        lattitude : 38.7424,
-                        longitude: -9.1336
-                    },
-                    icon_size : [37,37]
-                },
-                {
-                    name : "Alameda",
-                    description : "Alameda Desc",
-                    position : {
-                        lattitude : 38.7373,
-                        longitude: -9.1337
-                    },
-                    icon_size : [37,37]
-                },
-                {
-                    name : "Saldanha",
-                    description : "Saldanha Desc",
-                    position : {
-                        lattitude : 38.7352,
-                        longitude: -9.1440
-                    },
-                    icon_size : [37,37]
-                },
-                {
-                    name : "Campo Pequeno",
-                    description : "Campo Pequeno Desc",
-                    position : {
-                        lattitude : 38.7411,
-                        longitude: -9.1470
-                    },
-                    icon_size : [37,37]
-                },
-            ],
+            moreTours: null,
             url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            zoom: 7,
-            center: [38.7411, -9.1470],
             bounds: null,
             geosearchOptions: { // Important part Here
                 provider: new OpenStreetMapProvider(),
@@ -403,64 +306,27 @@ export default {
                 autoCompleteDelay : 250,
                 maxMarkers : 0,
                 autoClose : true
-            },
-            comments : [
-                {
-                    comment : "asdasdas"
-                },
-                {
-                    comment : "asdasdas"
-                },
-                {
-                    comment : "asdasdas"
-                },
-                {
-                    comment : "asdasdas"
-                },
-                {
-                    comment : "asdasdas"
-                },
-                {
-                    comment : "asdasdas"
-                },
-            ],
-            tours : [
-                {
-                    text : "Language",
-                    value : "English"
-                },
-                {
-                    text : "Location",
-                    value : "Berlin, Germany"
-                },
-                {
-                    text : "Time and Date",
-                    value : "09:00 05/05/2020"
-                },
-                {
-                    text : "Rating",
-                    value : 4.5
-                },
-                {
-                    text : "Capacity",
-                    value : 50
-                },
-            ],
+            }
+        }
+    },
+    methods: {
+        async doStuff() {
+        const resp = await TourService.getTour(this.$route.params.id)
+        this.tour = resp.data.tour
+        this.moreTours = resp.data.moreToursBy
+        console.log(resp.data.moreToursBy)
+        console.log(this.$route.params.id)
+         
+        }
+    },
+    watch: {
+        '$route.params.id': async function (id) {
+            await this.doStuff()
         }
     },
     async created(){
-        const tour = await TourService.getTour(this.$route.params.id)
-        this.description = tour.description
-    },
-    mounted: {
-    },
-    methods: {
-        mouseOverMarker(index) {
-            this.markers[index].icon_size = [50,50];
-        },
-        mouseLeavesMarker(index) {
-            this.markers[index].icon_size = [37,37];
-        }
+        await this.doStuff()
+        
     }
 }
 </script>

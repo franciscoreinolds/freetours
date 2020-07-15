@@ -40,10 +40,11 @@ public class HomeController {
             nextTours = u.getNextTours(9).stream().map(s -> (Tour) s.getTour().clone())
                     .collect(Collectors.toList());
             for(Tour t : nextTours){
-                t.setActive(new ArrayList<>());
-                t.setFinished(new ArrayList<>());
+                t.setActive(null);
+                t.setFinished(null);
                 t.setCity( (City) t.getCity().clone());
-                t.getCity().setTours(new ArrayList<>());
+                t.setGuideUsername(null);
+                t.getCity().setTours(null);
             }
         }
 
@@ -54,11 +55,12 @@ public class HomeController {
             Tour t = c.getRandomActiveTour();
             if(t != null) {
                 t = (Tour) t.clone();
-                t.setFinished(new ArrayList<>());
-                t.setActive(new ArrayList<>());
-                t.setFinished(new ArrayList<>());
+                t.setFinished(null);
+                t.setActive(null);
+                t.setGuideUsername(null);
+                t.setFinished(null);
                 t.setCity( (City) t.getCity().clone());
-                t.getCity().setTours(new ArrayList<>());
+                t.getCity().setTours(null);
                 suggestedTours.add(t);
             }
             if(suggestedTours.size() >= 9)
@@ -66,7 +68,8 @@ public class HomeController {
         }
 
         for(City c: mostPopularCities.subList(0,6)) {
-            c.setTours(new ArrayList<>());
+            System.out.println(c.getName());
+            c.setTours(null);
             c.clone();
         }
 
