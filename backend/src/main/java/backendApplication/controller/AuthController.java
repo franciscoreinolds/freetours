@@ -16,16 +16,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -56,16 +67,40 @@ public class AuthController {
     private Environment env;
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
-    public ResponseEntity<HttpStatus> registerUser(@RequestBody User user) {
+    public ResponseEntity<HttpStatus> registerUser(@RequestPart User user, @RequestPart MultipartFile profileImage) {
 
         try {
+
             userService.get(user.getUsername());
 
             return new ResponseEntity<HttpStatus> (HttpStatus.CONFLICT);
+
         } catch ( NoSuchElementException e) {
+
             try {
+
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 userService.save(user);
+
+                if(!profileImage.isEmpty()) {
+
+                    File dir = new File(Objects.requireNonNull(env.getProperty("app.shared.images")));
+                    if (!dir.exists())
+                        dir.mkdir();
+
+                    String fileName = StringUtils.cleanPath(user.getUsername() + ".png");
+                    Path path = Paths.get(env.getProperty("app.shared.images") + fileName);
+                    try {
+                        Files.copy(profileImage.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    user.setImage(fileName);
+                    userService.save(user);
+
+                }
+
             }catch (Exception ex) {
                 // logger ex.printStackTrace();
                 return new ResponseEntity<> (HttpStatus.NOT_ACCEPTABLE);
