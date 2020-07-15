@@ -72,7 +72,6 @@ public class HomeController {
         }
 
         for(City c: mostPopularCities.subList(0,6)) {
-            System.out.println(c.getName());
             c.setTours(null);
             c.clone();
         }

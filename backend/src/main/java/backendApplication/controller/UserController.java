@@ -1,6 +1,7 @@
 package backendApplication.controller;
 
 import backendApplication.model.dao.UserService;
+import backendApplication.model.entities.City;
 import backendApplication.model.entities.Scheduling;
 import backendApplication.model.entities.Tour;
 import backendApplication.model.entities.User;
@@ -14,7 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 @RestController
 public class UserController {
@@ -118,7 +121,9 @@ public class UserController {
         User user = (User) u.clone();
 
         for(Scheduling scheduling : user.getSchedules()){
-            tourTreatment(scheduling.getTour());
+            Tour t = (Tour) scheduling.getTour().clone();
+            tourTreatment(t);
+            scheduling.setTour(t);
             scheduling.setSignees(null);
             scheduling.setQueue(null);
         }
@@ -130,11 +135,20 @@ public class UserController {
     }
 
     private void tourTreatment(Tour tour) {
-        tour.getCity().setTours(new ArrayList<>());
-        tour.getGuide().setSchedules(null);
-        tour.getGuide().setTours(null);
+        City city = (City) tour.getCity().clone();
+        city.setTours(null);
+        city.setCountry(null);
+        tour.setCity(city);
+        User u = (User) tour.getGuide().clone();
+        u.setSchedules(null);
+        u.setTours(null);
+        tour.setGuideUsername(u);
         tour.setActive(null);
         tour.setFinished(null);
+        tour.setLanguages(null);
+        tour.setImages(null);
+        tour.setRoute(null);
+        tour.setReviews(null);
     }
 
 }

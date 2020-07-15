@@ -175,7 +175,6 @@ public class TourController {
             if(username.equals(tour.getGuide().getUsername()))
                 return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
-
             // Check capacity
             int maxCapacity = tour.getMaxCapacity();
 

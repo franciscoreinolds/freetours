@@ -28,7 +28,7 @@
                                     <v-text-field
                                         outlined
                                         label="Tour Name"
-                                        v-model="tour_name"
+                                        v-model="tour.name"
                                         :rules="[rules.required]" 
                                         required
                                         name="tourname"
@@ -40,7 +40,7 @@
                                         :cols = 6
                                         >
                                             <v-autocomplete
-                                            v-model = "location"
+                                            v-model = "tour.location"
                                             :items = "all_locations"
                                             label = "Location"
                                             :rules = "[rules.required]"
@@ -63,7 +63,7 @@
                                            <v-select
                                                 :items="dropdown_hours"
                                                 label="Hours"
-                                                v-model="duration_hours"
+                                                v-model="tour.duration_hours"
                                             >
                                             </v-select>
                                         </v-col>
@@ -73,7 +73,7 @@
                                             <v-select
                                                 :items="dropdown_minutes"
                                                 label="Minutes"
-                                                v-model="duration_minutes"
+                                                v-model="tour.duration_minutes"
                                             >
                                             </v-select>
                                         </v-col>
@@ -102,7 +102,7 @@
                                     label="Tour Description"
                                     :rules="[rules.required]"
                                     required
-                                    v-model="description"
+                                    v-model="tour.description"
                                     ></v-textarea>
                                     <v-alert
                                     v-if="success_alert"
@@ -300,14 +300,14 @@
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-layout justify-center>
-                                        <v-dialog v-model="dialog" max-width="600px">
+                                        <v-dialog  max-width="600px">
                                             <template v-slot:activator="{ on, attrs }">
                                                 <v-btn
                                                         v-bind="attrs"
                                                         v-on="on"
                                                         large
                                                         primary
-                                                        v-on:click="hours_print"
+                                                        v-on:click="submitTour()"
                                                         
                                                 >
                                                     Submit
@@ -329,7 +329,9 @@
 <script>
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import VGeosearch from 'vue2-leaflet-geosearch';
-import CreateSchedule from './CreateSchedule'
+import CreateSchedule from './CreateSchedule';
+import TourService from '../services/tour_service';
+import Tour from '../models/tour';
 
 export default {
     name : "CreateTour",
@@ -340,18 +342,11 @@ export default {
     data () {
       return {
         id: 0,
+        tour: new Tour('', '', '', '', ''),
         isFormValid : true,
         menu_date : false,
-        start_time : false,
-        end_time : false,
         date: new Date().toISOString().substr(0, 10),
-        time: null,
-        tour_name : '',
-        location : '',
-        description : '',
         langs_array : [],
-        duration_hours : "0",
-        duration_minutes : "0",
         rules : { 
             required: value => !!value || 'Required field.',
         },
@@ -383,7 +378,7 @@ export default {
                 text : '4'
             },
             {
-            text :'5'
+                text : '5'
             },
             {
                 text : '6'
@@ -404,7 +399,7 @@ export default {
                 text : '11'
             },
             {
-                text :'12'
+                text : '12'
             },
         ],
         dropdown_minutes : [
@@ -476,12 +471,20 @@ export default {
       }
     },
     methods: {
-        hours_print(e){
-            console.log(this.tour_name, this.description, this.location);
-            console.log('hours and minutes', this.duration_hours, this.duration_minutes);
-            console.log(this.markers);
-            console.log(this.langs_array);
-            this.id = "1";
+        submitTour: async function () {
+            this.response = await TourService.createTour(this.tour)
+            console.log(this.response)
+            switch (this.response.data) {
+                case -1:
+                    this.message = "*Invalid";
+                    break;
+                case -2:
+                    this.message = "Not a guide";
+                    break;
+                default:
+                    this.id = this.response.data;
+                    console.log('Tour: ', this.id);
+            }
         },
         createSchedule(){console.log("a criar")},
         loggerino(e) {

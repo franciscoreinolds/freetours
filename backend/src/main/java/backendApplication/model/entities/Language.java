@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity(name = "Language")
 public class Language {
@@ -35,6 +36,15 @@ public class Language {
     private Set<Tour> tours;
 
     public Language() {
+    }
+
+    public Language(Language language) {
+        this.id = language.getId();
+        this.name = language.getName();
+        this.logo = language.getLogo();
+        this.abbreviation = language.getAbbreviation();
+        this.country_code = language.getCountry_code();
+        this.tours = language.getTours().stream().map(t -> (Tour) t.clone()).collect(Collectors.toSet());
     }
 
     public int getId() {
@@ -85,4 +95,8 @@ public class Language {
         this.tours = tours;
     }
 
+    @Override
+    public Object clone(){
+        return new Language(this);
+    }
 }

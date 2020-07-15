@@ -4,10 +4,9 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity(name = "Tour")
 public class Tour implements Serializable {
@@ -21,7 +20,7 @@ public class Tour implements Serializable {
     @NotNull
     private String description;
     @NotNull
-    private Time duration;
+    private LocalTime duration;
     @NotNull
     private int maxCapacity;
     @NotNull
@@ -41,7 +40,7 @@ public class Tour implements Serializable {
 
     @OneToMany
     @NotNull
-    private List<Place> route;
+    private Set<Place> route;
 
     @OneToOne
     @NotNull
@@ -52,13 +51,13 @@ public class Tour implements Serializable {
     private Set<Language> languages;
 
     @OneToMany
-    private List<Review> reviews;
+    private Set<Review> reviews;
 
     @OneToMany
-    private List<Scheduling> finished;
+    private Set<Scheduling> finished;
 
     @OneToMany
-    private List<Scheduling> active;
+    private Set<Scheduling> active;
 
     public Tour() {
     }
@@ -106,11 +105,11 @@ public class Tour implements Serializable {
         this.description = description;
     }
 
-    public Time getDuration() {
+    public LocalTime getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(LocalTime duration) {
         this.duration = duration;
     }
 
@@ -147,11 +146,11 @@ public class Tour implements Serializable {
     }
 
 
-    public List<Place> getRoute() {
+    public Set<Place> getRoute() {
         return route;
     }
 
-    public void setRoute(List<Place> route) {
+    public void setRoute(Set<Place> route) {
         this.route = route;
     }
 
@@ -171,27 +170,27 @@ public class Tour implements Serializable {
         this.languages = languages;
     }
 
-    public List<Review> getReviews() {
+    public Set<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
     }
 
-    public List<Scheduling> getFinished() {
+    public Set<Scheduling> getFinished() {
         return finished;
     }
 
-    public void setFinished(List<Scheduling> finished) {
+    public void setFinished(Set<Scheduling> finished) {
         this.finished = finished;
     }
 
-    public List<Scheduling> getActive() {
+    public Set<Scheduling> getActive() {
         return active;
     }
 
-    public void setActive(List<Scheduling> active) {
+    public void setActive(Set<Scheduling> active) {
         this.active = active;
     }
 

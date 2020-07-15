@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public class User implements UserDetails {
     private String email;
     @Column(unique=true)
     private String phoneNumber;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String aboutMe;
     private String image;
 
@@ -30,10 +31,10 @@ public class User implements UserDetails {
     private Set<Language> languages;
 
     @ManyToMany
-    private List<Scheduling> schedules;
+    private Set<Scheduling> schedules;
 
     @ManyToMany
-    private List<Tour> tours;
+    private Set<Tour> tours;
 
     public User() {
     }
@@ -46,9 +47,9 @@ public class User implements UserDetails {
         this.dateOfBirth = u.getDateOfBirth();
         this.aboutMe = u.getAboutMe();
         this.image = u.getImage();
-        this.languages = u.getLanguages();
-        this.schedules = u.getSchedules();
-        this.tours = u.getTours();
+        this.languages = u.getLanguages().stream().map(l -> (Language) l.clone()).collect(Collectors.toSet());
+        this.schedules = u.getSchedules().stream().map(s -> (Scheduling) s.clone()).collect(Collectors.toSet());
+        this.tours = u.getTours().stream().map(t -> (Tour) t.clone()).collect(Collectors.toSet());
     }
 
     public String getUsername() {
@@ -108,11 +109,11 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -140,19 +141,19 @@ public class User implements UserDetails {
         this.languages = languages;
     }
 
-    public List<Scheduling> getSchedules() {
+    public Set<Scheduling> getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(List<Scheduling> schedules) {
+    public void setSchedules(Set<Scheduling> schedules) {
         this.schedules = schedules;
     }
 
-    public List<Tour> getTours() {
+    public Set<Tour> getTours() {
         return tours;
     }
 
-    public void setTours(List<Tour> tours) {
+    public void setTours(Set<Tour> tours) {
         this.tours = tours;
     }
 
