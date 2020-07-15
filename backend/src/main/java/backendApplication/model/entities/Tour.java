@@ -4,10 +4,9 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity(name = "Tour")
 public class Tour implements Serializable {
@@ -21,7 +20,7 @@ public class Tour implements Serializable {
     @NotNull
     private String description;
     @NotNull
-    private Time duration;
+    private LocalTime duration;
     @NotNull
     private int maxCapacity;
     @NotNull
@@ -106,11 +105,11 @@ public class Tour implements Serializable {
         this.description = description;
     }
 
-    public Time getDuration() {
+    public LocalTime getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(LocalTime duration) {
         this.duration = duration;
     }
 

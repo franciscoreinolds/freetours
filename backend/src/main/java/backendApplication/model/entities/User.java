@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public class User implements UserDetails {
     private String email;
     @Column(unique=true)
     private String phoneNumber;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String aboutMe;
     private String image;
 
@@ -108,11 +109,11 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

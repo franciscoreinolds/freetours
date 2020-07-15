@@ -4,13 +4,14 @@ import backendApplication.model.entities.Language;
 import backendApplication.model.entities.Tour;
 import backendApplication.model.entities.User;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 public class ProfileView {
     private String username;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String aboutMe;
     private String image;
     private Set<Language> languages;
@@ -33,11 +34,11 @@ public class ProfileView {
         this.username = username;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

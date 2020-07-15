@@ -1,6 +1,5 @@
 package backendApplication.model.entities;
 
-import backendApplication.controller.expeptions.NotFoundException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 

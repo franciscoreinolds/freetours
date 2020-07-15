@@ -46,7 +46,7 @@ import ScheduleService from './../services/schedule_service'
 export default {
     name: "CreateSchedule",
     props: {
-        id: String
+        id: Number // String
     },
     data () {
       return {
