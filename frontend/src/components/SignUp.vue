@@ -80,8 +80,6 @@
                                             label="Country Code"
                                             outlined
                                             height = 50px
-                                            :rules="[(v) => !!v || 'You must select a country code.']"
-                                            required
                                         ></v-select>
                                     </v-col>
                                     <v-col
@@ -93,8 +91,6 @@
                                             label="Phone Number"
                                             name="phone_number"
                                             type="text"
-                                            :rules = "[rules.required]"
-                                            required
                                         />
                                     </v-col>
                                 </v-row>
@@ -107,6 +103,8 @@
                                         small-chips
                                         accept = ".png"
                                         label="Profile Photo"
+                                        prepend-icon="mdi-camera"
+                                        v-model="profile_image"
                                         >
                                         </v-file-input>
                                     </v-col>
@@ -149,8 +147,6 @@
                                     outlined
                                     multiple
                                     height = 50px
-                                    :rules="[(l) => !!l && l.length > 0|| 'You must select at least 1 language.']"
-                                    required
                                 ></v-select>
                                 <v-textarea
                                     v-model = "user.description"
@@ -201,6 +197,7 @@ export default {
         country_codes : [],
         sel_country_code : "",
         menu_date : false,
+        profile_image : null,
         user : {
             username : '',
             email : '',
@@ -239,7 +236,7 @@ export default {
                 })
                 this.user.languages.push(language);
             }
-            this.status = await AuthService.register(this.user);
+            this.status = await AuthService.register(this.user, this.profile_image);
             switch(this.status) {
                 case 201:
                     this.success = true;

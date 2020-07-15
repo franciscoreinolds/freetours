@@ -31,16 +31,31 @@ class AuthService {
         store.commit('setUsername','');
     }
 
-    register(user) {
+    register(user, profile_image) {
+
+        const userObj = {
+            username: user.username,
+            email: user.email,
+            password: user.password,
+            phoneNumber : user.country_code + user.phone_nr,
+            dateOfBirth : user.dob,
+            languages : user.languages,
+            aboutMe : user.description
+        };
+        const userJson = JSON.stringify(userObj);
+        const blob = new Blob([userJson], {
+            type: 'application/json'
+        });
+
+        let formData = new FormData();
+        formData.append("user", blob);
+        formData.append('profileImage', profile_image);
+
         return axios
-            .post(API_URL + '/sign_up', {
-                username: user.username,
-                email: user.email,
-                password: user.password,
-                phoneNumber : user.country_code + user.phone_nr,
-                dateOfBirth : user.dob,
-                languages : user.languages,
-                aboutMe : user.description
+            .post(API_URL + '/sign_up', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
             .then(response => {
                 if (response.data) {

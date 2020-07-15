@@ -69,7 +69,7 @@ public class AuthController {
     @Autowired
     private Environment env;
 
-    @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
+    @RequestMapping(value = "/sign_up", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<HttpStatus> registerUser(@RequestPart User user, @RequestPart MultipartFile profileImage) {
 
         try {
