@@ -74,22 +74,31 @@
                                         <v-list-item-content
                                         class = "pa-0"
                                         >
-                                            <v-card
-                                            color="#fafafa"
-                                            width = "100%"
-                                            >
-                                                <v-card-text>
-                                                    <h3>
-                                                        Date: {{schedulling.date.slice(0,10)}}
-                                                    </h3>
-                                                    <h4>
-                                                        Starting Time: {{schedulling.date.slice(11  ,16)}}
-                                                    </h4>
-                                                    <h4>
-                                                        Number of people going: {{schedulling.signees.length}}
-                                                    </h4>
-                                                </v-card-text>
-                                            </v-card>
+                                            <v-layout justify-center>
+                                                <v-dialog v-model="dialog" max-width="600px">
+                                                    <template v-slot:activator="{ on, attrs }">
+                                                        <v-card
+                                                        color="#fafafa"
+                                                        width = "100%"
+                                                        v-bind="attrs"
+                                                        v-on="on"
+                                                        >
+                                                            <v-card-text>
+                                                                <h3>
+                                                                    Date: {{schedulling.date.slice(0,10)}}
+                                                                </h3>
+                                                                <h4>
+                                                                    Starting Time: {{schedulling.date.slice(11  ,16)}}
+                                                                </h4>
+                                                                <h4>
+                                                                    Number of people going: {{schedulling.signees.length}}
+                                                                </h4>
+                                                            </v-card-text>
+                                                        </v-card>
+                                                    </template>
+                                                    <TourSignIn :id="schedulling.id"/>
+                                                </v-dialog>
+                                            </v-layout>
                                         </v-list-item-content>
                                    </v-list-item>
                                 </v-list>
@@ -112,6 +121,7 @@
                                     >
                                         <l-map
                                             ref="myMap"
+                                            style="z-index: 1;"
                                             :zoom="15"
                                             :center="[tour.route[0].latitude, tour.route[0].longitude]"
                                             :options="{
@@ -287,11 +297,13 @@
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import TourList from './TourList.vue';
 import TourService from './../services/tour_service'
+import TourSignIn from './TourSignIn'
 
 export default {
     name : "Tour",
     components : {
-        TourList
+        TourList,
+        TourSignIn
     },
     data() {
         return {

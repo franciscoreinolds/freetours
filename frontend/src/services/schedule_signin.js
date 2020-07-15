@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const API_URL = process.env.VUE_APP_API_URL
 
-class ScheduleService {
-    createSchedules(id, dates) {
+class ScheduleSignInService {
+    scheduleSignIn(id, nrPeople){
         const auth = localStorage.getItem('user')
         let config = {};
 
@@ -14,15 +14,12 @@ class ScheduleService {
                 }
             }
             
-            const data = []
-            for(const date of dates){
-                if(date != '')
-                    data.push({'date': date})
-            }
+            const data = {'scheduleId': id, 'nrPeople': nrPeople}
+            
             
             console.log(data)
             return axios
-            .post(API_URL + '/createScheduling/' + id, data, config)
+            .post(API_URL + '/schedule_signin/', data, config)
             .then(response => {
                 return response;
             })
@@ -30,10 +27,8 @@ class ScheduleService {
                 return error.response.status;
             });
         }
-
-        
     }
     
 }
 
-export default new ScheduleService();
+export default new ScheduleSignInService();

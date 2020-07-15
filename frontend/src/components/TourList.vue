@@ -66,7 +66,7 @@
                                             primary
                                             class = "mb-12"
                                             >
-                                                More info {{tour.id}}
+                                                More info
                                             </v-btn>
                                         </router-link>
                                     </v-flex>

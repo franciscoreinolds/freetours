@@ -131,8 +131,8 @@ public class UserController {
 
     private void tourTreatment(Tour tour) {
         tour.getCity().setTours(new ArrayList<>());
-        //tour.getGuide().setSchedules(null);
-        //tour.getGuide().setTours(null);
+        tour.getGuide().setSchedules(null);
+        tour.getGuide().setTours(null);
         tour.setActive(null);
         tour.setFinished(null);
     }

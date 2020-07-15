@@ -37,15 +37,18 @@ public class HomeController {
             String username = auth.getName();
             User u = userService.get(username);
 
-            nextTours = u.getNextTours(9).stream().map(s -> (Tour) s.getTour().clone())
+            nextTours = u.getNextTours(9)
+                    .stream().map(s -> { Tour t = (Tour) s.getTour().clone();
+                        t.setActive(null);
+                        t.setFinished(null);
+                        t.setReviews(null);
+                        t.setGuideUsername(null);
+                        t.setCity( (City) t.getCity().clone());
+                        t.getCity().setTours(null);
+                        return t;
+                    })
                     .collect(Collectors.toList());
-            for(Tour t : nextTours){
-                t.setActive(null);
-                t.setFinished(null);
-                t.setCity( (City) t.getCity().clone());
-                t.setGuideUsername(null);
-                t.getCity().setTours(null);
-            }
+
         }
 
         List<City> mostPopularCities = cityService.findMostPopularCities();
@@ -56,9 +59,10 @@ public class HomeController {
             if(t != null) {
                 t = (Tour) t.clone();
                 t.setFinished(null);
-                t.setActive(null);
                 t.setGuideUsername(null);
+                t.setActive(null);
                 t.setFinished(null);
+                t.setReviews(null);
                 t.setCity( (City) t.getCity().clone());
                 t.getCity().setTours(null);
                 suggestedTours.add(t);

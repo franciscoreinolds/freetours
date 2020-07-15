@@ -13,7 +13,7 @@
                 :key="i"
                 >
                     <v-parallax
-                        
+                            
                         :src="require(`@/assets/${slide.image.image}`)"   
                     >
                         <v-row

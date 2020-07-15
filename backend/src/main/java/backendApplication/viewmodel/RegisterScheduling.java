@@ -7,15 +7,15 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class RegisterScheduling {
-    private LocalDateTime date;
+    private int scheduleId;
     private int nrPeople;
 
-    public LocalDateTime getDate() {
-        return date;
+    public int getScheduleId() {
+        return scheduleId;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     public int getNrPeople() {
