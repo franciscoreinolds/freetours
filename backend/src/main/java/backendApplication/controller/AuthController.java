@@ -35,8 +35,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -91,7 +94,12 @@ public class AuthController {
                     String fileName = StringUtils.cleanPath(user.getUsername() + ".png");
                     Path path = Paths.get(env.getProperty("app.shared.images") + fileName);
                     try {
+
                         Files.copy(profileImage.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+                        Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("rw-r--r--");
+                        Files.setPosixFilePermissions(path, permissions);
+
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -102,7 +110,7 @@ public class AuthController {
                 }
 
             }catch (Exception ex) {
-                // logger ex.printStackTrace();
+                ex.printStackTrace();
                 return new ResponseEntity<> (HttpStatus.NOT_ACCEPTABLE);
             }
 
