@@ -10525,7 +10525,7 @@ INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VA
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (10314, 59.36667, 18.13333, 'Lidingö', 90, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (10315, -33.13067, -64.34992, 'Río Cuarto', 166, null);
 
-/*
+
 INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number) VALUES ('userA', 'I''m user A', '1998-01-01 14:43:04.000000', 'userA@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000000');
 INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number) VALUES ('userB', 'I''m user B', '1998-01-01 14:43:04.000000', 'userB@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000001');
 INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number) VALUES ('userC', 'I''m user C', '1998-01-01 14:43:04.000000', 'userC@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000002');
@@ -10555,14 +10555,13 @@ INSERT INTO public.city_tours (city_id, tours_id) VALUES (4466, 1);
 INSERT INTO public.city_tours (city_id, tours_id) VALUES (4466, 7);
 INSERT INTO public.city_tours (city_id, tours_id) VALUES (1125, 8);
 INSERT INTO public.city_tours (city_id, tours_id) VALUES (620, 5);
-*/
 
 
 
 
 
 
-/*
+
 INSERT INTO public.language (id, abbreviation, country_code, logo, name) VALUES (1, 'PT', '+351', '../database/flags/portugal.png', 'Portuguese');
 INSERT INTO public.language (id, abbreviation, country_code, logo, name) VALUES (2, 'EN', '+44', '../database/flags/britain.png', 'English');
 INSERT INTO public.language (id, abbreviation, country_code, logo, name) VALUES (3, 'ES', '+34', '../database/flags/spain.png', 'Spanish');
@@ -10577,7 +10576,6 @@ INSERT INTO public.place (id, latitude, longitude, name) VALUES (3, 40.452269, -
 
 
 INSERT INTO public.review (id, comment, rating, user_username) VALUES (1, 'Muito gira', 4, 'userE');
-
 
 INSERT INTO public.scheduling (id, date, tour_id) VALUES (1, '2020-07-15 12:42:37.070447', 1);
 INSERT INTO public.scheduling (id, date, tour_id) VALUES (2, '2020-07-15 12:42:37.070447', 1);
@@ -10628,6 +10626,3 @@ INSERT INTO public.user__schedules (user__username, schedules_id) VALUES ('userA
 
 INSERT INTO public.user__tours (user__username, tours_id) VALUES ('userB', 3);
 INSERT INTO public.user__tours (user__username, tours_id) VALUES ('userB', 8);
-
-_/
- */
