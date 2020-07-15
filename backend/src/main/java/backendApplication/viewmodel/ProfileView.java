@@ -14,7 +14,7 @@ public class ProfileView {
     private String aboutMe;
     private String image;
     private Set<Language> languages;
-    private List<Tour> tours;
+    private Set<Tour> tours;
 
     public ProfileView(User user) {
         this.username = user.getUsername();
@@ -65,11 +65,11 @@ public class ProfileView {
         this.languages = languages;
     }
 
-    public List<Tour> getTours() {
+    public Set<Tour> getTours() {
         return tours;
     }
 
-    public void setTours(List<Tour> tours) {
+    public void setTours(Set<Tour> tours) {
         this.tours = tours;
     }
 }

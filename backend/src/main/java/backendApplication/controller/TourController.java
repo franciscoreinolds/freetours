@@ -173,7 +173,7 @@ public class TourController {
                 return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
             // Get active schedulings on tour
-            List<Scheduling> schedulings = tour.getActive();
+            Set<Scheduling> schedulings = tour.getActive();
 
             // Get selected scheduling
             for (Scheduling scheduling : schedulings){
@@ -251,7 +251,7 @@ public class TourController {
             Tour tour = tourService.get(Integer.parseInt(id));
 
             // Get active schedulings on tour
-            List<Scheduling> schedulings = tour.getActive();
+            Set<Scheduling> schedulings = tour.getActive();
 
             // Get selected scheduling
             for (Scheduling scheduling : schedulings) {

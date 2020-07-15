@@ -1,6 +1,7 @@
 package backendApplication.controller;
 
 import backendApplication.model.dao.UserService;
+import backendApplication.model.entities.City;
 import backendApplication.model.entities.Scheduling;
 import backendApplication.model.entities.Tour;
 import backendApplication.model.entities.User;
@@ -118,6 +119,7 @@ public class UserController {
         User user = (User) u.clone();
 
         for(Scheduling scheduling : user.getSchedules()){
+            scheduling.setTour((Tour)scheduling.getTour().clone());
             tourTreatment(scheduling.getTour());
             scheduling.setSignees(null);
             scheduling.setQueue(null);
@@ -130,11 +132,18 @@ public class UserController {
     }
 
     private void tourTreatment(Tour tour) {
-        tour.getCity().setTours(new ArrayList<>());
+        City city = (City)tour.getCity().clone();
+        city.setTours(null);
+        city.setCountry(null);
+        tour.setCity(city);
         //tour.getGuide().setSchedules(null);
         //tour.getGuide().setTours(null);
         tour.setActive(null);
         tour.setFinished(null);
+        tour.setLanguages(null);
+        tour.setImages(null);
+        tour.setRoute(null);
+        tour.setReviews(null);
     }
 
 }
