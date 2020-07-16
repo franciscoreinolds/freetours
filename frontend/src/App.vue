@@ -16,6 +16,8 @@
 <script>
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
+import CityService from './services/city_service'
+import store from './store';
 
 export default {
   name: 'App',
@@ -33,7 +35,15 @@ export default {
     if(jwt != ''){
       var parsedJwt =  JSON.parse(atob(jwt.split('.')[1]));
       store.commit('setUsername', parsedJwt.sub);
-    }   
+    }
+
+    var cities_resp = await CityService.get();
+    if(cities_resp.status == 200){
+        //console.log(cities_resp);
+        store.commit('setCities', cities_resp.data);
+    }
+    else console.log('Cities_Response Status not 200')
+
   }
 };
 </script>

@@ -211,9 +211,6 @@ export default {
         }else {
             this.tours = chunkArray(home_response.data.suggestedTours, 3)
         }
-
-        
-       
         
     }
 }
