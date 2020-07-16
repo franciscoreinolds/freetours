@@ -313,7 +313,7 @@ export default {
         this.spoken_languages = profile.data.languages
         this.aboutMe = profile.data.aboutMe
         this.tours = profile.data.tours
-        console.log(profile)
+        console.log(this.tours[0].images[0])
     }
 }
 </script>

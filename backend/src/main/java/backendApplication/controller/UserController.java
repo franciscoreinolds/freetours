@@ -146,7 +146,7 @@ public class UserController {
         tour.setActive(null);
         tour.setFinished(null);
         tour.setLanguages(null);
-        tour.setImages(null);
+        //tour.setImages(null);
         tour.setRoute(null);
         tour.setReviews(null);
     }

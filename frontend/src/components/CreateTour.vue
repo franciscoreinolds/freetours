@@ -313,7 +313,7 @@
                                                     Submit
                                                 </v-btn>
                                             </template>
-                                            <CreateSchedule :id="id"/>
+                                            <CreateSchedule :id="1"/>
                                         </v-dialog>
                                     </v-layout>
                                 </v-card-actions>
@@ -330,7 +330,7 @@
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import VGeosearch from 'vue2-leaflet-geosearch';
 import CreateSchedule from './CreateSchedule';
-import TourService from '../services/tour_service';
+import TourServiceCreate from '../services/tour_service_create';
 import Tour from '../models/tour';
 
 export default {
@@ -472,7 +472,7 @@ export default {
     },
     methods: {
         submitTour: async function () {
-            this.response = await TourService.createTour(this.tour)
+            this.response = await TourServiceCreate.createTour(this.tour)
             console.log(this.response)
             switch (this.response.data) {
                 case -1:

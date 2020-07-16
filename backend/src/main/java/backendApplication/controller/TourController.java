@@ -68,10 +68,13 @@ public class TourController {
             userService.save(user);
 
             // Save tour on city
+            //se a cidade nao existir criar !!!! adicionar
+            System.out.println(tour.getCity().getId() + tour.getCity().getName());
             City city = cityService.get(tour.getCity().getId());
             city.addTour(tour);
             cityService.save(city);
         }catch (Exception ex) {
+            ex.printStackTrace();
             return -1;
         }
         return tour.getId();
@@ -267,7 +270,7 @@ public class TourController {
                 }
 
                 // Delete scheduling
-                tour.removeActive(register);
+                tour.removeActive(register.getId());
                 tourService.save(tour);
                 schedulingService.delete(register.getId());
 

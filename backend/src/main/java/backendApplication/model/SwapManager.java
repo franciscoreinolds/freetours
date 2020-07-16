@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.concurrent.Future;
 
@@ -24,28 +25,25 @@ public class SwapManager {
     TourService tourService;
 
     @Async("threadPoolTaskExecutor")
-    public Future<String> addSchedule(Scheduling scheduling){
+    public void addSchedule(Scheduling scheduling){
         //long finishesIn = scheduling.getDate().getTime() - new Date().getTime();
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
         LocalDateTime schedulingMoment = scheduling.getDate();
         Duration duration = Duration.between(now, schedulingMoment);
-        long finishesIn = Math.abs(duration.toMinutes());
+        long finishesIn = Math.abs(duration.toMillis());
   
         System.out.println(finishesIn);
         try {
             Thread.sleep(finishesIn);
-            Tour t = scheduling.getTour();
-            t.removeActive(scheduling);
-            t.addFinished(scheduling);
+            Tour t = tourService.get(scheduling.getTour().getId());
+            t.removeActive(scheduling.getId());
+            t.addFinished((Scheduling) scheduling.clone());
             tourService.save(t);
             System.out.println("completou o schedule");
-            return new AsyncResult<String>("hello world !!!!");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        return new AsyncResult<String>("hello world !!!!");
     }
 
 }

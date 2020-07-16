@@ -12,4 +12,7 @@ public interface TourRepository extends CrudRepository<Tour, Integer> {
 
     @Query("from Tour t where not size(t.active) = 0")
     List<Tour> findRandomActiveTours(Pageable pageable);
+
+
+
 }
