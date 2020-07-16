@@ -82,6 +82,57 @@
                                     </v-row>
                                     <v-row>
                                         <v-col
+                                        :cols = 6
+                                        >
+                                            <v-autocomplete
+                                            v-model = "sel_category"
+                                            :items = "categories"
+                                            item-text="name"
+                                            item-value="name"
+                                            label = "Category"
+                                            :rules = "[rules.required]"
+                                            required
+                                            outlined
+                                            >
+
+                                            </v-autocomplete>
+                                        </v-col>
+                                        <v-col
+                                        :cols=2
+                                        >
+                                            <v-subheader>
+                                                Capacity
+                                            </v-subheader>
+                                        </v-col>
+                                        <v-col
+                                        :cols=2
+                                        >
+                                           <v-text-field
+                                            outlined
+                                            label="Min"
+                                            v-model="tour.min"
+                                            :rules="[rules.required]" 
+                                            required
+                                            name="min"
+                                            type="number"
+                                            />
+                                        </v-col>
+                                        <v-col
+                                        :cols=2
+                                        >
+                                            <v-text-field
+                                            outlined
+                                            label="Max"
+                                            v-model="tour.max"
+                                            :rules="[rules.required]" 
+                                            required
+                                            name="max"
+                                            type="number"
+                                            />
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col
                                         :cols = 12>
                                             <v-select
                                                 v-model="sel_languages"
@@ -335,6 +386,7 @@ import CreateSchedule from './CreateSchedule';
 import TourServiceCreate from '../services/tour_service_create';
 import Tour from '../models/tour';
 import LangService from '../services/lang_service';
+import CatService from '../services/cat_service';
 import store from '../store';
 
 export default {
@@ -346,12 +398,14 @@ export default {
     data () {
       return {
         id: 0,
-        tour: new Tour('', '', '', '', '', []),
+        tour: new Tour('', '', '', '', '', [], '', '', ''),
         isFormValid : true,
         menu_date : false,
         date: new Date().toISOString().substr(0, 10),
         languages : [],
         sel_languages: [],
+        categories : [],
+        sel_category : '',
         rules : { 
             required: value => !!value || 'Required field.',
         },
@@ -482,6 +536,11 @@ export default {
         for (var i = 0; i < lang_array.data.length; i++) {
             this.languages.push(lang_array.data[i]);
         }
+
+        var cat_array = await CatService.get();
+        for (var i = 0; i < cat_array.data.length; i++) {
+            this.categories.push(cat_array.data[i]);
+        }
     },
     methods: {
         submitTour: async function () {
@@ -492,6 +551,12 @@ export default {
                 })
                 this.tour.languages.push(language);
             }
+            
+            // Category
+            var category = this.categories.find(obj => {
+                    return obj.name == this.sel_category
+            })
+            this.tour.category = category;
 
             // City
             var location = this.all_locations.find(obj => {

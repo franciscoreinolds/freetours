@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '../store';
 
 const API_URL = process.env.VUE_APP_API_URL
 
@@ -23,6 +24,8 @@ class TourServiceCreate {
             }
         }
 
+        console.log(store.state.username);
+
         // Request
         return axios
             .post(API_URL + '/createTour', {
@@ -30,7 +33,11 @@ class TourServiceCreate {
                 description: tour.description,
                 duration: tour.duration,
                 languages: tour.languages,
-                city: tour.location
+                city: tour.location,
+                minCapacity: tour.min,
+                maxCapacity: tour.max,
+                category: tour.category,
+                //guide: store.state.username
             }, config)
             .then(response => {
                 console.log("Pedido efetuado com sucesso");
