@@ -220,6 +220,10 @@ public class Tour implements Serializable {
         this.finished.add(scheduling);
     }
 
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
+
     @Override
     public Object clone(){
         return new Tour(this);

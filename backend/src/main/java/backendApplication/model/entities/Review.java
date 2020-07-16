@@ -12,8 +12,10 @@ public class Review{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String comment;
-    @NotNull
+    //@NotNull
     private float rating;
+    @Column(unique=true)
+    private String token;
 
     @OneToOne
     @NotNull
@@ -46,6 +48,14 @@ public class Review{
         this.rating = rating;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public User getUser() {
         return user;
     }
@@ -53,4 +63,5 @@ public class Review{
     public void setUser(User user) {
         this.user = user;
     }
+
 }
