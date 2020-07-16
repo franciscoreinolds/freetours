@@ -85,7 +85,7 @@ public class SwapManager {
 
             // send email
             EmailDirector builder = new EmailDirector(new ReviewEmail());
-            Email email = builder.createEmail(env.getProperty("app.email"), user.getEmail(), null, null);
+            Email email = builder.createEmail(env.getProperty("app.email"), user.getEmail(), null, env.getProperty("frontend.url") + "/#/review/" + token);
             mailerContext.send(email);
 
         }
