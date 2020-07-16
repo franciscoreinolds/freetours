@@ -16,6 +16,8 @@ public class Review{
     private float rating;
     @Column(unique=true)
     private String token;
+    @NotNull
+    private boolean done = false;
 
     @OneToOne
     @NotNull
@@ -54,6 +56,14 @@ public class Review{
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public User getUser() {
