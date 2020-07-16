@@ -212,6 +212,7 @@ public class Tour implements Serializable {
 
     public void addActive(Scheduling s) {this.active.add(s);}
 
+
     public void removeActive(Scheduling scheduling) {
         System.out.println(this.active.removeIf(s -> s.getId() == scheduling.getId()));
     }
