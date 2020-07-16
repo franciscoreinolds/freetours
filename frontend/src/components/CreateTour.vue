@@ -40,8 +40,10 @@
                                         :cols = 6
                                         >
                                             <v-autocomplete
-                                            v-model = "tour.location"
+                                            v-model = "sel_location"
                                             :items = "all_locations"
+                                            item-text="name"
+                                            item-value="name"
                                             label = "Location"
                                             :rules = "[rules.required]"
                                             required
@@ -333,6 +335,7 @@ import CreateSchedule from './CreateSchedule';
 import TourServiceCreate from '../services/tour_service_create';
 import Tour from '../models/tour';
 import LangService from '../services/lang_service';
+import store from '../store';
 
 export default {
     name : "CreateTour",
@@ -352,7 +355,8 @@ export default {
         rules : { 
             required: value => !!value || 'Required field.',
         },
-        all_locations : [
+        all_locations : store.state.cities,
+        /*all_locations : [
             'Amsterdam, Netherlands',
             'Paris, France',
             'Lisbon, Portugal',
@@ -362,7 +366,8 @@ export default {
             'Guimarães, Portugal',
             'Famalicão, Portugal',
             'Funchal, Portugal'
-        ],
+        ],*/
+        sel_location: '',
         dropdown_hours : [
             {
                 text : '0'
@@ -480,14 +485,21 @@ export default {
     },
     methods: {
         submitTour: async function () {
+            // Language
             for (var i = 0 ; i < this.sel_languages.length ; i++) {
                 var language = this.languages.find(obj => {
                     return obj.name == this.sel_languages[i]
                 })
                 this.tour.languages.push(language);
-                console.log("Lang: " + language.name);
             }
 
+            // City
+            var location = this.all_locations.find(obj => {
+                    return obj.name == this.sel_location
+            })
+            this.tour.location = location;
+
+            // Request
             this.response = await TourServiceCreate.createTour(this.tour)
             console.log(this.response)
             switch (this.response.data) {

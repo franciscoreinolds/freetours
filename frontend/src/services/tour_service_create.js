@@ -23,15 +23,14 @@ class TourServiceCreate {
             }
         }
 
-        console.log("Duration " + tour.duration)
-        console.log("Loc: " + tour.location);
-
+        // Request
         return axios
             .post(API_URL + '/createTour', {
                 name: tour.name,
                 description: tour.description,
                 duration: tour.duration,
-                languages: tour.languages
+                languages: tour.languages,
+                city: tour.location
             }, config)
             .then(response => {
                 console.log("Pedido efetuado com sucesso");
