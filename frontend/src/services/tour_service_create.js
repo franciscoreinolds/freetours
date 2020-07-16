@@ -37,7 +37,7 @@ class TourServiceCreate {
                 minCapacity: tour.min,
                 maxCapacity: tour.max,
                 category: tour.category,
-                //guide: store.state.username
+                guide: {"username": store.state.username}
             }, config)
             .then(response => {
                 console.log("Pedido efetuado com sucesso");

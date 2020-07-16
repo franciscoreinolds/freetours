@@ -107,6 +107,7 @@ public class TourController {
                 swapManager.addSchedule(s);
             }
         }catch (Exception ex) {
+            ex.printStackTrace();
             return new ResponseEntity<> (HttpStatus.NOT_ACCEPTABLE);
         }
         return new ResponseEntity<> (HttpStatus.CREATED);
