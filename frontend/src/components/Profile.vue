@@ -96,6 +96,7 @@
                             Tours
                         </h1>
                         <v-radio-group
+                        v-model="radioselected"
                         row
                         class = "pa-5"
                         >
@@ -107,42 +108,9 @@
                             >
                             </v-radio>
                         </v-radio-group>
-                        <TourList :tour_data="tours"/> 
+                        <TourList :tour_data="tours[radioselected]"/> 
                     </v-card>
                 </v-row>
-                <!--
-                <br>
-                <br>
-                <v-row
-                align="center"
-                justify="center"
-                >
-                    <v-card
-                    outlined
-                    elevation
-                    class="elevation-12 card"
-                    >   
-                        <h1
-                        class = "pa-5"
-                        >
-                            Tours
-                        </h1>
-                        <v-radio-group
-                        row
-                        class = "pa-5"
-                        >
-                            <v-radio
-                            v-for = "val in radio_values"
-                            :key="val.index"
-                            :label="val.text"
-                            :value="val.value"
-                            >
-                            </v-radio>
-                        </v-radio-group>
-                        <TourList :tour_data="tours"/>                    
-                    </v-card>
-                </v-row>
-                -->
             </v-container>
         </v-content>
     </div>
@@ -161,27 +129,23 @@ export default {
     },
     data: () => {
         return {
-            default_radio : 
-            {
-                text : "All",
-                value : 1
-            },
+            radioselected : 2,
             radio_values : [
                 {
                     text : "All",
-                    value : 1
+                    value : 0
                 },
                 {
                     text : "My Upcoming Tours",
-                    value : 2
+                    value : 1
                 },
                 {
                     text : "My Organized Tours",
-                    value : 3
+                    value : 2
                 },
                 {
                     text : "History",
-                    value : 4
+                    value : 3
                 },
             ],
             languages : [
@@ -312,8 +276,17 @@ export default {
         this.phoneNumber = profile.data.phoneNumber
         this.spoken_languages = profile.data.languages
         this.aboutMe = profile.data.aboutMe
-        this.tours = profile.data.tours
-        console.log(this.tours[0].images[0])
+        this.tours = [
+                        profile.data.schedules.map(s => s.tour).concat(profile.data.tours),
+                        profile.data.schedules.filter( s => new Date(s.date) > new Date() ).map(s => s.tour),
+                        profile.data.tours,
+                        profile.data.schedules.filter( s => new Date(s.date) <= new Date() ).map(s => s.tour)]
+        console.log(profile.data)
+    },
+    methods:  {
+        log(x) {
+            console.log(x)
+        }
     }
 }
 </script>
