@@ -82,10 +82,10 @@
                                         <v-col
                                         :cols = 12>
                                             <v-select
-                                                v-model="langs_array"
+                                                v-model="sel_languages"
                                                 :items="languages"
-                                                item-text="language"
-                                                item-value="value"
+                                                item-text="name"
+                                                item-value="name"
                                                 chips
                                                 label="In what language(s) will the Tour be done in?"
                                                 :rules="[(v) => !!v && v.length > 0|| 'You must give the Tour in at least 1 Language.']"
@@ -332,6 +332,7 @@ import VGeosearch from 'vue2-leaflet-geosearch';
 import CreateSchedule from './CreateSchedule';
 import TourServiceCreate from '../services/tour_service_create';
 import Tour from '../models/tour';
+import LangService from '../services/lang_service';
 
 export default {
     name : "CreateTour",
@@ -342,11 +343,12 @@ export default {
     data () {
       return {
         id: 0,
-        tour: new Tour('', '', '', '', ''),
+        tour: new Tour('', '', '', '', '', []),
         isFormValid : true,
         menu_date : false,
         date: new Date().toISOString().substr(0, 10),
-        langs_array : [],
+        languages : [],
+        sel_languages: [],
         rules : { 
             required: value => !!value || 'Required field.',
         },
@@ -416,7 +418,7 @@ export default {
                 text : '45'
             }
         ],
-        languages : [
+        /*languages : [
             {
                 language : "Portuguese",
                 value : 1
@@ -441,7 +443,7 @@ export default {
                 language : "Dutch",
                 value : 6
             },
-        ],
+        ],*/
         markers : [],
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         zoom: 5,
@@ -470,8 +472,22 @@ export default {
         success_alert : false
       }
     },
+    async created() {
+        var lang_array = await LangService.get();
+        for (var i = 0; i < lang_array.data.length; i++) {
+            this.languages.push(lang_array.data[i]);
+        }
+    },
     methods: {
         submitTour: async function () {
+            for (var i = 0 ; i < this.sel_languages.length ; i++) {
+                var language = this.languages.find(obj => {
+                    return obj.name == this.sel_languages[i]
+                })
+                this.tour.languages.push(language);
+                console.log("Lang: " + language.name);
+            }
+
             this.response = await TourServiceCreate.createTour(this.tour)
             console.log(this.response)
             switch (this.response.data) {

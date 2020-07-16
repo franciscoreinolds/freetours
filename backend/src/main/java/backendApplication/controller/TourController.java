@@ -58,7 +58,7 @@ public class TourController {
             User user = userService.get(username);
 
             // Check if user is a guide ...
-            if (!user.allParametersFilled()) return -2;
+            //if (!user.allParametersFilled()) return -2;
 
             // Save tour
             tourService.save(tour);
@@ -69,10 +69,10 @@ public class TourController {
 
             // Save tour on city
             //se a cidade nao existir criar !!!! adicionar
-            System.out.println(tour.getCity().getId() + tour.getCity().getName());
-            City city = cityService.get(tour.getCity().getId());
-            city.addTour(tour);
-            cityService.save(city);
+            //System.out.println(tour.getCity().getId() + tour.getCity().getName());
+            //City city = cityService.get(tour.getCity().getId());
+            //city.addTour(tour);
+            //cityService.save(city);
         }catch (Exception ex) {
             ex.printStackTrace();
             return -1;

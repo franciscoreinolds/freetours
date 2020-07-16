@@ -31,7 +31,7 @@ class TourServiceCreate {
                 name: tour.name,
                 description: tour.description,
                 duration: tour.duration,
-                location: tour.location
+                languages: tour.languages
             }, config)
             .then(response => {
                 console.log("Pedido efetuado com sucesso");
