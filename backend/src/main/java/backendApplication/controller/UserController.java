@@ -135,6 +135,7 @@ public class UserController {
     }
 
     private void tourTreatment(Tour tour) {
+        System.out.println(tour.getCity());
         City city = (City) tour.getCity().clone();
         city.setTours(null);
         city.setCountry(null);

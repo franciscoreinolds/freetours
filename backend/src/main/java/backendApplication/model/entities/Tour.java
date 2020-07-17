@@ -54,10 +54,10 @@ public class Tour implements Serializable {
     @OneToMany
     private Set<Review> reviews;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Scheduling> finished;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Scheduling> active;
 
     public Tour() {
@@ -226,8 +226,9 @@ public class Tour implements Serializable {
 
     public void addActive(Scheduling s) {this.active.add(s);}
 
-    public void removeActive(Integer schedulingId) {
-        this.active.remove(schedulingId);
+
+    public void removeActive(Scheduling scheduling) {
+        System.out.println(this.active.removeIf(s -> s.getId() == scheduling.getId()));
     }
 
     public void addFinished(Scheduling scheduling) {

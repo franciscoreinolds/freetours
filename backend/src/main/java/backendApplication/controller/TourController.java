@@ -107,6 +107,7 @@ public class TourController {
                 swapManager.addSchedule(s);
             }
         }catch (Exception ex) {
+            ex.printStackTrace();
             return new ResponseEntity<> (HttpStatus.NOT_ACCEPTABLE);
         }
         return new ResponseEntity<> (HttpStatus.CREATED);
@@ -272,7 +273,7 @@ public class TourController {
                 }
 
                 // Delete scheduling
-                tour.removeActive(register.getId());
+                tour.removeActive(register);
                 tourService.save(tour);
                 schedulingService.delete(register.getId());
 
