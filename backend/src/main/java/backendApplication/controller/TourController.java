@@ -148,6 +148,8 @@ public class TourController {
                     u.setTours(null);
                 }
             }
+            for (Review review : tour.getReviews())
+                review.setTour(null);
 
 
             r.put("tour", tour);

@@ -36,7 +36,7 @@
                                     Phone Number: {{ this.phoneNumber }}
                                 </v-col>
                                 <v-col>
-                                    Rating: 4.5
+                                    Rating: {{ this.rating }}
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -301,19 +301,31 @@ export default {
             spoken_languages: "",
             aboutMe: "",
             image: "",
+            rating: "",
+        }
+    },
+    methods: {
+        doStuff: async function () {
+            this.image = FRONTEND_URL + '/images/' + this.$route.params.username + '.png'
+            let profile = await ProfileService.get(this.$route.params.username)
+            this.username = profile.data.username
+            this.email = profile.data.email
+            this.dateOfBirth = profile.data.dateOfBirth
+            this.phoneNumber = profile.data.phoneNumber
+            this.rating = profile.data.rating
+            this.spoken_languages = profile.data.languages
+            this.aboutMe = profile.data.aboutMe
+            this.tours = profile.data.tours
+            console.log(this.tours[0].images[0])
         }
     },
     created: async function () {
-        this.image = FRONTEND_URL + '/images/' + this.$route.params.username + '.png'
-        let profile = await ProfileService.get(this.$route.params.username)
-        this.username = profile.data.username
-        this.email = profile.data.email
-        this.dateOfBirth = profile.data.dateOfBirth
-        this.phoneNumber = profile.data.phoneNumber
-        this.spoken_languages = profile.data.languages
-        this.aboutMe = profile.data.aboutMe
-        this.tours = profile.data.tours
-        console.log(this.tours[0].images[0])
-    }
+        await this.doStuff();
+    },
+    watch: {
+        '$route.params.username': async function (id) {
+            await this.doStuff()
+    },
+},
 }
 </script>
