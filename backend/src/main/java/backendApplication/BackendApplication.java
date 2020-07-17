@@ -1,11 +1,14 @@
 package backendApplication;
 
+import backendApplication.model.QRCodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class BackendApplication extends SpringBootServletInitializer {
@@ -23,13 +26,13 @@ public class BackendApplication extends SpringBootServletInitializer {
 
 	/*
 	@Bean
-	public CommandLineRunner demo(SendGridSMTP emailService) {
+	public CommandLineRunner demo(QRCodeService qrCodeService) {
 		return (args) -> {
 
-			EmailDirector builder = new EmailDirector(new WelcomeEmail());
-			Email email = builder.createEmail("jpsilva9898@gmail.com", "jpsilva9898@gmail.com", "jpsilva9898", null);
+			String image = qrCodeService.getQRCode(1);
 
-			emailService.send(email);
+			System.out.println(image);
+
 		};
 	}*/
 

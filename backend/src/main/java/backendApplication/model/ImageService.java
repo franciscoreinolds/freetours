@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,6 +53,30 @@ public class ImageService {
 
     }
 
+    public String storeImage(RenderedImage image, String imageName) {
+
+        createDirectory();
+
+        String fileName = StringUtils.cleanPath(imageName);
+        String filePath = env.getProperty("app.shared.images") + fileName;
+        File file = new File(filePath);
+
+        try {
+
+            if(!file.exists())
+                file.createNewFile();
+
+            filePermissions(Paths.get(filePath));
+            ImageIO.write(image, "png", file);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return fileName;
+
+    }
+
     private void createDirectory() {
 
         File dir = new File(Objects.requireNonNull(env.getProperty("app.shared.images")));
@@ -63,13 +90,18 @@ public class ImageService {
         try {
 
             Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-            Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("rw-r--r--");
-            Files.setPosixFilePermissions(path, permissions);
+            filePermissions(path);
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+    }
+
+    private void filePermissions(Path path) throws IOException {
+
+        Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("rw-r--r--");
+        Files.setPosixFilePermissions(path, permissions);
 
     }
 
