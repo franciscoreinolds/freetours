@@ -219,10 +219,15 @@ public class User implements UserDetails {
 
     public float computeRating() {
 
-        return (float) this.getTours().stream()
-                .mapToDouble(Tour::getRating)
-                .average()
-                .orElse(Double.NaN);
+        float sum = 0;
+        int count = 0;
+        for(Tour tour : this.getTours()) {
+            for (Review review : tour.getReviews()) {
+                sum += review.getRating();
+                count++;
+            }
+        }
 
+        return sum / count;
     }
 }

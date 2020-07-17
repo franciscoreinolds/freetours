@@ -10575,7 +10575,7 @@ INSERT INTO public.place (id, latitude, longitude, name) VALUES (2, 41.892515, 1
 INSERT INTO public.place (id, latitude, longitude, name) VALUES (3, 40.452269, -3.689845, 'Santiago Barnabeu');
 
 
-INSERT INTO public.review (id, comment, rating, done, user_username) VALUES (1, 'Muito gira', 4, TRUE,'userE');
+INSERT INTO public.review (id, comment, rating, done, user_username, token, tour_id) VALUES (1, 'Muito gira', 0, FALSE,'userE', 12345, 8);
 
 INSERT INTO public.scheduling (id, date, tour_id) VALUES (1, '2020-07-15 12:42:37.070447', 1);
 INSERT INTO public.scheduling (id, date, tour_id) VALUES (2, '2020-07-15 12:42:37.070447', 1);

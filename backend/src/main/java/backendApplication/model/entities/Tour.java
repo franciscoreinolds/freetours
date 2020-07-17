@@ -245,10 +245,11 @@ public class Tour implements Serializable {
 
     public float computeRating() {
 
-        return (float) this.getReviews().stream()
-                .mapToDouble(Review::getRating)
-                .average()
-                .orElse(Double.NaN);
+        float sum = 0;
+        for(Review review : this.getReviews())
+            sum += review.getRating();
+
+        return sum / this.getReviews().size();
 
     }
 

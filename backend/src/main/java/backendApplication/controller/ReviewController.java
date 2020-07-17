@@ -32,7 +32,7 @@ public class ReviewController {
             return new ResponseEntity<>("Token is not valid", HttpStatus.NOT_FOUND);
 
         // check review
-        if(review.getRating() <= 0.0 || review.getRating() >= 5.0)
+        if(review.getRating() <= 0.0 || review.getRating() > 5.0)
             return new ResponseEntity<>("Rating should be between 0.0 and 5.0", HttpStatus.BAD_REQUEST);
 
         // check the existing review
@@ -49,9 +49,9 @@ public class ReviewController {
         Tour tour = review1.getTour();
         tour.setRating(tour.computeRating());
         tourService.save(tour);
-        User user = review1.getUser();
-        user.setRating(user.computeRating());
-        userService.save(user);
+        User guide = tour.getGuide();
+        guide.setRating(guide.computeRating());
+        userService.save(guide);
 
         return new ResponseEntity<>("Review added to tour", HttpStatus.OK);
     }
