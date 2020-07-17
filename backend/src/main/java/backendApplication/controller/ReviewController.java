@@ -1,7 +1,11 @@
 package backendApplication.controller;
 
 import backendApplication.model.dao.ReviewService;
+import backendApplication.model.dao.TourService;
+import backendApplication.model.dao.UserService;
 import backendApplication.model.entities.Review;
+import backendApplication.model.entities.Tour;
+import backendApplication.model.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +16,12 @@ public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private TourService tourService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/review", method = RequestMethod.POST)
     public ResponseEntity<?> rateTour(@RequestParam("token") String token, @RequestBody Review review) {
@@ -34,6 +44,14 @@ public class ReviewController {
         review1.setRating(review.getRating());
         review1.setDone(true);
         reviewService.save(review1);
+
+        // compute ratings
+        Tour tour = review1.getTour();
+        tour.setRating(tour.computeRating());
+        tourService.save(tour);
+        User user = review1.getUser();
+        user.setRating(user.computeRating());
+        userService.save(user);
 
         return new ResponseEntity<>("Review added to tour", HttpStatus.OK);
     }

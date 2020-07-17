@@ -77,6 +77,7 @@ public class SwapManager {
 
             review.setToken(token);
             review.setUser(user);
+            review.setTour(tour);
             reviewService.save(new Review());
 
             // link review to the specific tour

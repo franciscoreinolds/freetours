@@ -5,7 +5,6 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Set;
 
 @Entity(name = "Tour")
@@ -26,6 +25,8 @@ public class Tour implements Serializable {
     @NotNull
     private int minCapacity;
     private String qrCode;
+    @NotNull
+    private float rating;
 
     @NotNull
     @ManyToOne
@@ -70,6 +71,7 @@ public class Tour implements Serializable {
         this.minCapacity = t.getMinCapacity();
         this.maxCapacity = t.getMaxCapacity();
         this.qrCode = t.getQrCode();
+        this.rating = t.getRating();
         this.active = t.getActive();
         this.route = t.getRoute();
         this.reviews = t.getReviews();
@@ -137,8 +139,20 @@ public class Tour implements Serializable {
         this.qrCode = qrCode;
     }
 
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
     public User getGuide() {
         return guide;
+    }
+
+    public void setGuide(User guide) {
+        this.guide = guide;
     }
 
     public void setGuideUsername(User guide) {
@@ -228,4 +242,14 @@ public class Tour implements Serializable {
     public Object clone(){
         return new Tour(this);
     }
+
+    public float computeRating() {
+
+        return (float) this.getReviews().stream()
+                .mapToDouble(Review::getRating)
+                .average()
+                .orElse(Double.NaN);
+
+    }
+
 }

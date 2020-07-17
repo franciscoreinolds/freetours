@@ -23,6 +23,10 @@ public class Review{
     @NotNull
     private User user;
 
+    @OneToOne
+    @NotNull
+    private Tour tour;
+
     public Review() {
     }
 
@@ -74,4 +78,11 @@ public class Review{
         this.user = user;
     }
 
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
 }

@@ -10538,14 +10538,14 @@ INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, passw
 INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number) VALUES ('userJ', 'I''m user J', '1998-01-01 14:43:04.000000', 'userJ@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000009');
 
 
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username) VALUES (2, 'Beautiful tour in Paris', '01:00:00', 20, 10, 'Tour in Paris', null, 3, 2011, 'userD');
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username) VALUES (8, 'Beautiful tour in Rome', '00:45:00', 20, 10, 'Tour in Rome', null, 2, 1125, 'userB');
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username) VALUES (5, 'Beautiful tour in Tokyo', '00:45:00', 15, 8, 'Tour in Tokyo', null, 2, 620, 'userC');
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username) VALUES (4, 'Beautiful tour in Lisbon', '00:30:00', 10, 5, 'Tour in Lisbon', null, 3, 3287, 'userC');
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username) VALUES (6, 'Beautiful tour in Rome', '01:15:00', 15, 5, 'Tour in Rome', null, 4, 1127, 'userD');
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username) VALUES (3, 'Beautiful tour in Madrid', '00:45:00', 15, 8, 'Tour in Madrid', null, 2, 6738, 'userB');
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username) VALUES (7, 'Beautiful tour in Barcelona', '00:30:00', 10, 5, 'Tour in Barcelona', null, 2, 4466, 'userC');
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username) VALUES (1, 'Beautiful tour in Barcelona', '00:45:00', 15, 8, 'Come visit Messi', null, 2, 4466, 'userC');
+INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (2, 'Beautiful tour in Paris', '01:00:00', 20, 10, 'Tour in Paris', null, 3, 2011, 'userD', 0.0);
+INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (8, 'Beautiful tour in Rome', '00:45:00', 20, 10, 'Tour in Rome', null, 2, 1125, 'userB', 0.0);
+INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (5, 'Beautiful tour in Tokyo', '00:45:00', 15, 8, 'Tour in Tokyo', null, 2, 620, 'userC', 0.0);
+INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (4, 'Beautiful tour in Lisbon', '00:30:00', 10, 5, 'Tour in Lisbon', null, 3, 3287, 'userC', 0.0);
+INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (6, 'Beautiful tour in Rome', '01:15:00', 15, 5, 'Tour in Rome', null, 4, 1127, 'userD', 0.0);
+INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (3, 'Beautiful tour in Madrid', '00:45:00', 15, 8, 'Tour in Madrid', null, 2, 6738, 'userB', 0.0);
+INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (7, 'Beautiful tour in Barcelona', '00:30:00', 10, 5, 'Tour in Barcelona', null, 2, 4466, 'userC', 0.0);
+INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (1, 'Beautiful tour in Barcelona', '00:45:00', 15, 8, 'Come visit Messi', null, 2, 4466, 'userC', 0.0);
 
 INSERT INTO public.city_tours (city_id, tours_id) VALUES (3287, 4);
 INSERT INTO public.city_tours (city_id, tours_id) VALUES (1125, 6);

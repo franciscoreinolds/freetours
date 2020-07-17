@@ -91,6 +91,7 @@
         }),
         methods: {
             addReview: async function () {
+                this.restore_variables();
                 let response = await ReviewService.addReview(this.$route.params.token, this.rating, this.comment)
                 console.log(response)
                 this.message = response.data
