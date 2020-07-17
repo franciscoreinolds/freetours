@@ -12,12 +12,20 @@ public class Review{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String comment;
-    @NotNull
+    //@NotNull
     private float rating;
+    @Column(unique=true)
+    private String token;
+    @NotNull
+    private boolean done = false;
 
     @OneToOne
     @NotNull
     private User user;
+
+    @OneToOne
+    @NotNull
+    private Tour tour;
 
     public Review() {
     }
@@ -46,11 +54,35 @@ public class Review{
         this.rating = rating;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
     }
 }

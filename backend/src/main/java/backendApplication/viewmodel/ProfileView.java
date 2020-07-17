@@ -14,6 +14,7 @@ public class ProfileView {
     private LocalDate dateOfBirth;
     private String aboutMe;
     private String image;
+    private float rating;
     private Set<Language> languages;
     private Set<Tour> tours;
 
@@ -22,6 +23,7 @@ public class ProfileView {
         this.dateOfBirth = user.getDateOfBirth();
         this.aboutMe = user.getAboutMe();
         this.image = user.getImage();
+        this.rating = user.getRating();
         this.languages = user.getLanguages();
         this.tours = user.getTours();
     }
@@ -56,6 +58,14 @@ public class ProfileView {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public Set<Language> getLanguages() {

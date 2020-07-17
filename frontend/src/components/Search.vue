@@ -212,6 +212,10 @@ export default {
                 filters.languages = this.language   
             }
 
+            if(this.rate_ticks){
+                filters.ratings = this.rate_range
+            }
+
             const resp = await tour_service.searchTours(filters)
             console.log(resp.data)
             this.tours = resp.data

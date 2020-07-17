@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '../store';
 
 const API_URL = process.env.VUE_APP_API_URL
 
@@ -23,24 +24,29 @@ class TourServiceCreate {
             }
         }
 
-        console.log("Duration " + tour.duration)
-        console.log("Loc: " + tour.location);
+        console.log(store.state.username);
 
-        try {
-            const response = await axios
-                .post(API_URL + '/createTour', {
-                    name: tour.name,
-                    description: tour.description,
-                    duration: tour.duration,
-                    location: tour.location
-                }, config);
-            console.log("Pedido efetuado com sucesso");
-            return response;
-        }
-        catch (error) {
-            console.log("Erro");
-            return error.response;
-        }
+        // Request
+        return axios
+            .post(API_URL + '/createTour', {
+                name: tour.name,
+                description: tour.description,
+                duration: tour.duration,
+                languages: tour.languages,
+                city: tour.location,
+                minCapacity: tour.min,
+                maxCapacity: tour.max,
+                category: tour.category,
+                guide: {"username": store.state.username}
+            }, config)
+            .then(response => {
+                console.log("Pedido efetuado com sucesso");
+                return response;
+            })
+            .catch(error => {
+                console.log("Erro");
+                return error.response;
+            });
     }
 
 }

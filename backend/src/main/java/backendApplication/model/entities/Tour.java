@@ -7,8 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneOffset;
-import java.util.List;
 import java.util.Set;
 
 @Entity(name = "Tour")
@@ -29,6 +27,8 @@ public class Tour implements Serializable {
     @NotNull
     private int minCapacity;
     private String qrCode;
+    @NotNull
+    private float rating;
 
     @NotNull
     @ManyToOne
@@ -73,6 +73,7 @@ public class Tour implements Serializable {
         this.minCapacity = t.getMinCapacity();
         this.maxCapacity = t.getMaxCapacity();
         this.qrCode = t.getQrCode();
+        this.rating = t.getRating();
         this.active = t.getActive();
         this.route = t.getRoute();
         this.reviews = t.getReviews();
@@ -140,8 +141,20 @@ public class Tour implements Serializable {
         this.qrCode = qrCode;
     }
 
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
     public User getGuide() {
         return guide;
+    }
+
+    public void setGuide(User guide) {
+        this.guide = guide;
     }
 
     public void setGuideUsername(User guide) {
@@ -224,6 +237,10 @@ public class Tour implements Serializable {
         this.finished.add(scheduling);
     }
 
+    public void addReview(Review review) {
+        this.reviews.add(review);
+    }
+
     @Override
     public Object clone(){
         return new Tour(this);
@@ -240,4 +257,16 @@ public class Tour implements Serializable {
         return this.active.stream().filter(s -> s.getDate().isBefore(untilDate.atStartOfDay()))
                 .count() > 0;
     }
+
+    @JsonIgnore
+    public float computeRating() {
+
+        float sum = 0;
+        for(Review review : this.getReviews())
+            sum += review.getRating();
+
+        return sum / this.getReviews().size();
+
+    }
+
 }

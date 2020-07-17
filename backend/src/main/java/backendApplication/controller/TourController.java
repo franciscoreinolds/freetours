@@ -112,6 +112,7 @@ public class TourController {
                 swapManager.addSchedule(s);
             }
         }catch (Exception ex) {
+            ex.printStackTrace();
             return new ResponseEntity<> (HttpStatus.NOT_ACCEPTABLE);
         }
         return new ResponseEntity<> (HttpStatus.CREATED);
@@ -153,6 +154,8 @@ public class TourController {
                     u.setTours(null);
                 }
             }
+            for (Review review : tour.getReviews())
+                review.setTour(null);
 
 
             r.put("tour", tour);
@@ -217,7 +220,7 @@ public class TourController {
                                           @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
                                           @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate untilDate,
                                           @RequestParam(required = false) List<String> languages,
-                                          @RequestParam(required = false) Float rating
+                                          @RequestParam(required = false) List<Float> ratings
                                           ) {
         try{
             // Get city
@@ -225,23 +228,28 @@ public class TourController {
             // Recursion problem
             List<Tour> resp = new ArrayList<>();
             List<Tour> tours = city.getTours();
+            System.out.println(ratings);
             for (int i = 0; i<tours.size(); i++) {
                     Tour tour = (Tour) tours.get(i).clone();
                     if(categoryIds == null || categoryIds.contains(tour.getCategory().getId())){
                         if(fromDate == null || (tour.getActive().size() != 0 && tour.hasActiveAfter(fromDate))){
                            if( untilDate == null || fromDate.equals(untilDate) || (tour.getActive().size() != 0 && tour.hasActiveBefore(untilDate))){
                                 if( languages == null|| tour.getLanguages().stream().map(l -> l.getName()).filter(l -> languages.contains(l)).count() > 0) {
-                                    tour.getCity().setTours(null);
-                                    tour.getGuide().setSchedules(null);
-                                    tour.getGuide().setTours(null);
-                                    for (Scheduling s : tour.getActive()) {
-                                        s.setTour(null);
-                                        for (User u : s.getSignees()) {
-                                            u.setSchedules(null);
-                                            u.setTours(null);
+                                    System.out.println(tour.getRating());
+                                    if( ratings == null || (ratings.get(0) <= tour.getRating() && ratings.get(1) >= tour.getRating())) {
+                                        tour.getCity().setTours(null);
+                                        tour.getGuide().setSchedules(null);
+                                        tour.getGuide().setTours(null);
+                                        tour.setReviews(null);
+                                        for (Scheduling s : tour.getActive()) {
+                                            s.setTour(null);
+                                            for (User u : s.getSignees()) {
+                                                u.setSchedules(null);
+                                                u.setTours(null);
+                                            }
                                         }
+                                        resp.add(tour);
                                     }
-                                    resp.add(tour);
                                 }
                             }
                         }

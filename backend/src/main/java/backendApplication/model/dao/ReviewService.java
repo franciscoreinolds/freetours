@@ -29,5 +29,10 @@ public class ReviewService {
     public void delete(Integer id) {
         repo.deleteById(id);
     }
+
+    public Review findByToken(String token) {
+        return repo.findByToken(token);
+    }
+
 }
 

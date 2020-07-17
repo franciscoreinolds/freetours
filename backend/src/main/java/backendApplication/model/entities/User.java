@@ -26,6 +26,8 @@ public class User implements UserDetails {
     private LocalDate dateOfBirth;
     private String aboutMe;
     private String image;
+    @NotNull
+    private Float rating = (float) 0.0;
 
     @ManyToMany
     private Set<Language> languages;
@@ -47,6 +49,7 @@ public class User implements UserDetails {
         this.dateOfBirth = u.getDateOfBirth();
         this.aboutMe = u.getAboutMe();
         this.image = u.getImage();
+        this.rating = u.getRating();
         this.languages = u.getLanguages().stream().map(l -> (Language) l.clone()).collect(Collectors.toSet());
         this.schedules = u.getSchedules().stream().map(s -> (Scheduling) s.clone()).collect(Collectors.toSet());
         this.tours = u.getTours().stream().map(t -> (Tour) t.clone()).collect(Collectors.toSet());
@@ -133,6 +136,14 @@ public class User implements UserDetails {
         this.image = image;
     }
 
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
+
     public Set<Language> getLanguages() {
         return languages;
     }
@@ -204,5 +215,19 @@ public class User implements UserDetails {
                 this.phoneNumber != null && this.dateOfBirth != null && this.aboutMe != null &&
                 this.image != null && this.languages != null) return true;
         else return false;
+    }
+
+    public float computeRating() {
+
+        float sum = 0;
+        int count = 0;
+        for(Tour tour : this.getTours()) {
+            for (Review review : tour.getReviews()) {
+                sum += review.getRating();
+                count++;
+            }
+        }
+
+        return sum / count;
     }
 }

@@ -36,7 +36,7 @@
                                     Phone Number: {{ this.phoneNumber }}
                                 </v-col>
                                 <v-col>
-                                    Rating: 4.5
+                                    Rating: {{ this.rating }}
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -265,6 +265,7 @@ export default {
             spoken_languages: "",
             aboutMe: "",
             image: "",
+            rating: "",
         }
     },
     created: async function () {
