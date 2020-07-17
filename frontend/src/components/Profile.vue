@@ -274,6 +274,7 @@ export default {
     watch: {
         '$route.params.username': async function (id) {
             await this.doStuff()
+        }
     },
     methods:  {
         log(x) {
@@ -296,6 +297,6 @@ export default {
                         profile.data.schedules.filter( s => new Date(s.date) <= new Date() ).map(s => s.tour)]
             console.log(profile.data)
         }
-    }
+    },
 }
 </script>
