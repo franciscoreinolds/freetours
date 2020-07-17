@@ -1,6 +1,7 @@
 package backendApplication.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -14,9 +15,16 @@ public class QRCodeService {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private Environment env;
+
     public String getQRCode(int tourid) {
 
-        final String uri = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://localhost:9002/#/tour/8";
+        String token = env.getProperty("frontend.url") + "/#/tour/" + tourid;
+        token = token.replaceAll("#","%23");
+        String uri = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + token;
+
+        System.out.println(uri);
 
         try {
 

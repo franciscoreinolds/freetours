@@ -29,9 +29,17 @@ public class BackendApplication extends SpringBootServletInitializer {
 	public CommandLineRunner demo(QRCodeService qrCodeService) {
 		return (args) -> {
 
-			String image = qrCodeService.getQRCode(1);
+			qrCodeService.getQRCode(1);
+			qrCodeService.getQRCode(2);
+			qrCodeService.getQRCode(3);
+			qrCodeService.getQRCode(4);
+			qrCodeService.getQRCode(5);
 
-			System.out.println(image);
+
+			String text = "http://localhost:8080/#/tour/8";
+			System.out.println(text);
+			text = text.replaceAll("#","%23");
+			System.out.println(text);
 
 		};
 	}*/

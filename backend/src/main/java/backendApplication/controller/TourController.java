@@ -1,6 +1,7 @@
 package backendApplication.controller;
 
 import backendApplication.controller.expeptions.NotFoundException;
+import backendApplication.model.QRCodeService;
 import backendApplication.model.SwapManager;
 import backendApplication.model.dao.*;
 import backendApplication.model.emailBuilder.Email;
@@ -50,6 +51,9 @@ public class TourController {
     @Autowired
     private Environment env;
 
+    @Autowired
+    private QRCodeService qrCodeService;
+
     @RequestMapping(value = "/createTour", method = RequestMethod.POST)
     public Integer createTour(@RequestBody Tour tour) {
         try{
@@ -61,6 +65,10 @@ public class TourController {
             if (!user.allParametersFilled()) return -2;
 
             // Save tour
+            tourService.save(tour);
+
+            // add QRCode
+            tour.setQrCode(qrCodeService.getQRCode(tour.getId()));
             tourService.save(tour);
 
             // Save tour on user
