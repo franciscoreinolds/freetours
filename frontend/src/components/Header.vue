@@ -19,14 +19,15 @@
         </router-link> 
         <v-spacer></v-spacer>
         <v-autocomplete
-            class = "my_autocomplete"
-            v-model = "destination"
+            v-model = "sel_destination"
             :items = "all_destinations"
+            item-text="name"
+            item-value="name"
             label = "Destination"
-            :rules = "[rules.required]"
-            required
             outlined
+            class = "my_autocomplete"
             :append-icon="'mdi-map-marker'"
+            @change="destination()"
         >
         </v-autocomplete>
         <v-spacer></v-spacer>
@@ -84,6 +85,7 @@
 <script>
 import AuthService from '../services/auth_service';
 import Login from "./Login";
+import store from "../store";
 
 export default {
     name : "Header",
@@ -93,12 +95,9 @@ export default {
             return this.$store.state.username;
         }
     },
-    async created () {
-        // GET Request that will fill all_destinations arrray which feeds the autocomplete Destination
-    },
     data: () => ({
-        destination : "",
-        all_destinations : [
+        all_destinations : store.state.cities,
+        /*all_destinations : [
             'Amsterdam, Netherlands',
             'Paris, France',
             'Lisbon, Portugal',
@@ -108,7 +107,8 @@ export default {
             'Guimarães, Portugal',
             'Famalicão, Portugal',
             'Funchal, Portugal'
-        ],
+        ],*/
+        sel_destination : "",
         rules : {
             required: value => !!value || 'Required field.',
         },
@@ -120,6 +120,12 @@ export default {
         ]
     }),
     methods : { 
+        destination: async function() {
+            if(this.sel_destination != ""){
+                // Search
+                this.$router.push('/search/' + this.sel_destination);
+            }
+        },
         logout: async function() {
             AuthService.logout();
             this.$router.push('/');
