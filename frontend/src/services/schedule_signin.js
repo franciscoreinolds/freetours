@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = process.env.VUE_APP_API_URL
 
 class ScheduleSignInService {
-    scheduleSignIn(id, nrPeople){
+    async scheduleSignIn(id, nrPeople){
         const auth = localStorage.getItem('user')
         let config = {};
 
@@ -18,14 +18,14 @@ class ScheduleSignInService {
             
             
             console.log(data)
-            return axios
-            .post(API_URL + '/schedule_signin/', data, config)
-            .then(response => {
+            try {
+                const response = await axios
+                    .post(API_URL + '/schedule_signin/', data, config);
                 return response;
-            })
-            .catch(error => {
+            }
+            catch (error) {
                 return error.response.status;
-            });
+            }
         }
     }
     

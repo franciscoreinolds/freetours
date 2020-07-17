@@ -11,6 +11,7 @@ import backendApplication.model.mailer.MailerContext;
 import backendApplication.viewmodel.RegisterScheduling;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -49,6 +51,9 @@ public class TourController {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value = "/createTour", method = RequestMethod.POST)
     public Integer createTour(@RequestBody Tour tour) {
@@ -207,28 +212,43 @@ public class TourController {
     }
 
     @RequestMapping(value = "/search/{destination}", method = RequestMethod.GET)
-    public List<Tour> getDestinationTours(@PathVariable(value="destination") String destination) {
+    public List<Tour> getDestinationTours(@PathVariable(value="destination") String destination,
+                                          @RequestParam(required = false) List<Integer> categoryIds,
+                                          @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+                                          @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate untilDate,
+                                          @RequestParam(required = false) List<String> languages,
+                                          @RequestParam(required = false) Float rating
+                                          ) {
         try{
             // Get city
             City city = cityService.getByName(destination);
-
             // Recursion problem
+            List<Tour> resp = new ArrayList<>();
             List<Tour> tours = city.getTours();
-            for (Tour t : tours) {
-                Tour tour = (Tour) t.clone();
-                tour.getCity().setTours(null);
-                tour.getGuide().setSchedules(null);
-                tour.getGuide().setTours(null);
-                for (Scheduling s : tour.getActive()) {
-                    s.setTour(null);
-                    for (User u : s.getSignees()){
-                        u.setSchedules(null);
-                        u.setTours(null);
+            for (int i = 0; i<tours.size(); i++) {
+                    Tour tour = (Tour) tours.get(i).clone();
+                    if(categoryIds == null || categoryIds.contains(tour.getCategory().getId())){
+                        if(fromDate == null || (tour.getActive().size() != 0 && tour.hasActiveAfter(fromDate))){
+                           if( untilDate == null || fromDate.equals(untilDate) || (tour.getActive().size() != 0 && tour.hasActiveBefore(untilDate))){
+                                if( languages == null|| tour.getLanguages().stream().map(l -> l.getName()).filter(l -> languages.contains(l)).count() > 0) {
+                                    tour.getCity().setTours(null);
+                                    tour.getGuide().setSchedules(null);
+                                    tour.getGuide().setTours(null);
+                                    for (Scheduling s : tour.getActive()) {
+                                        s.setTour(null);
+                                        for (User u : s.getSignees()) {
+                                            u.setSchedules(null);
+                                            u.setTours(null);
+                                        }
+                                    }
+                                    resp.add(tour);
+                                }
+                            }
+                        }
                     }
-                }
             }
 
-            return tours;
+            return resp;
         }catch (NoSuchElementException e) {
             throw new NotFoundException();
         }

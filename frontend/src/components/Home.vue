@@ -84,16 +84,12 @@
             <v-col
             :cols = 1
             >
-                <router-link
-                :to = "{path : '/search'}"
-                class = "router-link"
+                <v-btn
+                class = "btn"
+                v-on:click="goToSearch()"
                 >
-                    <v-btn
-                    class = "btn"
-                    >
-                        Search Tour
-                    </v-btn>
-                </router-link>
+                    Search Tour
+                </v-btn>
             </v-col>
         </v-row>
 
@@ -164,7 +160,7 @@ export default {
     name : "Home",
     data() {
         return {
-            destination : '',
+            destination : undefined,
             all_destinations : [
                 'Amsterdam, Netherlands',
                 'Paris, France',
@@ -190,7 +186,7 @@ export default {
             tours : [],
             date: new Date().toISOString().substr(0, 10),
             categories : [],
-            category : '',
+            category : undefined,
             h2: 'Where will your next Tour be?',
             menu2: false,
         }
@@ -210,11 +206,24 @@ export default {
             this.h2 = 'Next tours:'
         }else {
             this.tours = chunkArray(home_response.data.suggestedTours, 3)
-        }
+        } 
+        
+    },
+    methods: {
+        goToSearch(){
+            let params = {'fromDate': this.date}
+            if(this.category != undefined)
+                params['category'] = this.category
+            if(this.destination != undefined){
+                params['destination'] = this.destination.slice(0,this.destination.search(','))
 
-        
-       
-        
+                this.$router.push({
+                        name : 'Search', 
+                        path:'/search', 
+                        params
+                    })
+            }
+        }
     }
 }
 </script

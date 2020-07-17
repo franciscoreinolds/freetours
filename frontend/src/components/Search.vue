@@ -1,20 +1,6 @@
 <template>
     <div>
-          <v-parallax
-            dark
-            src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-            class = "pt-0 bt-0"
-            >
-            <v-row
-            align="center"
-            justify="center"
-            >
-            <v-col class="text-center" cols="12">
-                <h1 class="display-1 font-weight-thin mb-4">Vuetify.js</h1>
-                <h4 class="subheading">Build your application today!</h4>
-            </v-col>
-            </v-row>
-        </v-parallax>
+          
 
         <!---->
 
@@ -60,6 +46,8 @@
                     </v-list-item>
                     <v-list-item>
                         <v-select
+                        v-model=category
+                        :multiple="multiple"
                         label = "Categories"
                         :items = "categories"
                         item-text = "name"
@@ -73,10 +61,11 @@
                     <!-- Languages Select -->
                     <v-list-item>
                         <v-select
+                        v-model="language"
+                        :multiple="multiple"
                         label = "Languages"
                         :items = "languages"
                         item-text = "name"
-                        item-value = "id"
                         width = "150px"
                         solo
                         >
@@ -116,6 +105,7 @@
                     <v-list-item
                     >
                         <v-btn
+                            v-on:click="search"
                             class = "search_button"
                         >
                             Search
@@ -138,6 +128,7 @@
 import CatService from '../services/cat_service';
 import LangService from '../services/lang_service';
 import TourList from './TourList.vue';
+import tour_service from '../services/tour_service';
 
 export default {
     name : "Search",
@@ -150,7 +141,8 @@ export default {
         }
     },
     data: () => ({
-        date_range : ['2020-06-24', '2020-06-24'],
+        multiple: true,
+        date_range : [],
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard' },
           { title: 'Photos', icon: 'mdi-image' },
@@ -166,7 +158,9 @@ export default {
         categories : [],
         rate_ticks : [1,2,3,4,5],
         rate_range : [1,5],
-        languages : []
+        languages : [],
+        language:'',
+        category: ''
     }),
     async created() {
         var cat_resp = await CatService.get();
@@ -180,7 +174,48 @@ export default {
             this.languages = lang_resp.data;
         }
         else console.log('Lang_Response Status not 200')
+        
+        let filters = {
+            'destination': this.$route.params.destination 
+        }
+
+        if(this.$route.params.fromDate){
+            this.date_range = [this.$route.params.fromDate,this.$route.params.fromDate]
+            filters.date_range = this.date_range
+        }
+        if(this.$route.params.category){
+            this.category = [this.categories[this.$route.params.category-1]]
+            filters.category = [this.$route.params.category]
+        }
+
+
+        const resp = await tour_service.searchTours(filters)
+        this.tours = resp.data
         console.log(this.languages)
+        console.log(resp.data)
+    },
+    methods: {
+        async search() {
+
+            let filters = {
+                'destination': this.$route.params.destination 
+            }
+
+            if(this.date_range){
+                filters.date_range = this.date_range
+            }
+            if(this.category){
+                filters.category = this.category
+            }
+
+            if(this.language){
+                filters.languages = this.language   
+            }
+
+            const resp = await tour_service.searchTours(filters)
+            console.log(resp.data)
+            this.tours = resp.data
+        }
     }
 }
 </script>
