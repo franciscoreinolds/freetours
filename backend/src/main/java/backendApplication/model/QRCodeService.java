@@ -13,7 +13,7 @@ import java.net.URL;
 public class QRCodeService {
 
     @Autowired
-    private ImageService imageService;
+    private ImageStoreService imageStoreService;
 
     @Autowired
     private Environment env;
@@ -30,7 +30,7 @@ public class QRCodeService {
 
             BufferedImage bufferedImage = ImageIO.read(new URL(uri));
 
-            return imageService.storeImage(bufferedImage, tourid + "-qrcode.png");
+            return imageStoreService.storeImage(bufferedImage, tourid + "-qrcode.png");
 
         } catch(IOException e) {
             e.printStackTrace();
