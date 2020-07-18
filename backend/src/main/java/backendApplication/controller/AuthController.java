@@ -1,6 +1,8 @@
 package backendApplication.controller;
 
 import backendApplication.MyUserDetailsService;
+import backendApplication.model.ImageService;
+import backendApplication.model.Pair;
 import backendApplication.model.dao.PasswordResetTokenService;
 import backendApplication.model.emailBuilder.Email;
 import backendApplication.model.emailBuilder.EmailDirector;
@@ -37,10 +39,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 public class AuthController {
@@ -69,6 +68,9 @@ public class AuthController {
     @Autowired
     private Environment env;
 
+    @Autowired
+    private ImageService imageService;
+
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<HttpStatus> registerUser(@RequestPart User user, @RequestPart MultipartFile profileImage) {
 
@@ -87,24 +89,9 @@ public class AuthController {
 
                 if(!profileImage.isEmpty()) {
 
-                    File dir = new File(Objects.requireNonNull(env.getProperty("app.shared.images")));
-                    if (!dir.exists())
-                        dir.mkdir();
+                    List<String> filenames = imageService.storeImage(new Pair<>(profileImage, user.getUsername() + ".png"));
 
-                    String fileName = StringUtils.cleanPath(user.getUsername() + ".png");
-                    Path path = Paths.get(env.getProperty("app.shared.images") + fileName);
-                    try {
-
-                        Files.copy(profileImage.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-                        Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("rw-r--r--");
-                        Files.setPosixFilePermissions(path, permissions);
-
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-                    user.setImage(fileName);
+                    user.setImage(filenames.get(0));
                     userService.save(user);
 
                 }

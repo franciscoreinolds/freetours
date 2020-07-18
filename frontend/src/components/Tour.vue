@@ -38,25 +38,53 @@
                             :cols = 8
                             >
                                 <v-card-text>
-                                    <h2>
-                                        Location: {{tour.city.name}}
-                                    </h2>
-                                    <h2>
-                                        Duration: {{tour.duration}}
-                                    </h2>
-                                    <h2>
-                                        Capacity: 50 people
-                                    </h2>
-                                    <h2>
-                                        Languages: {{tour.languages.map( l => l.abbreviation).join()}}
-                                    </h2>
-                                    <h2>
-                                        Description:
-                                        {{tour.description}}                                    
-                                    </h2>
-                                    <h2>
-                                        Route:
-                                    </h2>
+                                    <v-row>
+                                        <v-col>
+                                            <h2>
+                                                Location: {{tour.city.name}}
+                                            </h2>
+                                            <h2>
+                                                Duration: {{tour.duration}}
+                                            </h2>
+                                            <h2>
+                                                Capacity: {{tour.minCapacity}} - {{tour.maxCapacity}} people
+                                            </h2>
+                                            <h2>
+                                                Languages: {{tour.languages.map( l => l.abbreviation).join()}}
+                                            </h2>
+                                            <h2>
+                                                Description:
+                                                {{tour.description}}
+                                            </h2>
+                                            <h2>
+                                                Route:
+                                            </h2>
+                                        </v-col>
+                                        <v-col :cols = 4>
+                                            <v-btn
+                                                    small
+                                                    primary
+                                                    v-on:click="qrdisplay()"
+                                            >
+                                                <span v-if="!this.displayed"> Display QR Code </span>
+                                                <span v-else> Hide QR Code </span>
+                                            </v-btn>
+                                            <div
+                                                v-if="this.displayed"
+                                            >
+                                                <v-img
+                                                        v-bind:src="tour.qrCode"
+                                                        aspect-ratio = 1
+                                                        max-height = "150px"
+                                                        max-width = "150px"
+                                                >
+                                                </v-img>
+                                                <span>
+                                                    Use this QR Code to advertise this tour.
+                                                </span>
+                                            </div>
+                                        </v-col>
+                                    </v-row>
                                 </v-card-text>
                             </v-col>
                             <v-col
@@ -318,7 +346,8 @@ export default {
                 autoCompleteDelay : 250,
                 maxMarkers : 0,
                 autoClose : true
-            }
+            },
+            displayed: false,
         }
     },
     methods: {
@@ -329,6 +358,9 @@ export default {
         console.log(resp.data.moreToursBy)
         console.log(this.$route.params.id)
          
+        },
+        qrdisplay: function () {
+            this.displayed = !this.displayed;
         }
     },
     watch: {
