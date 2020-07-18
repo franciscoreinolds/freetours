@@ -269,24 +269,33 @@ export default {
         }
     },
     created: async function () {
-        this.image = FRONTEND_URL + '/images/' + this.$route.params.username + '.png'
-        let profile = await ProfileService.get(this.$route.params.username)
-        this.username = profile.data.username
-        this.email = profile.data.email
-        this.dateOfBirth = profile.data.dateOfBirth
-        this.phoneNumber = profile.data.phoneNumber
-        this.spoken_languages = profile.data.languages
-        this.aboutMe = profile.data.aboutMe
-        this.tours = [
-                        profile.data.schedules.map(s => s.tour).concat(profile.data.tours),
-                        profile.data.schedules.filter( s => new Date(s.date) > new Date() ).map(s => s.tour),
-                        profile.data.tours,
-                        profile.data.schedules.filter( s => new Date(s.date) <= new Date() ).map(s => s.tour)]
-        console.log(profile.data)
+        await this.doStuff();
+    },
+    watch: {
+        '$route.params.username': async function (id) {
+            await this.doStuff()
+        }
     },
     methods:  {
-        log(x) {
-            console.log(x)
+        async doStuff(x) {
+            this.image = FRONTEND_URL + '/images/' + this.$route.params.username + '.png'
+            let profile = await ProfileService.get(this.$route.params.username)
+            this.username = profile.data.username
+            this.email = profile.data.email
+            this.dateOfBirth = profile.data.dateOfBirth
+            this.phoneNumber = profile.data.phoneNumber
+            this.spoken_languages = profile.data.languages
+            this.aboutMe = profile.data.aboutMe
+            console.log(profile.data)
+            const aux = profile.data.schedules ? profile.data.schedules.filter( s => new Date(s.date) > new Date() ).map(s => s.tour) : []
+            const aux2 = profile.data.schedules ? profile.data.schedules.filter( s => new Date(s.date) <= new Date() ).map(s => s.tour) : []
+            const aux3 = profile.data.schedules ? profile.data.schedules.map(s => s.tour) : []
+            this.tours = [
+                            aux3.concat(profile.data.tours),
+                            aux,
+                            profile.data.tours,
+                            aux2
+            ]
         }
     }
 }
