@@ -1,0 +1,116 @@
+GET http://{{host}}:{{port}}/profile/userB
+Accept: application/json
+
+###
+
+# curl --request POST
+#  --url http://localhost:8081/sign_up
+#  --header 'content-type: multipart/form-data; boundary=---011000010111000001101001'
+#  --form 'user={
+#	"email": "jpsilva9898@gmail.com",
+#	"username": "user1",
+#	"password": "user1"
+#}'
+#  --form profileImage=
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=---011000010111000001101001; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="user"
+
+{
+	"email": "jpsilva9898@gmail.com",
+	"username": "user1",
+	"password": "user1"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"
+
+
+--WebAppBoundary--
+
+###
+
+# curl --request POST
+#  --url http://localhost:8081/createTour
+#  --header 'authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJleHAiOjE1OTQ5NTYwMDksImlhdCI6MTU5NDkyMDAwOX0.jN8VJ8GucGAhFr-y60ZijsPcUZKvSuLDdlbjQlV_-r4'
+#  --header 'content-type: application/json'
+#  --data '{
+#      "name":"Wonderful Westminster Tour",
+#      "description":"X",
+#      "duration": "00:45",
+#      "maxCapacity": 50,
+#      "minCapacity": 10,
+#			"city": {
+#				"id": 1,
+#				"name": "London"
+#			},
+#			"guide":{
+#				"username": "foo",
+#				"password": "somePassword"
+#			}
+#}'
+POST http://localhost:8081/createTour
+authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJleHAiOjE1OTQ5NTYwMDksImlhdCI6MTU5NDkyMDAwOX0.jN8VJ8GucGAhFr-y60ZijsPcUZKvSuLDdlbjQlV_-r4
+Content-Type: application/json
+
+{
+  "name": "Wonderful Westminster Tour",
+  "description": "X",
+  "duration": "00:45",
+  "maxCapacity": 50,
+  "minCapacity": 10,
+  "city": {
+    "id": 1,
+    "name": "London"
+  },
+  "guide": {
+    "username": "foo",
+    "password": "somePassword"
+  }
+}
+
+###
+
+# curl --request POST
+#  --url http://localhost:8081/createTour
+#  --header 'authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJleHAiOjE1OTUwMzk4MDUsImlhdCI6MTU5NTAwMzgwNX0.1xqcizPkuHRLidH81U20Tklqxb1sQqc6IRFzif8moRM'
+#  --header 'content-type: application/json'
+#  --data '{
+#	"name":"Visita a Torino",
+#	"description":"Cristiano Ronaldo è il miglior giocatore della storia",
+#	"duration":"10:30:00",
+#	"maxCapacity": 7,
+#  "minCapacity": 0,
+#	"languages":[{
+#		"id":2,
+#		"name":"English",
+#		"logo":"../database/flags/britain.png",
+#		"abbreviation":"EN",
+#		"country_code":"+44",
+#		"tours":null}]
+#}'
+POST http://localhost:8081/createTour
+authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJleHAiOjE1OTUwMzk4MDUsImlhdCI6MTU5NTAwMzgwNX0.1xqcizPkuHRLidH81U20Tklqxb1sQqc6IRFzif8moRM
+Content-Type: application/json
+
+{
+  "name": "Visita a Torino",
+  "description": "Cristiano Ronaldo è il miglior giocatore della storia",
+  "duration": "10:30:00",
+  "maxCapacity": 7,
+  "minCapacity": 0,
+  "languages": [
+    {
+      "id": 2,
+      "name": "English",
+      "logo": "../database/flags/britain.png",
+      "abbreviation": "EN",
+      "country_code": "+44",
+      "tours": null
+    }
+  ]
+}
+
+###
+
