@@ -34,16 +34,19 @@
             <v-col
             :cols = 6
             >
-                <v-autocomplete
-                    v-model = "destination"
-                    :items = "all_destinations"
-                    label = "Destination"
-                    :rules = "[rules.required]"
-                    required
-                    outlined
-                    :append-icon="'mdi-map-marker'"
-                >
-                </v-autocomplete>
+            <v-autocomplete
+                v-model = "sel_destination"
+                :items = "all_destinations"
+                item-text="name"
+                item-value="name"
+                label = "Destination"
+                :rules = "[rules.required]"
+                required
+                outlined
+                :append-icon="'mdi-map-marker'"
+            >
+            </v-autocomplete>
+                
             </v-col>
             <v-col
             :cols = 2
@@ -155,13 +158,15 @@ import HomeService from '../services/home_service'
 import HomeModel from '../models/home_model'
 import User from '../models/user'
 import {chunkArray} from './../utils/utils'
+import store from '../store'
 
 export default {
     name : "Home",
     data() {
         return {
-            destination : undefined,
-            all_destinations : [
+            sel_destination : '',
+            all_destinations: store.state.cities,
+            /*all_destinations : [
                 'Amsterdam, Netherlands',
                 'Paris, France',
                 'Lisbon, Portugal',
@@ -171,7 +176,7 @@ export default {
                 'Guimarães, Portugal',
                 'Famalicão, Portugal',
                 'Funchal, Portugal'
-            ],
+            ],*/
             rules : {
                 required: value => !!value || 'Required field.',
             },
@@ -192,6 +197,13 @@ export default {
         }
     },
     async created() {
+        this.$store.subscribe( (mutation, state) => {
+            if (mutation.type === 'setCities') {
+                //console.log("updating")
+                this.all_destinations = store.state.cities;
+            }
+        })
+
         var cat_resp = await CatService.get();
         if (cat_resp.status == 200) {
             this.categories = cat_resp.data;

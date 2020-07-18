@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Entity(name = "Scheduling")
@@ -84,6 +85,11 @@ public class Scheduling {
     public void removeQueue(User user) {this.queue.remove(user);}
 
     public void removeSignee(User user) {this.signees.remove(user);}
+
+    public int removeAllSignees(User user) {
+        this.signees = this.signees.stream().filter(s -> s.getUsername() != user.getUsername()).collect(Collectors.toList());
+        return this.signees.size();
+    }
 
     @Override
     public Object clone(){

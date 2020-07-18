@@ -90,6 +90,7 @@ import store from "../store";
 export default {
     name : "Header",
     components: {Login},
+
     computed : {
         user : function() {
             return this.$store.state.username;
@@ -108,7 +109,7 @@ export default {
             'Famalicão, Portugal',
             'Funchal, Portugal'
         ],*/
-        sel_destination : "",
+        sel_destination : '',
         rules : {
             required: value => !!value || 'Required field.',
         },
@@ -130,6 +131,9 @@ export default {
             AuthService.logout();
             this.$router.push('/');
         }
+    },
+    beforeUpdate(){
+        this.all_destinations = store.state.cities;
     }
 }
 </script>

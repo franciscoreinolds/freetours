@@ -47,6 +47,15 @@
                                                 Duration: {{tour.duration}}
                                             </h2>
                                             <h2>
+                                                Guide: 
+                                                <router-link :to="{ name: 'Profile', params: { username: tour.guide.username }}">
+                                                {{tour.guide.username}}
+                                                </router-link>
+                                            </h2>
+                                            <h2>
+                                                Category: {{tour.category.name}}
+                                            </h2>
+                                            <h2>
                                                 Capacity: {{tour.minCapacity}} - {{tour.maxCapacity}} people
                                             </h2>
                                             <h2>
@@ -90,6 +99,27 @@
                             <v-col
                             :cols = 4
                             >
+                                <div style="margin-bottom: 5px;">
+                                <v-layout justify-center>
+                                    <v-dialog v-model="dialog" max-width="600px" style="display: inline;">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <div
+                                            
+                                            v-bind="attrs"
+                                            v-on="on"
+                                            v-if="isGuide()"
+                                            >
+                                            <h2 class="text-center yellow font-weight-bold">Add Schedule</h2>
+                                            </div>
+                                        </template>
+                                        <div
+                                        v-if="isGuide()"
+                                        >
+                                        <CreateSchedule :id="tour.id"/>
+                                        </div>
+                                    </v-dialog>
+                                </v-layout>
+                                </div>
                                 <v-list
                                     style="max-height: 500px;"
                                     class="overflow-y-auto"
@@ -102,6 +132,7 @@
                                         <v-list-item-content
                                         class = "pa-0"
                                         >
+                                            
                                             <v-layout justify-center>
                                                 <v-dialog v-model="dialog" max-width="600px">
                                                     <template v-slot:activator="{ on, attrs }">
@@ -121,12 +152,53 @@
                                                                 <h4>
                                                                     Number of people going: {{schedulling.signees.length}}
                                                                 </h4>
+                                                                <div
+                                                                v-if="!isGuide() && include(schedulling.signees) == true"
+                                                                >
+                                                                <h2 class="text-center green font-weight-bold">SUBSCRIBED</h2>
+                                                                
+                                                                </div>
+                                                                <div
+                                                                v-else-if="!isGuide() && include(schedulling.signees) == false"
+                                                                >
+                                                                <h2 class="text-center yellow font-weight-bold">SUBSCRIBE</h2>
+                                                                </div>
                                                             </v-card-text>
                                                         </v-card>
                                                     </template>
+                                                    <div
+                                                    v-if="!isGuide()"
+                                                    >
                                                     <TourSignIn :id="schedulling.id"/>
+                                                    </div>
                                                 </v-dialog>
                                             </v-layout>
+                                            <v-card-text>
+                                                <div
+                                                v-if="!isGuide() && include(schedulling.signees) == true"
+                                                >
+                                                    <div class="text-center my-2">
+                                                        <v-btn 
+                                                        small
+                                                        v-on:click="tourSignOut(schedulling.id)"
+                                                        >
+                                                        Unsubscribe
+                                                        </v-btn>
+                                                    </div>            
+                                                </div>
+                                                <div
+                                                v-else-if="isGuide()"
+                                                >
+                                                    <div class="text-center my-2">
+                                                        <v-btn 
+                                                        small
+                                                        v-on:click="tourSignOut(schedulling.id)"
+                                                        >
+                                                        Cancel Schedule
+                                                        </v-btn>
+                                                    </div>
+                                                </div>
+                                            </v-card-text>
                                         </v-list-item-content>
                                    </v-list-item>
                                 </v-list>
@@ -326,12 +398,16 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import TourList from './TourList.vue';
 import TourService from './../services/tour_service'
 import TourSignIn from './TourSignIn'
+import store from '../store'
+import CreateSchedule from './CreateSchedule'
+import ScheduleSignOut from '../services/schedule_signout'
 
 export default {
     name : "Tour",
     components : {
         TourList,
-        TourSignIn
+        TourSignIn,
+        CreateSchedule
     },
     data() {
         return {
@@ -352,15 +428,33 @@ export default {
     },
     methods: {
         async doStuff() {
-        const resp = await TourService.getTour(this.$route.params.id)
-        this.tour = resp.data.tour
-        this.moreTours = resp.data.moreToursBy
-        console.log(resp.data.moreToursBy)
-        console.log(this.$route.params.id)
-         
+            const resp = await TourService.getTour(this.$route.params.id)
+            this.tour = resp.data.tour
+            this.moreTours = resp.data.moreToursBy
+            //console.log(resp.data.moreToursBy)
+            //console.log(this.$route.params.id)
         },
         qrdisplay: function () {
             this.displayed = !this.displayed;
+        },
+        include: function(signees){
+            for(var i in signees){
+                //console.log("Signee: " + signees[i].username)
+                //console.log("Username: " + store.state.username)
+                if(signees[i].username == store.state.username) return true;
+            }
+            return false;
+        },
+        isGuide: function(){
+            //console.log("Tour username: " + this.tour.guide.username)
+            //console.log("State username: " + store.state.username)
+            if(this.tour.guide.username == store.state.username) return true;
+            else return false;
+        },
+        tourSignOut: async function (id) {
+          const resp = await ScheduleSignOut.scheduleSignOut(id)
+          //console.log(resp)
+          this.$router.go(0)
         }
     },
     watch: {

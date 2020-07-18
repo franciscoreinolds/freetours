@@ -195,7 +195,7 @@ public class User implements UserDetails {
 
     public void removeTour(Tour tour) {this.tours.remove(tour);}
 
-    public void removeScheduling(Scheduling scheduling) {this.schedules.remove(scheduling);}
+    public void removeScheduling(Scheduling scheduling) {this.schedules.removeIf(s -> s.getId() == scheduling.getId());}
 
     // Returns next x schedule tours, from the current date
     public List<Scheduling> getNextTours(int x) {

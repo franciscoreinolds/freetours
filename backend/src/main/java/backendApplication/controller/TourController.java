@@ -156,13 +156,18 @@ public class TourController {
             tour.getCity().setTours(null);
             tour.getGuide().setSchedules(null);
             tour.getGuide().setTours(null);
+            Set<Scheduling> sCs = new HashSet<>();
             for (Scheduling s : tour.getActive()) {
-                s.setTour(null);
-                for (User u : s.getSignees()){
+                Scheduling sC = (Scheduling) s.clone();
+                sC.setTour(null);
+                sC.setQueue(null);
+                for (User u : sC.getSignees()){
                     u.setSchedules(null);
                     u.setTours(null);
                 }
+                sCs.add(sC);
             }
+            tour.setActive(sCs);
             for (Review review : tour.getReviews())
                 review.setTour(null);
 
@@ -272,9 +277,9 @@ public class TourController {
     }
 
     @RequestMapping(value = "/schedule/unsubscribe", method = RequestMethod.POST)
-    public ResponseEntity<HttpStatus> unsubscribeScheduling(RegisterScheduling registerScheduling) {
+    public ResponseEntity<HttpStatus> unsubscribeScheduling(@RequestBody RegisterScheduling registerScheduling) {
 
-        Scheduling register = null;
+        Scheduling register;
         try {
             // Get user
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -282,7 +287,6 @@ public class TourController {
 
             // Get selected scheduling
             register = schedulingService.get(registerScheduling.getScheduleId());
-
 
             // Get tour
             Tour tour = register.getTour();
@@ -309,6 +313,8 @@ public class TourController {
                 // Delete scheduling
                 tour.removeActive(register);
                 tourService.save(tour);
+                for(User u : register.getSignees())
+                    u.removeScheduling(register);
                 schedulingService.delete(register.getId());
 
             }else{ // If is a tourist ...
@@ -318,19 +324,21 @@ public class TourController {
                 userService.save(user);
 
                 // Remove user/users from signee list
-                for (int i = 0; i < registerScheduling.getNrPeople(); i++)
-                    register.removeSignee(user);
+                int signeesSize = register.removeAllSignees(user);
 
                  // If exists users in queue ...
                 if(!register.getQueue().isEmpty()) {
 
                     // New user/users in waiting queue to signee list
-                    List<User> newSignees = register.getQueue().subList(0, registerScheduling.getNrPeople());
+                    List<User> newSignees = register.getQueue().subList(0, Math.min(tour.getMaxCapacity()-signeesSize, register.getQueue().size()));
+
+                    List<String> newSigneesNames = newSignees.stream().map(n -> n.getUsername()).collect(Collectors.toList());
+                    register.getQueue().removeIf(us -> newSigneesNames.contains(us.getUsername()));
+                    System.out.println(register.getQueue().size());
 
                     // Add user/users to signee list
                     for (User u : newSignees) {
-                        // Save tour and scheduling on new user
-                        u.addTour(tour);
+                        // Save scheduling on new user
                         u.addScheduling(register);
                         userService.save(u);
 
@@ -344,6 +352,7 @@ public class TourController {
             }
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 
