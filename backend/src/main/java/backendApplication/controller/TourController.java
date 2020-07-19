@@ -67,6 +67,9 @@ public class TourController {
     @Autowired
     private QRCodeService qrCodeService;
 
+    @Autowired
+    private PlaceService placeService;
+
 
     @RequestMapping(value = "/createTour", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createTour(@RequestPart Tour tour, @RequestPart MultipartFile... images) {
@@ -85,6 +88,9 @@ public class TourController {
             return new ResponseEntity<>("You must complete your profile before doing this operation", HttpStatus.FORBIDDEN);
 
         tour.setGuide(user);
+
+        for(Place p : tour.getRoute())
+            placeService.save(p);
 
         // Save tour
         tourService.save(tour);
