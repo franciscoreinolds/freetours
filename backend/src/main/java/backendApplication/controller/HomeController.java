@@ -29,7 +29,6 @@ public class HomeController {
    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public Map<String,Object> home() {
 
-
         Map<String, Object> r = new HashMap<>();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<Tour> nextTours = new ArrayList<>();
@@ -51,24 +50,29 @@ public class HomeController {
 
         }
 
-        List<City> mostPopularCities = cityService.findMostPopularCities();
+        List<City> mostPopularCities = cityService.findMostPopularCities(10);
+
+
         List<Tour> suggestedTours = new ArrayList<>();
-        for(int i = 0; i<mostPopularCities.size(); i++){
-            City c = mostPopularCities.get(i);
-            Tour t = c.getRandomActiveTour();
-            if(t != null) {
-                t = (Tour) t.clone();
-                t.setFinished(null);
-                t.setGuideUsername(null);
-                t.setActive(null);
-                t.setFinished(null);
-                t.setReviews(null);
-                t.setCity( (City) t.getCity().clone());
-                t.getCity().setTours(null);
-                suggestedTours.add(t);
+        if(nextTours.size() == 0){
+            for(int i = 0; i<mostPopularCities.size(); i++){
+                City c = mostPopularCities.get(i);
+                List<Tour> tours = tourService.getRandomActiveTours(c.getName());
+                if(tours.size() != 0) {
+                    Tour t = tours.get(0);
+                    t = (Tour) t.clone();
+                    t.setFinished(null);
+                    t.setGuideUsername(null);
+                    t.setActive(null);
+                    t.setFinished(null);
+                    t.setReviews(null);
+                    t.setCity( (City) t.getCity().clone());
+                    t.getCity().setTours(null);
+                    suggestedTours.add(t);
+                }
+                if(suggestedTours.size() >= 9)
+                    break;
             }
-            if(suggestedTours.size() >= 9)
-                break;
         }
 
         for(City c: mostPopularCities.subList(0,6)) {

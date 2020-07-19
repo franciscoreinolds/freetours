@@ -99,15 +99,6 @@ public class City{
         this.tours = tours;
     }
 
-    @JsonIgnore
-    public Tour getRandomActiveTour() {
-        for (Tour t : tours) {
-            if(!t.getActive().isEmpty()){
-                return t;
-            }
-        }
-        return null;
-    }
 
     public Image getImage() {
         return image;
