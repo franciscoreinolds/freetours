@@ -341,13 +341,14 @@
                                     </v-layout>
                                     <br>
                                     <v-file-input
-                                    outlined
-                                    small-chips
-                                    multiple
-                                    accept = ".png"
-                                    label="Upload some pictures of what people will see in your tour"
-                                    :rules="[(v) => !!v && v.length > 0|| 'You must upload at least 1 photograph.']"
-                                    required
+                                        outlined
+                                        small-chips
+                                        multiple
+                                        accept = ".png"
+                                        label="Upload some pictures of what people will see in your tour"
+                                        :rules="[(v) => !!v && v.length > 0|| 'You must upload at least 1 photograph.']"
+                                        v-model="sel_images"
+                                        required
                                     >
                                     </v-file-input>
                                 </v-card-text>
@@ -404,6 +405,7 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         languages : [],
         sel_languages: [],
+        sel_images: [],
         categories : [],
         sel_category : '',
         rules : { 
@@ -565,7 +567,7 @@ export default {
             this.tour.location = location;
 
             // Request
-            this.response = await TourServiceCreate.createTour(this.tour)
+            this.response = await TourServiceCreate.createTour(this.tour, this.sel_images)
             console.log(this.response)
             switch (this.response.data) {
                 case -1:
