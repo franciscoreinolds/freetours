@@ -370,11 +370,11 @@ public class TourController {
                 if(!register.getQueue().isEmpty()) {
 
                     // New user/users in waiting queue to signee list
-                    List<User> newSignees = register.getQueue().subList(0, Math.min(tour.getMaxCapacity()-signeesSize, register.getQueue().size()));
-
-                    List<String> newSigneesNames = newSignees.stream().map(n -> n.getUsername()).collect(Collectors.toList());
-                    register.getQueue().removeIf(us -> newSigneesNames.contains(us.getUsername()));
-                    System.out.println(register.getQueue().size());
+                    List<User> newSignees = new ArrayList<>();
+                    for(int i = 0; i<Math.min(tour.getMaxCapacity()-signeesSize, register.getQueue().size()); i++) {
+                        User newUser = register.getQueue().remove(i);
+                        newSignees.add(newUser);
+                    }
 
                     // Add user/users to signee list
                     for (User u : newSignees) {

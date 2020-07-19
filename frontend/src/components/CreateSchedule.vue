@@ -72,10 +72,11 @@ export default {
 
     methods: {
         createSchedule: async function () {
-          console.log(this.dates)
+          //console.log(this.dates)
           const response = await ScheduleService.createSchedules(this.$props.id, this.dates)
-          console.log("Resp:" + response)
+          //console.log("Resp:" + response)
           this.$router.push('/');
+          // this.$router.go();
         }
     },
     components: {
