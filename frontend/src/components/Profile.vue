@@ -22,33 +22,58 @@
                         <v-card-text>
                             <v-row>
                                 <v-col>
-                                    Username: {{ this.username }}
+                                    <v-text-field
+                                        disabled
+                                        v-model="username"
+                                        label="Username"
+                                    ></v-text-field>
                                 </v-col>
                                 <v-col>
-                                    Email: {{ this.email }}
+                                    <v-text-field
+                                        :disabled="!editMode"
+                                        v-model="email"
+                                        label="Email"
+                                    ></v-text-field>
                                 </v-col>
                                 <v-col>
-                                    Date of Birth: {{ this.dateOfBirth }}
+                                    <v-text-field
+                                        :disabled="!editMode"
+                                        v-model="dateOfBirth"
+                                        label="Date of birth"
+                                    ></v-text-field>
                                 </v-col>
                             </v-row>
                             <v-row>
                                 <v-col>
-                                    Phone Number: {{ this.phoneNumber }}
+                                    <v-text-field
+                                        :disabled="!editMode"
+                                        v-model="phoneNumber"
+                                        label="Phone number"
+                                    ></v-text-field>
                                 </v-col>
                                 <v-col>
-                                    Rating: {{ this.rating }}
+                                    <v-text-field
+                                        disabled
+                                        v-model="rating"
+                                        label="Rating"
+                                    ></v-text-field>
                                 </v-col>
                             </v-row>
                             <v-row>
                                 <v-col
                                 :cols = 8
-                                >
-                                    Languages:
-                                    <span v-for="language in this.spoken_languages">
-                                        {{ language.abbreviation }} ||
-                                    </span>
+                                >   
+                                    <v-select
+                                        :items="languages"
+                                        item-text="name"
+                                        item-value="id"
+                                        multiple
+                                        :disabled="!editMode"
+                                        v-model="spoken_languages"
+                                        label="Languages"
+                                    ></v-select>
                                 </v-col>
-                                <v-col
+                                <v-col v-if="!editMode"
                                 :cols = 4
                                 >
                                     <v-img
@@ -58,6 +83,19 @@
                                     max-width = "300px"
                                     >
                                     </v-img>
+                                </v-col>
+                                <v-col v-else
+                                :cols = 4
+                                >
+                                    <v-file-input
+                                        outlined
+                                        small-chips
+                                        accept = ".png"
+                                        label="Edit your profile picture"
+                                        v-model="newImage"
+                                        required
+                                    >
+                                    </v-file-input>
                                 </v-col>
                             </v-row>
                             <v-row>
@@ -70,10 +108,10 @@
                                         About me:
                                     </span>
                                     <v-textarea
+                                    :disabled="!editMode"
                                     outlined
-                                    :value = "this.aboutMe"
+                                    v-model="aboutMe"
                                     >
-                                        {{ this.aboutMe }}
                                     </v-textarea>
                                 </v-col>
                             </v-row>
@@ -82,11 +120,20 @@
                         class = "pt-1 pb-6"
                         >
                             <v-layout justify-center>
-                                <v-btn
+                                <v-btn v-if="!editMode"
                                 large
                                 primary
+                                :disabled="!isOwnProfile()"
+                                v-on:click="changeToEditMode"
                                 >
-                                    Change edited information
+                                    Change information
+                                </v-btn>
+                                <v-btn v-else
+                                large
+                                primary
+                                v-on:click="changeToViewMode"
+                                >
+                                    Save Changes
                                 </v-btn>
                             </v-layout>
                         </v-card-actions>
@@ -119,6 +166,8 @@
 <script>
 import TourList from './TourList.vue'
 import ProfileService from '../services/profile_service'
+import LangService from '../services/lang_service'
+import profile_service from '../services/profile_service'
 
 const FRONTEND_URL = process.env.VUE_APP_FRONTEND_URL
 
@@ -129,6 +178,8 @@ export default {
     },
     data: () => {
         return {
+            newImage: null,
+            editMode: false,
             radioselected : 2,
             radio_values : [
                 {
@@ -149,114 +200,6 @@ export default {
                 },
             ],
             languages : [
-                {
-                    language : "Portuguese",
-                    value : 1
-                },
-                {
-                    language : "Spanish",
-                    value : 2
-                },
-                {
-                    language : "French",
-                    value : 3
-                },
-                {
-                    language : "German",
-                    value : 4
-                },
-                {
-                    language : "English",
-                    value : 5
-                },
-                {
-                    language : "Dutch",
-                    value : 6
-                },
-            ],
-            country_codes : [
-                {
-                    country_code : "PT: +351",
-                    value : 1
-                },
-                {
-                    country_code : "ES: +34",
-                    value : 2
-                },
-                {
-                    country_code : "FR: +33",
-                    value : 3
-                },
-                {
-                    country_code : "DE: +49",
-                    value : 4
-                },
-                {
-                    country_code : "UK: +44",
-                    value : 5
-                },
-                {
-                    country_code : "NL: +31",
-                    value : 6
-                },
-                {
-                    country_code : "BE: +32",
-                    value : 7
-                },
-            ],
-            tours : [
-                {
-                    text : "Language",
-                    value : "English"
-                },
-                {
-                    text : "Location",
-                    value : "Berlin, Germany"
-                },
-                {
-                    text : "Time and Date",
-                    value : "09:00 05/05/2020"
-                },
-                {
-                    text : "Rating",
-                    value : 4.5
-                },
-                {
-                    text : "Capacity",
-                    value : 50
-                },
-            ],
-            cards: [
-                {
-                title: "Indigo Card",
-                color: "indigo",
-                flex: 4
-                },
-                {
-                title: "Red Card",
-                color: "red",
-                flex: 4
-                },
-                {
-                title: "Purple Card",
-                color: "purple",
-                flex: 4
-                },
-                {
-                title: "Green Card",
-                color: "green",
-                flex: 7
-                },
-                {
-                title: "Black Card",
-                color: "black",
-                flex: 5
-                },
-                {
-                title: "Brown Card",
-                color: "brown",
-                flex: 10
-                }
             ],
             username : "",
             email: "",
@@ -269,6 +212,10 @@ export default {
         }
     },
     created: async function () {
+        var lang_array = await LangService.get();
+        for (var i = 0; i < lang_array.data.length; i++) {
+            this.languages.push(lang_array.data[i]);
+        }
         await this.doStuff();
     },
     watch: {
@@ -282,6 +229,7 @@ export default {
             let profile = await ProfileService.get(this.$route.params.username)
             this.username = profile.data.username
             this.email = profile.data.email
+            this.rating = profile.data.rating
             this.dateOfBirth = profile.data.dateOfBirth
             this.phoneNumber = profile.data.phoneNumber
             this.spoken_languages = profile.data.languages
@@ -296,6 +244,36 @@ export default {
                             profile.data.tours,
                             aux2
             ]
+        },
+
+        changeToEditMode(){
+            this.editMode = true
+        },
+
+        async changeToViewMode(){
+            this.editMode = false
+            
+            const user = {
+                'username': this.username,
+                'email': this.email,
+                'rating': this.rating,
+                'dateOfBirth': this.dateOfBirth,
+                'phoneNumber': this.phoneNumber,
+                'languages': [],
+                'aboutMe': this.aboutMe
+            }
+
+            for(const languageId of this.spoken_languages){
+                user.languages.push(this.languages[languageId])
+            }
+             
+            
+            await profile_service.saveChanges(user, this.newImage)
+            await this.doStuff();
+        },
+
+        isOwnProfile(){
+            return this.$store.state.username === this.$route.params.username 
         }
     }
 }

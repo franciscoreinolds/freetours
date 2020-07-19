@@ -12,7 +12,7 @@ class LangService {
             .then(
                 response => {
                     if (response.data) {
-                        //console.log(response)
+                        console.log(response)
                         return response;
                     }
                 }
