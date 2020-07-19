@@ -1,116 +1,624 @@
-GET http://{{host}}:{{port}}/profile/userB
-Accept: application/json
+### USERS
 
-###
-
-# curl --request POST
-#  --url http://localhost:8081/sign_up
-#  --header 'content-type: multipart/form-data; boundary=---011000010111000001101001'
-#  --form 'user={
-#	"email": "jpsilva9898@gmail.com",
-#	"username": "user1",
-#	"password": "user1"
-#}'
-#  --form profileImage=
 POST http://{{host}}:{{port}}/sign_up
-Content-Type: multipart/form-data; boundary=---011000010111000001101001; boundary=WebAppBoundary
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
 
 --WebAppBoundary
+Content-Type: application/json
 Content-Disposition: form-data; name="user"
 
 {
-	"email": "jpsilva9898@gmail.com",
-	"username": "user1",
-	"password": "user1"
+  "username": "userA",
+  "password": "user",
+  "email": "userA@gmail.com",
+  "phoneNumber": "910000000",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user A"
 }
 --WebAppBoundary
-Content-Disposition: form-data; name="profileImage"
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
 
-
+< user.png
 --WebAppBoundary--
 
 ###
 
-# curl --request POST
-#  --url http://localhost:8081/createTour
-#  --header 'authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJleHAiOjE1OTQ5NTYwMDksImlhdCI6MTU5NDkyMDAwOX0.jN8VJ8GucGAhFr-y60ZijsPcUZKvSuLDdlbjQlV_-r4'
-#  --header 'content-type: application/json'
-#  --data '{
-#      "name":"Wonderful Westminster Tour",
-#      "description":"X",
-#      "duration": "00:45",
-#      "maxCapacity": 50,
-#      "minCapacity": 10,
-#			"city": {
-#				"id": 1,
-#				"name": "London"
-#			},
-#			"guide":{
-#				"username": "foo",
-#				"password": "somePassword"
-#			}
-#}'
-POST http://localhost:8081/createTour
-authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJleHAiOjE1OTQ5NTYwMDksImlhdCI6MTU5NDkyMDAwOX0.jN8VJ8GucGAhFr-y60ZijsPcUZKvSuLDdlbjQlV_-r4
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="user"
+
+{
+  "username": "userB",
+  "password": "user",
+  "email": "userB@gmail.com",
+  "phoneNumber": "910000001",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user B"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
+
+< user.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="user"
+
+{
+  "username": "userC",
+  "password": "user",
+  "email": "userC@gmail.com",
+  "phoneNumber": "910000002",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user C"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
+
+< user.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="user"
+
+{
+  "username": "userD",
+  "password": "user",
+  "email": "userD@gmail.com",
+  "phoneNumber": "910000003",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user D"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
+
+< user.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="user"
+
+{
+  "username": "userE",
+  "password": "user",
+  "email": "userE@gmail.com",
+  "phoneNumber": "910000004",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user E"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
+
+< user.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="user"
+
+{
+  "username": "userF",
+  "password": "user",
+  "email": "userF@gmail.com",
+  "phoneNumber": "910000005",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user F"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
+
+< user.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="user"
+
+{
+  "username": "userG",
+  "password": "user",
+  "email": "userG@gmail.com",
+  "phoneNumber": "910000006",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user G"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
+
+< user.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="user"
+
+{
+  "username": "userH",
+  "password": "user",
+  "email": "userH@gmail.com",
+  "phoneNumber": "910000007",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user H"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
+
+< user.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="user"
+
+{
+  "username": "userI",
+  "password": "user",
+  "email": "userI@gmail.com",
+  "phoneNumber": "910000000",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user I"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
+
+< user.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/sign_up
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="user"
+
+{
+  "username": "userJ",
+  "password": "user",
+  "email": "userJ@gmail.com",
+  "phoneNumber": "910000009",
+  "dateOfBirth": "1998-01-01",
+  "aboutMe": "I'm user J"
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="profileImage"; filename="user.png"
+
+< user.png
+--WebAppBoundary--
+
+###
+
+
+
+
+
+
+### TOURS
+
+POST http://{{host}}:{{port}}/sign_in
 Content-Type: application/json
 
 {
-  "name": "Wonderful Westminster Tour",
-  "description": "X",
-  "duration": "00:45",
-  "maxCapacity": 50,
+  "username": "userD",
+  "password": "user"
+}
+
+> {%
+    client.global.set("jwt_token", response.body);
+%}
+
+###
+
+POST http://{{host}}:{{port}}/createTour
+authorization: {{jwt_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="tour"
+
+{
+  "name": "Tour in Paris",
+  "description": "Beautiful tour in Paris",
+  "duration": "01:00:00",
+  "maxCapacity": 20,
   "minCapacity": 10,
   "city": {
-    "id": 1,
-    "name": "London"
+    "id": 2011
+  },
+  "category": {
+    "id": 3
   },
   "guide": {
-    "username": "foo",
-    "password": "somePassword"
-  }
+    "username": "userD"
+  },
+  "languages": [{
+    "id": 6
+  },{
+    "id": 2
+  }]
 }
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="paris-1.png"
+
+< paris-1.png
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="paris-1.png"
+
+< paris-2.png
+--WebAppBoundary
 
 ###
 
-# curl --request POST
-#  --url http://localhost:8081/createTour
-#  --header 'authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJleHAiOjE1OTUwMzk4MDUsImlhdCI6MTU5NTAwMzgwNX0.1xqcizPkuHRLidH81U20Tklqxb1sQqc6IRFzif8moRM'
-#  --header 'content-type: application/json'
-#  --data '{
-#	"name":"Visita a Torino",
-#	"description":"Cristiano Ronaldo è il miglior giocatore della storia",
-#	"duration":"10:30:00",
-#	"maxCapacity": 7,
-#  "minCapacity": 0,
-#	"languages":[{
-#		"id":2,
-#		"name":"English",
-#		"logo":"../database/flags/britain.png",
-#		"abbreviation":"EN",
-#		"country_code":"+44",
-#		"tours":null}]
-#}'
-POST http://localhost:8081/createTour
-authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmb28iLCJleHAiOjE1OTUwMzk4MDUsImlhdCI6MTU5NTAwMzgwNX0.1xqcizPkuHRLidH81U20Tklqxb1sQqc6IRFzif8moRM
+POST http://{{host}}:{{port}}/createTour
+authorization: {{jwt_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="tour"
+
+{
+  "name": "Tour in Rome",
+  "description": "Beautiful tour in Rome",
+  "duration": "01:15:00",
+  "maxCapacity": 15,
+  "minCapacity": 5,
+  "city": {
+    "id": 1125
+  },
+  "category": {
+    "id": 4
+  },
+  "guide": {
+    "username": "userD"
+  },
+  "languages": [{
+    "id": 2
+  }]
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="rome-1.png"
+
+< rome-1.png
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="rome-2.png"
+
+< rome-2.png
+--WebAppBoundary
+
+###
+
+POST http://{{host}}:{{port}}/sign_in
 Content-Type: application/json
 
 {
-  "name": "Visita a Torino",
-  "description": "Cristiano Ronaldo è il miglior giocatore della storia",
-  "duration": "10:30:00",
-  "maxCapacity": 7,
-  "minCapacity": 0,
-  "languages": [
-    {
-      "id": 2,
-      "name": "English",
-      "logo": "../database/flags/britain.png",
-      "abbreviation": "EN",
-      "country_code": "+44",
-      "tours": null
-    }
-  ]
+  "username": "userB",
+  "password": "user"
 }
+
+> {%
+    client.global.set("jwt_token", response.body);
+%}
 
 ###
 
+POST http://{{host}}:{{port}}/createTour
+authorization: {{jwt_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="tour"
+
+{
+  "name": "Tour in Rome",
+  "description": "Beautiful tour in Rome",
+  "duration": "00:45:00",
+  "maxCapacity": 20,
+  "minCapacity": 10,
+  "city": {
+    "id": 1125
+  },
+  "category": {
+    "id": 2
+  },
+  "guide": {
+    "username": "userB"
+  },
+  "languages": [{
+    "id": 2
+  }]
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="rome-3.png"
+
+< rome-3.png
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="rome-4.png"
+
+< rome-4.png
+--WebAppBoundary
+
+###
+
+POST http://{{host}}:{{port}}/createTour
+authorization: {{jwt_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="tour"
+
+{
+  "name": "Tour in Madrid",
+  "description": "Beautiful tour in Madrid",
+  "duration": "00:45:00",
+  "maxCapacity": 15,
+  "minCapacity": 8,
+  "city": {
+    "id": 6738
+  },
+  "category": {
+    "id": 2
+  },
+  "guide": {
+    "username": "userB"
+  },
+  "languages": [{
+    "id": 3
+  },{
+    "id": 2
+  }]
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="madrid-1.png"
+
+< madrid-1.png
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="madrid-2.png"
+
+< madrid-2.png
+--WebAppBoundary
+
+###
+
+POST http://{{host}}:{{port}}/sign_in
+Content-Type: application/json
+
+{
+  "username": "userC",
+  "password": "user"
+}
+
+> {%
+    client.global.set("jwt_token", response.body);
+%}
+
+###
+
+POST http://{{host}}:{{port}}/createTour
+authorization: {{jwt_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="tour"
+
+{
+  "name": "Tour in Tokyo",
+  "description": "Beautiful tour in Tokyo",
+  "duration": "00:45:00",
+  "maxCapacity": 15,
+  "minCapacity": 8,
+  "city": {
+    "id": 620
+  },
+  "category": {
+    "id": 2
+  },
+  "guide": {
+    "username": "userC"
+  },
+  "languages": [{
+    "id": 2
+  }]
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="tokyo-1.png"
+
+< tokyo-1.png
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="tokyo-2.png"
+
+< tokyo-2.png
+--WebAppBoundary
+
+###
+
+POST http://{{host}}:{{port}}/createTour
+authorization: {{jwt_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="tour"
+
+{
+  "name": "Tour in Lisbon",
+  "description": "Beautiful tour in Lisbon",
+  "duration": "00:30:00",
+  "maxCapacity": 10,
+  "minCapacity": 5,
+  "city": {
+    "id": 3287
+  },
+  "category": {
+    "id": 3
+  },
+  "guide": {
+    "username": "userC"
+  },
+  "languages": [{
+    "id": 1
+  },
+  {
+    "id": 2
+  },
+  {
+    "id": 3
+  }]
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="lisbon-1.png"
+
+< lisbon-1.png
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="lisbon-2.png"
+
+< lisbon-2.png
+--WebAppBoundary
+
+###
+
+POST http://{{host}}:{{port}}/createTour
+authorization: {{jwt_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="tour"
+
+{
+  "name": "Tour in Barcelona",
+  "description": "Beautiful tour in Barcelona",
+  "duration": "00:30:00",
+  "maxCapacity": 10,
+  "minCapacity": 5,
+  "city": {
+    "id": 4466
+  },
+  "category": {
+    "id": 2
+  },
+  "guide": {
+    "username": "userC"
+  },
+  "languages": [{
+    "id": 3
+  },{
+    "id": 2
+  }]
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="barcelona-1.png"
+
+< barcelona-1.png
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="barcelona-2.png"
+
+< barcelona-2.png
+--WebAppBoundary
+
+###
+
+POST http://{{host}}:{{port}}/createTour
+authorization: {{jwt_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: */*
+
+--WebAppBoundary
+Content-Type: application/json
+Content-Disposition: form-data; name="tour"
+
+{
+  "name": "Come visit Messi",
+  "description": "Beautiful tour in Barcelona",
+  "duration": "00:45:00",
+  "maxCapacity": 15,
+  "minCapacity": 8,
+  "city": {
+    "id": 4466
+  },
+  "category": {
+    "id": 2
+  },
+  "guide": {
+    "username": "userC"
+  },
+  "languages": [{
+    "id": 3
+  },{
+    "id": 2
+  }]
+}
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="barcelona-1.png"
+
+< barcelona-1.png
+--WebAppBoundary
+Content-Disposition: form-data; name="images"; filename="barcelona-2.png"
+
+< barcelona-2.png
+--WebAppBoundary
+
+###
