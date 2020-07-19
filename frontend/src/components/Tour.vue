@@ -104,7 +104,6 @@
                                     <v-dialog v-model="dialog" max-width="600px" style="display: inline;">
                                         <template v-slot:activator="{ on, attrs }">
                                             <div
-                                            
                                             v-bind="attrs"
                                             v-on="on"
                                             v-if="isGuide()"

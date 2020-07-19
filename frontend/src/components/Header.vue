@@ -89,8 +89,9 @@ import store from "../store";
 
 export default {
     name : "Header",
-    components: {Login},
-
+    components: {
+        Login
+    },
     computed : {
         user : function() {
             return this.$store.state.username;
