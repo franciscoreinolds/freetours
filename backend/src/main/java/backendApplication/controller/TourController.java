@@ -1,6 +1,8 @@
 package backendApplication.controller;
 
 import backendApplication.controller.expeptions.NotFoundException;
+import backendApplication.model.ImageStoreService;
+import backendApplication.model.Pair;
 import backendApplication.model.QRCodeService;
 import backendApplication.model.SwapManager;
 import backendApplication.model.dao.*;
@@ -14,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.time.Duration;
@@ -26,8 +30,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.*;
 import java.util.stream.Collectors;
-
-
 
 @RestController
 public class TourController {
@@ -45,6 +47,9 @@ public class TourController {
     CityService cityService;
 
     @Autowired
+    ImageService imageService;
+
+    @Autowired
     SwapManager swapManager;
 
     @Autowired
@@ -57,41 +62,76 @@ public class TourController {
     private CategoryService categoryService;
 
     @Autowired
+    private ImageStoreService imageStoreService;
+
+    @Autowired
     private QRCodeService qrCodeService;
 
 
-    @RequestMapping(value = "/createTour", method = RequestMethod.POST)
-    public Integer createTour(@RequestBody Tour tour) {
-        try{
-            // Get user
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            User user = userService.get(username);
+    @RequestMapping(value = "/createTour", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createTour(@RequestPart Tour tour, @RequestPart MultipartFile... images) {
 
-            // Check if user is a guide ...
-            if (!user.allParametersFilled()) return -2;
+        // Get user
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(username == null)
+            return new ResponseEntity<>("You must be authenticated for this operation", HttpStatus.UNAUTHORIZED);
 
-            // Save tour
-            tourService.save(tour);
+        User user = userService.get(username);
+        if(user == null)
+            return new ResponseEntity<>("User doesn't exist", HttpStatus.FORBIDDEN);
 
-            // add QRCode
-            tour.setQrCode(qrCodeService.getQRCode(tour.getId()));
-            tourService.save(tour);
+        // Check if user is a guide ...
+        if (!user.allParametersFilled())
+            return new ResponseEntity<>("You must complete your profile before doing this operation", HttpStatus.FORBIDDEN);
 
-            // Save tour on user
-            user.addTour(tour);
-            userService.save(user);
+        tour.setGuide(user);
 
-            // Save tour on city
-            //se a cidade nao existir criar !!!! adicionar
-            System.out.println(tour.getCity().getId() + tour.getCity().getName());
-            City city = cityService.get(tour.getCity().getId());
-            city.addTour(tour);
-            cityService.save(city);
-        }catch (Exception ex) {
-            ex.printStackTrace();
-            return -1;
+        // Save tour
+        tourService.save(tour);
+
+        // add images
+        tour.setImages(new HashSet<>());
+        Set<Image> imageNames = processImages(tour, images);
+
+        // add QRCode
+        tour.setQrCode(qrCodeService.getQRCode(tour.getId()));
+        // tourService.save(tour);
+
+        // Save tour on user
+        user.addTour(tour);
+        userService.save(user);
+
+        // Save tour on city
+        //se a cidade nao existir criar !!!! adicionar
+        System.out.println(tour.getCity().getId() + tour.getCity().getName());
+        City city = cityService.get(tour.getCity().getId());
+        city.addTour(tour);
+        cityService.save(city);
+
+        return new ResponseEntity<>(tour.getId(), HttpStatus.OK);
+    }
+
+    private Set<Image> processImages(Tour tour, MultipartFile... images) {
+
+        List<Pair<MultipartFile,String>> imagesToStore = new ArrayList<>();
+        int count = 0;
+
+        for(MultipartFile image : images) {
+            imagesToStore.add(new Pair<>(image, tour.getId() + "-" + count + ".png"));
+            count++;
         }
-        return tour.getId();
+
+        List<String> imageNames = imageStoreService.storeImage(imagesToStore);
+        Set<Image> result = new HashSet<>();
+        for(String img_name : imageNames) {
+            Image img = new Image();
+            img.setImage(img_name);
+            imageService.save(img);
+            tour.addImage(img);
+        }
+
+        return result;
+
     }
 
     @RequestMapping(value = "/createScheduling/{idTour}", method = RequestMethod.POST)

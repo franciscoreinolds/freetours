@@ -241,6 +241,8 @@ public class Tour implements Serializable {
         this.reviews.add(review);
     }
 
+    public void addImage(Image image) {this.images.add(image);}
+
     @Override
     public Object clone(){
         return new Tour(this);

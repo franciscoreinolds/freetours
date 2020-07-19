@@ -22,13 +22,12 @@ import java.util.Objects;
 import java.util.Set;
 
 @Service
-public class ImageService {
+public class ImageStoreService {
 
     @Autowired
     private Environment env;
 
-    @SafeVarargs
-    public final List<String> storeImage(Pair<MultipartFile, String>... images) {
+    public final List<String> storeImage(List<Pair<MultipartFile,String>> images) {
 
         createDirectory();
 

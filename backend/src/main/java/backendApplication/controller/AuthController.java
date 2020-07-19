@@ -1,7 +1,7 @@
 package backendApplication.controller;
 
 import backendApplication.MyUserDetailsService;
-import backendApplication.model.ImageService;
+import backendApplication.model.ImageStoreService;
 import backendApplication.model.Pair;
 import backendApplication.model.dao.PasswordResetTokenService;
 import backendApplication.model.emailBuilder.Email;
@@ -14,7 +14,6 @@ import backendApplication.model.dao.UserService;
 import backendApplication.model.entities.User;
 import backendApplication.viewmodel.PasswordChange;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
@@ -25,20 +24,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.util.*;
 
 @RestController
@@ -69,7 +57,7 @@ public class AuthController {
     private Environment env;
 
     @Autowired
-    private ImageService imageService;
+    private ImageStoreService imageStoreService;
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<HttpStatus> registerUser(@RequestPart User user, @RequestPart MultipartFile profileImage) {
@@ -78,7 +66,7 @@ public class AuthController {
 
             userService.get(user.getUsername());
 
-            return new ResponseEntity<HttpStatus> (HttpStatus.CONFLICT);
+            return new ResponseEntity<> (HttpStatus.CONFLICT);
 
         } catch ( NoSuchElementException e) {
 
@@ -89,7 +77,7 @@ public class AuthController {
 
                 if(!profileImage.isEmpty()) {
 
-                    List<String> filenames = imageService.storeImage(new Pair<>(profileImage, user.getUsername() + ".png"));
+                    List<String> filenames = imageStoreService.storeImage(List.of(new Pair<>(profileImage, user.getUsername() + ".png")));
 
                     user.setImage(filenames.get(0));
                     userService.save(user);
