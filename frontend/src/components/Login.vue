@@ -26,7 +26,7 @@
                                 name="username"
                                 type="text"
                                 class = "pt-12"
-                                @input="message = ''"
+                                @input="restore_variables()"
                                 required
                                 :rules = "[rules.required]"
                         />
@@ -39,7 +39,7 @@
                                 name="password"
                                 type="password"
                                 class = "pt-6"
-                                @input="message = ''"
+                                @input="restore_variables()"
                                 required
                                 :rules = "[rules.required]"
                             />
@@ -136,6 +136,10 @@ export default {
         forgot_password: function () {
             this.dialog = false
             this.$router.push('/forgotpassword')
+        },
+        restore_variables: function () {
+            this.success = this.error = false
+            this.message = ""
         }
     }
 }
