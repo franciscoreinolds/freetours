@@ -31,8 +31,8 @@ public class TourService {
         repo.deleteById(id);
     }
 
-    public List<Tour> getRandomActiveTours(int i) {
-        return repo.findRandomActiveTours(PageRequest.of(0, i));
+    public List<Tour> getRandomActiveTours(String cityName) {
+        return repo.findRandomActiveTours(cityName);
     }
 
 }
