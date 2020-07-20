@@ -117,6 +117,7 @@
                         @click="$router.push('/tour/' + tour.id);"
                         class = "card"
                         width = "100%"
+                        height = "100%"
                         >
                             <v-card-title
                             primary-title
@@ -142,13 +143,6 @@
                 </v-layout>
             </v-carousel-item>
         </v-carousel>
-        <v-layout justify-center>
-            <v-card-actions>
-                <v-btn primary>
-                    More Tours
-                </v-btn>
-            </v-card-actions>
-        </v-layout>
     </div>
 </template>
 

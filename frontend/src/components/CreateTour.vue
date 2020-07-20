@@ -367,7 +367,7 @@
                                                     Submit
                                                 </v-btn>
                                             </template>
-                                            <CreateSchedule :id="1"/>
+                                            <CreateSchedule :id="tour.id"/>
                                         </v-dialog>
                                     </v-layout>
                                 </v-card-actions>

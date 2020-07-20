@@ -14,6 +14,7 @@
                 <v-btn class="mr-4" @click="tourSignIn">submit</v-btn>
             </form>
         </v-card-text>
+        <v-card-text class="red--text" v-if="message">{{message}}</v-card-text>
     </v-card>
 </template>
 
@@ -25,11 +26,14 @@ import schedule_service from '../services/schedule_service'
 export default {
     name: "TourSignIn",
     props: {
-        id: Number
+        id: Number,
+        signeesSize: Number,
+        maxCapacity: Number
     },
     data () {
       return {
-         participants: 0
+         participants: 0,
+         message: '',
       }
     },
 
@@ -39,9 +43,19 @@ export default {
 
     methods: {
         tourSignIn: async function () {
-          const resp = await schedule_signin.scheduleSignIn(this.$props.id, this.participants)
-          console.log(resp)
-          this.$router.go(0)
+            if(this.$props.signeesSize + this.participants > this.$props.maxCapacity){
+                var possibleParticipants = this.$props.maxCapacity - this.$props.signeesSize;
+                if(possibleParticipants > 0 && this.participants < this.$props.maxCapacity)
+                    this.message = "*Tour capacity exceeded, your " + this.participants + " participants are waiting on queue." + " For now, you can only subscribe " + possibleParticipants + ".";
+                else if (this.participants > this.$props.maxCapacity && possibleParticipants > 0)
+                    this.message = "*Impossible. Tour capacity exceeded."
+                else if(possibleParticipants == 0) 
+                    this.message = "*Tour capacity exceeded, you can not subscribe any participant."
+            }else this.message = '';
+            
+            const resp = await schedule_signin.scheduleSignIn(this.$props.id, this.participants)
+            console.log(resp)
+            if (resp.data === 1) this.$router.go(0)
         }
     }
 }

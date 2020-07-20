@@ -108,9 +108,9 @@ public class TourController {
         userService.save(user);
 
         // Save tour on city
-        //se a cidade nao existir criar !!!! adicionar
-        System.out.println(tour.getCity().getId() + tour.getCity().getName());
         City city = cityService.get(tour.getCity().getId());
+        if(city == null)
+            return new ResponseEntity<>("City doesn't exist", HttpStatus.FORBIDDEN);
         city.addTour(tour);
         cityService.save(city);
 
@@ -228,7 +228,7 @@ public class TourController {
     }
 
     @RequestMapping(value = "/schedule_signin", method = RequestMethod.POST)
-    public ResponseEntity<HttpStatus> registerScheduling(@RequestBody RegisterScheduling registerScheduling) {
+    public ResponseEntity<?> registerScheduling(@RequestBody RegisterScheduling registerScheduling) {
 
         Scheduling register = null;
         try {
@@ -249,29 +249,38 @@ public class TourController {
             // Check capacity
             int maxCapacity = tour.getMaxCapacity();
 
-            if (register.getSignees().size() + registerScheduling.getNrPeople() < maxCapacity) {
+            if (register.getSignees().size() + registerScheduling.getNrPeople() <= maxCapacity) {
                 // Save scheduling on user
                 user.addScheduling(register);
                 userService.save(user);
 
+                // Remove user register from queue
+                register.removeAllQueue(user);
+
                 // Add user to signee list
                 for (int i = 0; i < registerScheduling.getNrPeople(); i++)
                     register.addSignee(user);
-            }
-            else {
-                // Add user to waiting queue
-                for(int i=0; i< registerScheduling.getNrPeople(); i++)
-                    register.addQueue(user);
-            }
 
-            // Save scheduling
-            schedulingService.save(register);
+                // Save scheduling
+                schedulingService.save(register);
+                return new ResponseEntity<>(1,HttpStatus.CREATED);
+            }
+            else if(registerScheduling.getNrPeople() <= maxCapacity){
+                // Add user to waiting queue
+                for(int i=0; i<registerScheduling.getNrPeople(); i++)
+                    register.addQueue(user);
+
+                // Save scheduling
+                schedulingService.save(register);
+                return new ResponseEntity<>(2,HttpStatus.CREATED);
+            }
+            else return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+
 
         } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 
-        return new ResponseEntity<> (HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/search/{destination}", method = RequestMethod.GET)
@@ -377,8 +386,9 @@ public class TourController {
 
                     // New user/users in waiting queue to signee list
                     List<User> newSignees = new ArrayList<>();
-                    for(int i = 0; i<Math.min(tour.getMaxCapacity()-signeesSize, register.getQueue().size()); i++) {
-                        User newUser = register.getQueue().remove(i);
+                    int queueSize = register.getQueue().size();
+                    for(int i = 0; i<Math.min(tour.getMaxCapacity()-signeesSize, queueSize); i++) {
+                        User newUser = register.getQueue().remove(0);
                         newSignees.add(newUser);
                     }
 

@@ -91,6 +91,10 @@ public class Scheduling {
         return this.signees.size();
     }
 
+    public void removeAllQueue(User user) {
+        this.queue = this.queue.stream().filter(s -> s.getUsername() != user.getUsername()).collect(Collectors.toList());
+    }
+
     @Override
     public Object clone(){
         return new Scheduling(this);

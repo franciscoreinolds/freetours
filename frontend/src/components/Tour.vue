@@ -108,7 +108,13 @@
                                             v-on="on"
                                             v-if="isGuide()"
                                             >
-                                            <h2 class="text-center yellow font-weight-bold">Add Schedule</h2>
+                                            <div class="text-center my-2">
+                                                <v-btn 
+                                                x-large
+                                                >
+                                                Add Schedule
+                                                </v-btn>
+                                            </div>
                                             </div>
                                         </template>
                                         <div
@@ -123,6 +129,8 @@
                                     style="max-height: 500px;"
                                     class="overflow-y-auto"
                                 >
+                                    <div 
+                                    v-if="tour.active.length != 0">
                                     <v-list-item
                                     v-for="(schedulling, index) in tour.active"
                                     :key="index"
@@ -146,16 +154,20 @@
                                                                     Date: {{schedulling.date.slice(0,10)}}
                                                                 </h3>
                                                                 <h4>
-                                                                    Starting Time: {{schedulling.date.slice(11  ,16)}}
+                                                                    Starting Time: {{parseInt(schedulling.date.slice(11 ,13))+1}}:{{schedulling.date.slice(14 ,16)}}
                                                                 </h4>
                                                                 <h4>
                                                                     Number of people going: {{schedulling.signees.length}}
                                                                 </h4>
                                                                 <div
-                                                                v-if="!isGuide() && include(schedulling.signees) == true"
+                                                                v-if="!isGuide() && schedulling.signees.length == tour.maxCapacity"
+                                                                >
+                                                                <h2 class="text-center orange font-weight-bold">WAITING QUEUE</h2>
+                                                                </div>
+                                                                <div
+                                                                v-else-if="!isGuide() && include(schedulling.signees) == true"
                                                                 >
                                                                 <h2 class="text-center green font-weight-bold">SUBSCRIBED</h2>
-                                                                
                                                                 </div>
                                                                 <div
                                                                 v-else-if="!isGuide() && include(schedulling.signees) == false"
@@ -168,7 +180,7 @@
                                                     <div
                                                     v-if="!isGuide()"
                                                     >
-                                                    <TourSignIn :id="schedulling.id"/>
+                                                    <TourSignIn :id="schedulling.id" :signeesSize="schedulling.signees.length" :maxCapacity="tour.maxCapacity"/>
                                                     </div>
                                                 </v-dialog>
                                             </v-layout>
@@ -199,7 +211,11 @@
                                                 </div>
                                             </v-card-text>
                                         </v-list-item-content>
-                                   </v-list-item>
+                                    </v-list-item>
+                                    </div>
+                                    <div v-if="!isGuide() && tour.active.length == 0">
+                                        <h2 class="text-center red">No Schedulings</h2>
+                                    </div>
                                 </v-list>
                             </v-col>
                         </v-row>
@@ -471,7 +487,6 @@ export default {
     },
     async created(){
         await this.doStuff()
-        
     }
 }
 </script>

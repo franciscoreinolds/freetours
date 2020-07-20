@@ -33,7 +33,7 @@ export default {
   async created(){
     var cities_resp = await CityService.get();
     if(cities_resp.status == 200){
-        console.log(cities_resp);
+        //console.log(cities_resp);
         store.commit('setCities', cities_resp.data);
     }
     else console.log('Cities_Response Status not 200')
