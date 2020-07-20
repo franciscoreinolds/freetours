@@ -13,12 +13,16 @@
                     shaped
                     elevation
                     class="elevation-12 card"
-                    >
-                        <h1
-                        class = "pa-5"
-                        >
-                            My Profile
-                        </h1>
+                    >   
+                        <v-row style="margin: 1%;justify-content: space-between;">
+                            <h1
+                            class = "pa-5"
+                            >
+                                My Profile
+                            </h1>
+                            <v-btn v-if="isOwnProfile()" v-on:click="deleteAccount" style="margin: 2%" dark justify="right"> Delete account</v-btn>
+                        </v-row>
+                        
                         <v-card-text>
                             <v-row>
                                 <v-col>
@@ -273,7 +277,17 @@ export default {
         },
 
         isOwnProfile(){
+            console.log(this.$store.state.username + " " + this.$route.params.username)
+            console.log(this.$store.state.username === this.$route.params.username )
             return this.$store.state.username === this.$route.params.username 
+        },
+
+        async deleteAccount(){
+            await profile_service.deleteAccount(this.username);
+
+            localStorage.removeItem('user');
+            this.$store.commit('setUsername','');
+            this.$router.push('/')
         }
     }
 }

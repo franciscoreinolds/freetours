@@ -2,11 +2,8 @@ package backendApplication.controller;
 
 import backendApplication.model.ImageStoreService;
 import backendApplication.model.Pair;
-import backendApplication.model.dao.UserService;
-import backendApplication.model.entities.City;
-import backendApplication.model.entities.Scheduling;
-import backendApplication.model.entities.Tour;
-import backendApplication.model.entities.User;
+import backendApplication.model.dao.*;
+import backendApplication.model.entities.*;
 import backendApplication.viewmodel.ProfileView;
 import backendApplication.viewmodel.ProfileViewAll;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,6 +30,15 @@ public class UserController {
 
     @Autowired
     private ImageStoreService imageStoreService;
+
+    @Autowired
+    private TourService tourService;
+
+    @Autowired
+    private ReviewService reviewService;
+
+    @Autowired
+    private PlaceService placeService;
 
     /*
     * Get method for getting a user profile
@@ -70,11 +78,9 @@ public class UserController {
      * */
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.POST)
     public ResponseEntity<String> editProfile(@PathVariable String username, @RequestPart User user, @RequestPart(required = false) MultipartFile profileImage) {
-        System.out.println(username);
+
 
         User u = userService.get(username);
-
-        System.out.println(u.getEmail());
         if(u == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -91,7 +97,6 @@ public class UserController {
             if(user.getDateOfBirth() != null)
                 u.setDateOfBirth(user.getDateOfBirth());
 
-            System.out.println(user);
             if(user.getAboutMe() != null)
                 u.setAboutMe(user.getAboutMe());
 
@@ -124,7 +129,6 @@ public class UserController {
     private User recursionTreatment(User u) {
         User user = (User) u.clone();
 
-        System.out.println(user.getLanguages().stream().map(l -> l.getName()).collect(Collectors.toList()));
         for(Scheduling scheduling : user.getSchedules()){
             Tour t = (Tour) scheduling.getTour().clone();
             tourTreatment(t);
@@ -156,4 +160,71 @@ public class UserController {
         tour.setReviews(null);
     }
 
+
+    /*
+     * Post method for delete a user
+     *
+     * @param username String that represents the username which is a PathVariable
+     *
+     * @return http status that shows if the operation was sucessfull
+     * */
+    @RequestMapping(value = "/profile/delete_account", method = RequestMethod.POST)
+    public ResponseEntity<HttpStatus> deleteAccount(@RequestBody User user) {
+
+        try {
+
+            String jwt_username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            String username = user.getUsername();
+            if (jwt_username.equals(username)){
+                User u = userService.get(username);
+                for(Scheduling s: u.getSchedules()){
+                   s.getSignees().removeIf(user1-> user1.getUsername() == u.getUsername());
+                   s.getQueue().removeIf(user1-> user1.getUsername() == u.getUsername());
+                }
+
+                Set<Tour> trs = u.getTours();
+                u.setTours(null);
+                for(Tour t : trs){
+
+                    City c = t.getCity();
+                    c.getTours().removeIf(tour-> tour.getId() == t.getId());
+
+                    for(Scheduling s: t.getActive()){
+                        s.setTour(null);
+                    }
+                    for(Scheduling s: t.getFinished()){
+                        s.setTour(null);
+                    }
+
+                    Set<Review> rvs = t.getReviews();
+                    t.setReviews(null);
+                    for(Review r: rvs){
+                        reviewService.delete(r.getId());
+                    }
+
+                    Set<Place> pls = t.getRoute();
+                    t.setRoute(null);
+                    for(Place p: pls){
+                        placeService.delete(p.getId());
+                    }
+
+                    for(Language l: t.getLanguages()){
+                        l.getTours().removeIf(tour -> tour.getId() == t.getId());
+                    }
+
+                    tourService.delete(t.getId());
+                }
+                u.setLanguages(null);
+                userService.delete(username);
+                return new ResponseEntity<> (HttpStatus.OK);
+            }
+
+            return new ResponseEntity<> (HttpStatus.FORBIDDEN);
+        } catch (NoSuchElementException e){
+
+            return  new ResponseEntity<> (HttpStatus.BAD_REQUEST);
+
+        }
+    }
 }

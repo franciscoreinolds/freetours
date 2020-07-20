@@ -77,6 +77,28 @@ class ProfileService {
           
     }
 
+    deleteAccount(username){
+        let jwt = localStorage.getItem('user');
+        
+        if(jwt) {
+            return axios
+            .post(API_URL + '/profile/delete_account', {'username': username} ,{
+                headers: {
+                  Authorization: jwt,
+                }
+            })
+            .then(response => {
+                if (response.data) {
+                    console.log(response)
+                }
+                return response.status;
+            })
+            .catch(error => {
+                return error.response.status;
+            }); 
+        }
+    }
+
 }
 
 export default new ProfileService();
