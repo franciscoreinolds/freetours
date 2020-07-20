@@ -566,11 +566,11 @@ export default {
             })
             this.tour.location = location;
 
-            console.log("Markers " + this.markers);
+            /*console.log("Markers " + this.markers);
             console.log("Marker 0: " + this.markers[0].name)
             console.log("Marker 0: " + this.markers[0].description)
             console.log("Marker 0: " + this.markers[0].latitude)
-            console.log("Marker 0: " + this.markers[0].longitude)
+            console.log("Marker 0: " + this.markers[0].longitude)*/
 
             // Markers - Places
             this.tour.route = this.markers;

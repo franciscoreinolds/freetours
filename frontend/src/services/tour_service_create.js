@@ -26,7 +26,7 @@ class TourServiceCreate {
         }
 
         // console.log(store.state.username);
-        console.log("Route: " + tour.route[0].name + "," + tour.route[0].description + "," + tour.route[0].longitude + "," + tour.route[0].latitude);
+        //console.log("Route: " + tour.route[0].name + "," + tour.route[0].description + "," + tour.route[0].longitude + "," + tour.route[0].latitude);
 
         const tourObj = {
             name: tour.name,

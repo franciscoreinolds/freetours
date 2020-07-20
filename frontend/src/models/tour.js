@@ -1,4 +1,4 @@
-xport default class Tour {
+export default class Tour {
     constructor(name, description, duration_hours, duration_minutes, location, languages, minCapacity, maxCapacity, category, route) {
         this.name = name;
         this.description = description;
