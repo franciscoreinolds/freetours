@@ -41,7 +41,8 @@
                                         >
                                             <v-autocomplete
                                             v-model = "sel_location"
-                                            :items = "all_locations"
+                                            :items="all_locations"
+                                            v-on:click="debug"
                                             item-text="name"
                                             item-value="name"
                                             label = "Location"
@@ -367,7 +368,7 @@
                                                     Submit
                                                 </v-btn>
                                             </template>
-                                            <CreateSchedule :id="1"/>
+                                            <CreateSchedule :id="id"/>
                                         </v-dialog>
                                     </v-layout>
                                 </v-card-actions>
@@ -543,8 +544,18 @@ export default {
         for (var i = 0; i < cat_array.data.length; i++) {
             this.categories.push(cat_array.data[i]);
         }
+
+        this.$store.subscribe( (mutation, state) => {
+            if (mutation.type === 'setCities') {
+                //console.log("updating")
+                this.all_destinations = store.state.cities;
+            }
+        })
+
+        this.all_locations = store.state.cities
     },
     methods: {
+        debug(){ console.log(this.all_locations[0])},
         submitTour: async function () {
             // Language
             for (var i = 0 ; i < this.sel_languages.length ; i++) {

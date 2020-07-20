@@ -194,7 +194,7 @@ public class TourController {
                         t1.setLanguages(null);
                         t1.setReviews(null);
                         t1.setLanguages(null);
-                        t1.setGuideUsername(null);
+                        t1.setGuide(null);
                         t1.setRoute(null);
                         return t1;
                     })
@@ -299,7 +299,9 @@ public class TourController {
                                     if( ratings == null || (ratings.get(0) <= tour.getRating() && ratings.get(1) >= tour.getRating())) {
                                         tour.getCity().setTours(null);
                                         tour.getGuide().setSchedules(null);
-                                        tour.getGuide().setTours(null);
+                                        tour.setFinished(null);
+                                        tour.setReviews(null);
+                                        tour.setGuide(null);
                                         tour.setReviews(null);
                                         for (Scheduling s : tour.getActive()) {
                                             s.setTour(null);

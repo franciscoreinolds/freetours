@@ -157,9 +157,6 @@ public class Tour implements Serializable {
         this.guide = guide;
     }
 
-    public void setGuideUsername(User guide) {
-        this.guide = guide;
-    }
 
 
     public Set<Place> getRoute() {

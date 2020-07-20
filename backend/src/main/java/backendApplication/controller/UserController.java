@@ -151,7 +151,7 @@ public class UserController {
         User u = (User) tour.getGuide().clone();
         u.setSchedules(null);
         u.setTours(null);
-        tour.setGuideUsername(u);
+        tour.setGuide(u);
         tour.setActive(null);
         tour.setFinished(null);
         tour.setLanguages(null);

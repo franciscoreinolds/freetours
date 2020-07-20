@@ -437,7 +437,7 @@ export default {
                 img.image = FRONTEND_URL + '/images/' + img.image
             }
 
-                this.moreTours = resp.data.moreToursBy
+            this.moreTours = resp.data.moreToursBy
             //console.log(resp.data.moreToursBy)
             //console.log(this.$route.params.id)
         },

@@ -41,7 +41,7 @@ public class HomeController {
                         t.setActive(null);
                         t.setFinished(null);
                         t.setReviews(null);
-                        t.setGuideUsername(null);
+                        t.setGuide(null);
                         t.setCity( (City) t.getCity().clone());
                         t.getCity().setTours(null);
                         return t;
@@ -62,7 +62,7 @@ public class HomeController {
                     Tour t = tours.get(0);
                     t = (Tour) t.clone();
                     t.setFinished(null);
-                    t.setGuideUsername(null);
+                    t.setGuide(null);
                     t.setActive(null);
                     t.setFinished(null);
                     t.setReviews(null);
