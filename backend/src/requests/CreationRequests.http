@@ -1,3 +1,86 @@
+### City Images
+
+POST http://{{host}}:{{port}}/city/Guimarães
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cityImage"; filename="Guimarães.png"
+
+< Guimarães.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/city/Barcelona
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cityImage"; filename="Barcelona.png"
+
+< Barcelona.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/city/Madrid
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cityImage"; filename="Madrid.png"
+
+< Madrid.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/city/Lisbon
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cityImage"; filename="Lisbon.png"
+
+< Lisbon.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/city/Paris
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cityImage"; filename="Paris.png"
+
+< Paris.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/city/Rome
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cityImage"; filename="Rome.png"
+
+< Rome.png
+--WebAppBoundary--
+
+###
+
+POST http://{{host}}:{{port}}/city/Tokyo
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="cityImage"; filename="Tokyo.png"
+
+< Tokyo.png
+--WebAppBoundary--
+
+###
+
+
+
+
+
 ### USERS
 
 POST http://{{host}}:{{port}}/sign_up

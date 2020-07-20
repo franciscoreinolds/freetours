@@ -75,8 +75,12 @@ export default {
           //console.log(this.dates)
           const response = await ScheduleService.createSchedules(this.$props.id, this.dates)
           //console.log("Resp:" + response)
-          this.$router.push('/');
-          // this.$router.go();
+          if(this.$route.name == 'CreateTour'){
+              this.$router.push('/tour/' + this.$props.id);
+          }else {
+              this.$router.go(0)
+          }
+          
         }
     },
     components: {

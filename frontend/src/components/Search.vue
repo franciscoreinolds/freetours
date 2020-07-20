@@ -93,7 +93,7 @@
                                     v-model="rate_range"
                                     ticks="always"
                                     step = "0.1"
-                                    min = "1"
+                                    min = "0"
                                     max = "5"
                                ></v-range-slider> 
                                </div>
@@ -156,8 +156,8 @@ export default {
             { text : "Capacity", value : 50 },
         ],
         categories : [],
-        rate_ticks : [1,2,3,4,5],
-        rate_range : [1,5],
+        rate_ticks : [0,1,2,3,4,5],
+        rate_range : [0,5],
         languages : [],
         language:'',
         category: ''

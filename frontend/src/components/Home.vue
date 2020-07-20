@@ -89,7 +89,7 @@
             >
                 <v-btn
                 class = "btn"
-                v-on:click="goToSearch()"
+                v-on:click="goToSearch"
                 >
                     Search Tour
                 </v-btn>
@@ -129,7 +129,7 @@
                             </v-card-title>
                         
                             <v-img
-                            :src="require(`@/assets/${tour.images[0].image}`)" 
+                            :src="frontend_url + '/images/' + tour.images[0].image"
                             ></v-img>
                             
                             <v-card-subtitle>
@@ -208,7 +208,6 @@ export default {
         else console.log('Cat_Response Status not 200')
 
         var home_response = await HomeService.getHome()
-        console.log(home_response.data.mostPopularCities[0])
         this.slides = home_response.data.mostPopularCities
         if(home_response.data.nextTours.length){
             this.tours = chunkArray(home_response.data.nextTours, 3)
@@ -216,16 +215,18 @@ export default {
         }else {
             this.tours = chunkArray(home_response.data.suggestedTours, 3)
         } 
+
+        console.log(this.tours[0].id + " " + this.tours[0].images)
         
     },
     methods: {
         goToSearch(){
+            console.log("Aquiii")
             let params = {'fromDate': this.date}
             if(this.category != undefined)
                 params['category'] = this.category
-            if(this.destination != undefined){
-                params['destination'] = this.destination.slice(0,this.destination.search(','))
-
+            if(this.sel_destination != undefined){
+                params['destination'] = this.sel_destination
                 this.$router.push({
                         name : 'Search', 
                         path:'/search', 
