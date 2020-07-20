@@ -128,7 +128,7 @@
                             </v-card-title>
                         
                             <v-img
-                            :src="require(`@/assets/${tour.images[0].image}`)" 
+                            :src="frontend_url + '/images/' + tour.images[0].image"
                             ></v-img>
                             
                             <v-card-subtitle>
