@@ -3,10 +3,12 @@ package backendApplication.controller;
 import backendApplication.model.ImageStoreService;
 import backendApplication.model.Pair;
 import backendApplication.model.dao.CityService;
+import backendApplication.model.dao.ImageService;
 import backendApplication.model.entities.City;
 import backendApplication.model.entities.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +21,9 @@ public class CityController {
 
     @Autowired
     CityService cityService;
+
+    @Autowired
+    ImageService imageService;
 
     @Autowired
     private ImageStoreService imageStoreService;
@@ -37,7 +42,7 @@ public class CityController {
 
     }
 
-    @RequestMapping(value = "/city/{cityName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/city/{cityName}", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> addImageToCity(@PathVariable String cityName, @RequestPart MultipartFile cityImage) {
 
         City city = cityService.getByName(cityName);
@@ -53,6 +58,7 @@ public class CityController {
 
             Image img = new Image();
             img.setImage(filenames.get(0));
+            imageService.save(img);
 
             city.setImage(img);
             cityService.save(city);
