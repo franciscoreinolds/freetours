@@ -1,19 +1,5 @@
 <template>
     <div>
-        <v-alert
-            dismissible
-            v-if = 'success'
-            type = 'success'
-        >
-            Successful sign up. You can now login.
-        </v-alert>
-        <v-alert
-            dismissible
-            v-if = 'error'
-            type = 'error'
-        >
-            A user already exists with that username / email.    
-        </v-alert>
         <h1
         class = "pl-12 pt-6"
         >
@@ -155,6 +141,20 @@
                                     label="Description about yourself"
                                 ></v-textarea>
                             </v-card-text>
+                            <v-alert
+                                    dismissible
+                                    v-if = 'success'
+                                    type = 'success'
+                            >
+                                Successful sign up. You can now login.
+                            </v-alert>
+                            <v-alert
+                                    dismissible
+                                    v-if = 'error'
+                                    type = 'error'
+                            >
+                                A user already exists with that username / email.
+                            </v-alert>
                             <v-card-actions>
                                 <v-layout justify-center>
                                     <v-btn
@@ -230,6 +230,7 @@ export default {
     methods: {
         //signup
         signup: async function() {
+            this.success = this.error = false
             for (var i = 0 ; i < this.sel_languages.length ; i++) {
                 var language = this.languages.find(obj => {
                     return obj.name == this.sel_languages[i]

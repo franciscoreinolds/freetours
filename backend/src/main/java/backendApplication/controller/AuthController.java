@@ -60,7 +60,7 @@ public class AuthController {
     private ImageStoreService imageStoreService;
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<HttpStatus> registerUser(@RequestPart User user, @RequestPart MultipartFile profileImage) {
+    public ResponseEntity<HttpStatus> registerUser(@RequestPart User user, @RequestPart(required = false) MultipartFile profileImage) {
 
         try {
 
