@@ -65,7 +65,7 @@ public class MailerContext {
 
         // THIS IS COMMENTED FOR TESTING PURPOSES
         // IN PRODUCTION YOU SHOULD UNCOMMENT THIS FOR SENDING EMAILS
-        // this.currentStrategy.send(email);
+        this.currentStrategy.send(email);
     }
 
 }
