@@ -1,5 +1,5 @@
 export default class Tour {
-    constructor(name, description, duration_hours, duration_minutes, location, languages, minCapacity, maxCapacity, category) {
+    constructor(name, description, duration_hours, duration_minutes, location, languages, minCapacity, maxCapacity, category, route) {
         this.name = name;
         this.description = description;
         this.duration_hours = duration_hours;
@@ -9,5 +9,6 @@ export default class Tour {
         this.minCapacity = minCapacity;
         this.maxCapacity = maxCapacity;
         this.category = category;
+        this.route = route;
     }
 }

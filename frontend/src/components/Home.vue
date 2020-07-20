@@ -14,7 +14,7 @@
                 >
                     <v-parallax
                             
-                        :src="require(`@/assets/${slide.image.image}`)"   
+                        :src="frontend_url + '/images/' + slide.image.image"
                     >
                         <v-row
                         align="center"
@@ -160,10 +160,13 @@ import User from '../models/user'
 import {chunkArray} from './../utils/utils'
 import store from '../store'
 
+const FRONTEND_URL = process.env.VUE_APP_FRONTEND_URL
+
 export default {
     name : "Home",
     data() {
         return {
+            frontend_url: FRONTEND_URL,
             sel_destination : '',
             all_destinations: store.state.cities,
             /*all_destinations : [

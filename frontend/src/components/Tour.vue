@@ -29,7 +29,7 @@
                             <v-carousel-item
                             v-for="(slide, i) in tour.images"
                             :key="i"  
-                            :src="require(`@/assets/${slide.image}`)" 
+                            :src="`${slide.image}`"
                             >
                             </v-carousel-item>
                         </v-carousel>
@@ -401,6 +401,8 @@ import store from '../store'
 import CreateSchedule from './CreateSchedule'
 import ScheduleSignOut from '../services/schedule_signout'
 
+const FRONTEND_URL = process.env.VUE_APP_FRONTEND_URL
+
 export default {
     name : "Tour",
     components : {
@@ -429,7 +431,13 @@ export default {
         async doStuff() {
             const resp = await TourService.getTour(this.$route.params.id)
             this.tour = resp.data.tour
-            this.moreTours = resp.data.moreToursBy
+
+            var img
+            for(img of this.tour.images){
+                img.image = FRONTEND_URL + '/images/' + img.image
+            }
+
+                this.moreTours = resp.data.moreToursBy
             //console.log(resp.data.moreToursBy)
             //console.log(this.$route.params.id)
         },

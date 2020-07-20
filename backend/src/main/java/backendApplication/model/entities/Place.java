@@ -3,6 +3,7 @@ package backendApplication.model.entities;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "Place")
 public class Place {
@@ -13,6 +14,8 @@ public class Place {
     private int id;
     @NotNull
     private String name;
+    @NotNull
+    private String description;
     @NotNull
     private double latitude;
     @NotNull
@@ -37,6 +40,14 @@ public class Place {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public double getLatitude() {
         return latitude;
     }
@@ -52,4 +63,5 @@ public class Place {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
 }

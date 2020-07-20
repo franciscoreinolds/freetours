@@ -199,8 +199,8 @@
                                                         <!-- Provisional Marker -->
                                                         
                                                         <l-marker
-                                                        v-if="current_lattitude"
-                                                        :lat-lng="[current_lattitude, current_longitude]"
+                                                        v-if="current_latitude"
+                                                        :lat-lng="[current_latitude, current_longitude]"
                                                         :icon = "red_icon"
                                                         >
                                                             <l-icon
@@ -216,7 +216,7 @@
                                                         <l-marker
                                                             v-for="(marker,index) in markers"
                                                             :key="index"
-                                                            :lat-lng="[marker.position.lattitude, marker.position.longitude]"
+                                                            :lat-lng="[marker.latitude, marker.longitude]"
                                                             @click="markerInfo(index, marker)"
                                                             @dblclick="removeMarker(index)"
                                                         >
@@ -240,7 +240,7 @@
 
                                             <v-card
                                             height = "500px"
-                                            v-if="current_lattitude || marker_index != null"
+                                            v-if="current_latitude || marker_index != null"
                                             >
                                                 <v-card-title>
                                                     Marker Information
@@ -267,7 +267,7 @@
                                                     </v-text-field>
                                                     
                                                     <h5>
-                                                        Lattitude: {{marker_lattitude}}
+                                                        Latitude: {{marker_latitude}}
                                                     </h5>
                                                     
                                                     <h5>
@@ -399,7 +399,7 @@ export default {
     data () {
       return {
         id: 0,
-        tour: new Tour('', '', '', '', '', [], '', '', ''),
+        tour: new Tour('', '', '', '', '', [], '', '', '', []),
         isFormValid : true,
         menu_date : false,
         date: new Date().toISOString().substr(0, 10),
@@ -523,12 +523,12 @@ export default {
             iconSize: [37, 37],
             iconAnchor: [16, 37]
         }),
-        current_lattitude : null, // placeholder lattitude
+        current_latitude : null, // placeholder latitude
         current_longitude : null, // placeholder longitude
         marker_index : null, // index of a saved marker
         marker_name : null, // name of a saved marker
         marker_description : null, // description of a saved marker
-        marker_lattitude : null, // lattitude of a saved marker
+        marker_latitude : null, // latitude of a saved marker
         marker_longitude : null, // longitude of a saved marker
         success_alert : false
       }
@@ -566,6 +566,15 @@ export default {
             })
             this.tour.location = location;
 
+            /*console.log("Markers " + this.markers);
+            console.log("Marker 0: " + this.markers[0].name)
+            console.log("Marker 0: " + this.markers[0].description)
+            console.log("Marker 0: " + this.markers[0].latitude)
+            console.log("Marker 0: " + this.markers[0].longitude)*/
+
+            // Markers - Places
+            this.tour.route = this.markers;
+
             // Request
             this.response = await TourServiceCreate.createTour(this.tour, this.sel_images)
             console.log(this.response)
@@ -587,9 +596,9 @@ export default {
             this.marker_index = null;
             this.marker_name = null;
             this.marker_description = null;
-            this.marker_lattitude = e.latlng.lat;
+            this.marker_latitude = e.latlng.lat;
             this.marker_longitude = e.latlng.lng;
-            this.current_lattitude = this.marker_lattitude;
+            this.current_latitude = this.marker_latitude;
             this.current_longitude = this.marker_longitude;
         },
         removeMarker(index) {
@@ -602,18 +611,16 @@ export default {
             if (this.marker_index != null) {
                 this.markers[this.marker_index].name = this.marker_name;
                 this.markers[this.marker_index].description = this.marker_description;
-                this.markers[this.marker_index].position.lattitude = this.marker_lattitude;
-                this.markers[this.marker_index].position.longitude = this.marker_longitude;
+                this.markers[this.marker_index].latitude = this.marker_latitude;
+                this.markers[this.marker_index].longitude = this.marker_longitude;
                 this.markers[this.marker_index].icon_size = [37,37];
                 this.markers[this.marker_index].icon_anchor = [16,37];
             }
             else {
                 this.markers.push(
                     {
-                        position : {
-                            lattitude : this.marker_lattitude,
-                            longitude : this.marker_longitude
-                        },
+                        latitude : this.marker_latitude,
+                        longitude : this.marker_longitude,
                         name : this.marker_name,
                         description : this.marker_description,
                         icon_size : [37,37],
@@ -629,9 +636,9 @@ export default {
             this.marker_index = index;
             this.marker_name = marker.name;
             this.marker_description = marker.description;
-            this.marker_lattitude = marker.position.lattitude;
-            this.marker_longitude = marker.position.longitude;
-            this.current_lattitude = null;
+            this.marker_latitude = marker.latitude;
+            this.marker_longitude = marker.longitude;
+            this.current_latitude = null;
             this.current_longitude = null;
         },
         clearMarkerInfo(index) {
@@ -639,9 +646,9 @@ export default {
             this.marker_index = null;
             this.marker_name = null;
             this.marker_description = null;
-            this.marker_lattitude = null;
+            this.marker_latitude = null;
             this.marker_longitude = null;
-            this.current_lattitude = null;
+            this.current_latitude = null;
             this.current_longitude = null;
             //this.markers[index].icon_size = [37,37];
             //this.markers[index].icon_anchor = [16,37];
@@ -657,14 +664,14 @@ export default {
             this.marker_index = index;
             this.marker_name = this.markers[index].name;
             this.marker_description = this.markers[index].description;
-            this.marker_lattitude = this.markers[index].position.lattitude;
-            this.marker_longitude = this.markers[index].position.longitude;
+            this.marker_latitude = this.markers[index].latitude;
+            this.marker_longitude = this.markers[index].longitude;
             this.markers[index].icon_size = [50,50];
             this.markers[index].icon_anchor = [16,37];
-            //this.current_lattitude = this.markers[index].position.lattitude;
-            //this.current_longitude = this.markers[index].position.longitude;
+            //this.current_latitude = this.markers[index].latitude;
+            //this.current_longitude = this.markers[index].longitude;
         }
-    },
+    }
 }
 </script>
 

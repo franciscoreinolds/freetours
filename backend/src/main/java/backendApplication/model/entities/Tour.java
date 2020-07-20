@@ -41,7 +41,7 @@ public class Tour implements Serializable {
     @NotNull
     private Set<Image> images;
 
-    @OneToMany
+    @ManyToMany
     @NotNull
     private Set<Place> route;
 

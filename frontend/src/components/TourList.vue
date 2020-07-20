@@ -45,7 +45,7 @@
                                         <v-card
                                         width = 100%
                                         height = 300px
-                                        :img="require(`@/assets/${tour.images[0].image}`)" 
+                                        :img="frontend_url + '/images/' + tour.images[0].image"
                                         >
                                         </v-card>
                                     </v-flex>
@@ -81,11 +81,19 @@
 </template>
 
 <script>
+
+const FRONTEND_URL = process.env.VUE_APP_FRONTEND_URL
+
 export default {
     name : "TourList",
     props : {
         tour_data: Array,
         routeId: String
+    },
+    data() {
+        return {
+            frontend_url: FRONTEND_URL,
+        }
     }
 }
 </script>

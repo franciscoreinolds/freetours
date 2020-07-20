@@ -25,7 +25,8 @@ class TourServiceCreate {
             }
         }
 
-        console.log(store.state.username);
+        // console.log(store.state.username);
+        //console.log("Route: " + tour.route[0].name + "," + tour.route[0].description + "," + tour.route[0].longitude + "," + tour.route[0].latitude);
 
         const tourObj = {
             name: tour.name,
@@ -36,7 +37,8 @@ class TourServiceCreate {
             minCapacity: tour.min,
             maxCapacity: tour.max,
             category: tour.category,
-            guide: {"username": store.state.username}
+            guide: {"username": store.state.username},
+            route: tour.route
         };
         const tourJson = JSON.stringify(tourObj);
         const blob = new Blob([tourJson], {

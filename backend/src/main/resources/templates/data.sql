@@ -202,13 +202,6 @@ INSERT INTO public.country (id, name, continent_id) VALUES (188, 'Lebanon', 3);
 INSERT INTO public.country (id, name, continent_id) VALUES (189, 'Brazil', 3);
 
 
-INSERT INTO public.image (id, image) VALUES (4, 'Rome.jpg');
-INSERT INTO public.image (id, image) VALUES (3, 'Paris.jpeg');
-INSERT INTO public.image (id, image) VALUES (2, 'Madrid.jpeg');
-INSERT INTO public.image (id, image) VALUES (1, 'Barcelona.jpeg');
-INSERT INTO public.image (id, image) VALUES (5, 'Tokyo.jpeg');
-INSERT INTO public.image (id, image) VALUES (6, 'Lisbon.jpeg');
-
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (1, 48.87143, 2.22929, 'Suresnes', 35, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (2, 4.53389, -75.68111, 'Armenia', 155, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (3, 41.64928, -0.90757, 'Delicias', 184, null);
@@ -828,7 +821,7 @@ INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VA
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (617, 31.75583, 72.91972, 'Rabwāh', 22, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (618, -21.75227, -41.33044, 'Campos', 189, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (619, 44.81011, -0.64129, 'Pessac', 35, null);
-INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (620, 35.6895, 139.69171, 'Tokyo', 154, 5);
+INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (620, 35.6895, 139.69171, 'Tokyo', 154, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (621, 46.56667, 23.78333, 'Turda', 151, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (622, 54.4418, 18.56003, 'Sopot', 46, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (623, 42.40043, 59.46005, 'Khŭjayli', 111, null);
@@ -1333,7 +1326,7 @@ INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VA
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (1122, 38.49457, 43.38323, 'Van', 183, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (1123, 21.735, 81.94711, 'Bhātāpāra', 107, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (1124, 42.90339, -78.75475, 'Cheektowaga', 85, null);
-INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (1125, 41.89193, 12.51133, 'Rome', 174, 4);
+INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (1125, 41.89193, 12.51133, 'Rome', 174, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (1126, -21.79444, -48.17556, 'Araraquara', 189, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (1127, 34.28671, 74.47228, 'Sopur', 107, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (1128, -7.59939, 112.8186, 'Bangil', 98, null);
@@ -2219,7 +2212,7 @@ INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VA
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (2008, 54.06387, 44.9509, 'Ruzayevka', 29, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (2009, -9.91333, -63.04083, 'Ariquemes', 189, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (2010, 50.86991, 6.69691, 'Kerpen', 169, null);
-INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (2011, 48.85341, 2.3488, 'Paris', 35, 3);
+INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (2011, 48.85341, 2.3488, 'Paris', 35, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (2012, 52.53661, 13.15057, 'Staaken', 169, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (2013, 22.76843, -102.58141, 'Zacatecas', 42, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (2014, -23.46278, -46.53333, 'Guarulhos', 189, null);
@@ -3495,7 +3488,7 @@ INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VA
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (3284, 17.41567, 102.78589, 'Udon Thani', 7, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (3285, 52.99667, 6.5625, 'Assen', 19, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (3286, 12.54614, 77.42099, 'Kanakapura', 107, null);
-INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (3287, 38.71667, -9.13333, 'Lisbon', 72, 6);
+INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (3287, 38.71667, -9.13333, 'Lisbon', 72, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (3288, 28.53834, -81.37924, 'Orlando', 85, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (3289, 14.45903, 120.92903, 'Bacoor', 79, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (3290, 51.31667, 6.28333, 'Nettetal', 169, null);
@@ -4674,7 +4667,7 @@ INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VA
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (4463, 43.22597, 44.77323, 'Nazran’', 29, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (4464, 69.3535, 88.2027, 'Norilsk', 29, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (4465, 32.64861, 14.26191, 'Al Khums', 66, null);
-INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (4466, 10.13625, -64.68618, 'Barcelona', 184, 1);
+INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (4466, 10.13625, -64.68618, 'Barcelona', 184, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (4467, 42.45008, -73.24538, 'Pittsfield', 85, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (4468, 34.86877, 138.31952, 'Yaizu', 154, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (4469, 8.47738, 47.35971, 'Laascaanood', 150, null);
@@ -6946,7 +6939,7 @@ INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VA
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (6735, 41.15283, 24.1473, 'Dráma', 117, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (6736, -22.41139, -47.56139, 'Rio Claro', 189, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (6737, 37.05, 140.88333, 'Iwaki', 154, null);
-INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (6738, 40.4165, -3.70256, 'Madrid', 184, 2);
+INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (6738, 40.4165, -3.70256, 'Madrid', 184, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (6739, -3.31687, 17.38063, 'Bandundu', 127, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (6740, -24.88333, 28.28333, 'Warmbaths', 57, null);
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (6741, 2.9, 11.15, 'Ébolowa', 70, null);
@@ -10526,39 +10519,35 @@ INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VA
 INSERT INTO public.city (id, latitude, longitude, name, country_id, image_id) VALUES (10315, -33.13067, -64.34992, 'Río Cuarto', 166, null);
 
 
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userA', 'I''m user A', '1998-01-01 14:43:04.000000', 'userA@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000000', 0.0);
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userB', 'I''m user B', '1998-01-01 14:43:04.000000', 'userB@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000001', 0.0);
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userC', 'I''m user C', '1998-01-01 14:43:04.000000', 'userC@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000002', 0.0);
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userD', 'I''m user D', '1998-01-01 14:43:04.000000', 'userD@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000003', 0.0);
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userE', 'I''m user E', '1998-01-01 14:43:04.000000', 'userE@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000004', 0.0);
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userF', 'I''m user F', '1998-01-01 14:43:04.000000', 'userF@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000005', 0.0);
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userG', 'I''m user G', '1998-01-01 14:43:04.000000', 'userH@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000006', 0.0);
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userH', 'I''m user H', '1998-01-01 14:43:04.000000', 'userG@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000007', 0.0);
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userI', 'I''m user I', '1998-01-01 14:43:04.000000', 'userI@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000008', 0.0);
-INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userJ', 'I''m user J', '1998-01-01 14:43:04.000000', 'userJ@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000009', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userA', 'I''m user A', '1998-01-01 14:43:04.000000', 'userA@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000000', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userB', 'I''m user B', '1998-01-01 14:43:04.000000', 'userB@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000001', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userC', 'I''m user C', '1998-01-01 14:43:04.000000', 'userC@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000002', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userD', 'I''m user D', '1998-01-01 14:43:04.000000', 'userD@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000003', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userE', 'I''m user E', '1998-01-01 14:43:04.000000', 'userE@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000004', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userF', 'I''m user F', '1998-01-01 14:43:04.000000', 'userF@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000005', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userG', 'I''m user G', '1998-01-01 14:43:04.000000', 'userH@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000006', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userH', 'I''m user H', '1998-01-01 14:43:04.000000', 'userG@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000007', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userI', 'I''m user I', '1998-01-01 14:43:04.000000', 'userI@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000008', 0.0);
+--INSERT INTO public.user_ (username, about_me, date_of_birth, email, image, password, phone_number, rating) VALUES ('userJ', 'I''m user J', '1998-01-01 14:43:04.000000', 'userJ@gmail.com', null, '$2a$10$29qKu/Uy9pmQXsOL3ULP/.XOgzR6of95vKK/f/XFB4mFln2qP.s9y', '910000009', 0.0);
 
 
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (2, 'Beautiful tour in Paris', '01:00:00', 20, 10, 'Tour in Paris', null, 3, 2011, 'userD', 0.0);
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (8, 'Beautiful tour in Rome', '00:45:00', 20, 10, 'Tour in Rome', null, 2, 1125, 'userB', 0.0);
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (5, 'Beautiful tour in Tokyo', '00:45:00', 15, 8, 'Tour in Tokyo', null, 2, 620, 'userC', 0.0);
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (4, 'Beautiful tour in Lisbon', '00:30:00', 10, 5, 'Tour in Lisbon', null, 3, 3287, 'userC', 0.0);
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (6, 'Beautiful tour in Rome', '01:15:00', 15, 5, 'Tour in Rome', null, 4, 1127, 'userD', 0.0);
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (3, 'Beautiful tour in Madrid', '00:45:00', 15, 8, 'Tour in Madrid', null, 2, 6738, 'userB', 0.0);
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (7, 'Beautiful tour in Barcelona', '00:30:00', 10, 5, 'Tour in Barcelona', null, 2, 4466, 'userC', 0.0);
-INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (1, 'Beautiful tour in Barcelona', '00:45:00', 15, 8, 'Come visit Messi', null, 2, 4466, 'userC', 0.0);
+--INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (2, 'Beautiful tour in Paris', '01:00:00', 20, 10, 'Tour in Paris', null, 3, 2011, 'userD', 0.0);
+--INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (8, 'Beautiful tour in Rome', '00:45:00', 20, 10, 'Tour in Rome', null, 2, 1125, 'userB', 0.0);
+--INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (5, 'Beautiful tour in Tokyo', '00:45:00', 15, 8, 'Tour in Tokyo', null, 2, 620, 'userC', 0.0);
+--INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (4, 'Beautiful tour in Lisbon', '00:30:00', 10, 5, 'Tour in Lisbon', null, 3, 3287, 'userC', 0.0);
+--INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (6, 'Beautiful tour in Rome', '01:15:00', 15, 5, 'Tour in Rome', null, 4, 1127, 'userD', 0.0);
+--INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (3, 'Beautiful tour in Madrid', '00:45:00', 15, 8, 'Tour in Madrid', null, 2, 6738, 'userB', 0.0);
+--INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (7, 'Beautiful tour in Barcelona', '00:30:00', 10, 5, 'Tour in Barcelona', null, 2, 4466, 'userC', 0.0);
+--INSERT INTO public.tour (id, description, duration, max_capacity, min_capacity, name, qr_code, category_id, city_id, guide_username, rating) VALUES (1, 'Beautiful tour in Barcelona', '00:45:00', 15, 8, 'Come visit Messi', null, 2, 4466, 'userC', 0.0);
 
-INSERT INTO public.city_tours (city_id, tours_id) VALUES (3287, 4);
-INSERT INTO public.city_tours (city_id, tours_id) VALUES (1125, 6);
-INSERT INTO public.city_tours (city_id, tours_id) VALUES (2011, 2);
-INSERT INTO public.city_tours (city_id, tours_id) VALUES (6738, 3);
-INSERT INTO public.city_tours (city_id, tours_id) VALUES (4466, 1);
-INSERT INTO public.city_tours (city_id, tours_id) VALUES (4466, 7);
-INSERT INTO public.city_tours (city_id, tours_id) VALUES (1125, 8);
-INSERT INTO public.city_tours (city_id, tours_id) VALUES (620, 5);
-
-
-
-
+--INSERT INTO public.city_tours (city_id, tours_id) VALUES (3287, 4);
+--INSERT INTO public.city_tours (city_id, tours_id) VALUES (1125, 6);
+--INSERT INTO public.city_tours (city_id, tours_id) VALUES (2011, 2);
+--INSERT INTO public.city_tours (city_id, tours_id) VALUES (6738, 3);
+--INSERT INTO public.city_tours (city_id, tours_id) VALUES (4466, 1);
+--INSERT INTO public.city_tours (city_id, tours_id) VALUES (4466, 7);
+--INSERT INTO public.city_tours (city_id, tours_id) VALUES (1125, 8);
+--INSERT INTO public.city_tours (city_id, tours_id) VALUES (620, 5);
 
 
 
@@ -10570,59 +10559,59 @@ INSERT INTO public.language (id, abbreviation, country_code, logo, name) VALUES 
 INSERT INTO public.language (id, abbreviation, country_code, logo, name) VALUES (6, 'FR', '+33', '../database/flags/france.png', 'French');
 
 
-INSERT INTO public.place (id, latitude, longitude, name) VALUES (1, 41.890514, 12.491158, 'Coliseu');
-INSERT INTO public.place (id, latitude, longitude, name) VALUES (2, 41.892515, 12.485353, 'Forum Romano');
-INSERT INTO public.place (id, latitude, longitude, name) VALUES (3, 40.452269, -3.689845, 'Santiago Barnabeu');
+--INSERT INTO public.place (id, latitude, longitude, name) VALUES (1, 41.890514, 12.491158, 'Coliseu');
+--INSERT INTO public.place (id, latitude, longitude, name) VALUES (2, 41.892515, 12.485353, 'Forum Romano');
+--INSERT INTO public.place (id, latitude, longitude, name) VALUES (3, 40.452269, -3.689845, 'Santiago Barnabeu');
 
 
-INSERT INTO public.review (id, comment, rating, done, user_username, token, tour_id) VALUES (1, 'Muito gira', 0, FALSE,'userE', 12345, 8);
+--INSERT INTO public.review (id, comment, rating, done, user_username, token, tour_id) VALUES (1, 'Muito gira', 0, FALSE,'userE', 12345, 8);
 
-INSERT INTO public.scheduling (id, date, tour_id) VALUES (1, '2020-08-15 12:42:37.070447', 1);
-INSERT INTO public.scheduling (id, date, tour_id) VALUES (2, '2020-08-15 12:42:37.070447', 1);
-INSERT INTO public.scheduling (id, date, tour_id) VALUES (3, '2020-08-27 16:45:24.000000', 2);
-INSERT INTO public.scheduling (id, date, tour_id) VALUES (4, '2020-08-27 16:45:24.000000', 2);
-INSERT INTO public.scheduling (id, date, tour_id) VALUES (5, '2020-08-15 12:42:37.070447', 3);
-INSERT INTO public.scheduling (id, date, tour_id) VALUES (6, '2020-08-15 12:42:37.070447', 8);
-
-
+--INSERT INTO public.scheduling (id, date, tour_id) VALUES (1, '2020-08-15 12:42:37.070447', 1);
+--INSERT INTO public.scheduling (id, date, tour_id) VALUES (2, '2020-08-15 12:42:37.070447', 1);
+--INSERT INTO public.scheduling (id, date, tour_id) VALUES (3, '2020-08-27 16:45:24.000000', 2);
+--INSERT INTO public.scheduling (id, date, tour_id) VALUES (4, '2020-08-27 16:45:24.000000', 2);
+--INSERT INTO public.scheduling (id, date, tour_id) VALUES (5, '2020-08-15 12:42:37.070447', 3);
+--INSERT INTO public.scheduling (id, date, tour_id) VALUES (6, '2020-08-15 12:42:37.070447', 8);
 
 
-INSERT INTO public.tour_active (tour_id, active_id) VALUES (1, 1);
-INSERT INTO public.tour_active (tour_id, active_id) VALUES (1, 2);
-INSERT INTO public.tour_active (tour_id, active_id) VALUES (8, 6);
-INSERT INTO public.tour_active (tour_id, active_id) VALUES (3, 5);
 
 
-INSERT INTO public.tour_images (tour_id, images_id) VALUES (1, 1);
-INSERT INTO public.tour_images (tour_id, images_id) VALUES (2, 3);
-INSERT INTO public.tour_images (tour_id, images_id) VALUES (3, 2);
-INSERT INTO public.tour_images (tour_id, images_id) VALUES (4, 6);
-INSERT INTO public.tour_images (tour_id, images_id) VALUES (5, 5);
-INSERT INTO public.tour_images (tour_id, images_id) VALUES (6, 4);
-INSERT INTO public.tour_images (tour_id, images_id) VALUES (7, 1);
-INSERT INTO public.tour_images (tour_id, images_id) VALUES (8, 4);
+--INSERT INTO public.tour_active (tour_id, active_id) VALUES (1, 1);
+--INSERT INTO public.tour_active (tour_id, active_id) VALUES (1, 2);
+--INSERT INTO public.tour_active (tour_id, active_id) VALUES (8, 6);
+--INSERT INTO public.tour_active (tour_id, active_id) VALUES (3, 5);
 
 
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (1, 3);
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (2, 4);
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (3, 3);
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (4, 2);
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (5, 2);
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (6, 4);
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (7, 3);
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (8, 3);
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (1, 5);
-INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (8, 1);
-
-INSERT INTO public.tour_reviews (tour_id, reviews_id) VALUES (8, 1);
-
-INSERT INTO public.tour_route (tour_id, route_id) VALUES (8, 1);
-INSERT INTO public.tour_route (tour_id, route_id) VALUES (8, 2);
-INSERT INTO public.tour_route (tour_id, route_id) VALUES (3, 3);
+--INSERT INTO public.tour_images (tour_id, images_id) VALUES (1, 1);
+--INSERT INTO public.tour_images (tour_id, images_id) VALUES (2, 3);
+--INSERT INTO public.tour_images (tour_id, images_id) VALUES (3, 2);
+--INSERT INTO public.tour_images (tour_id, images_id) VALUES (4, 6);
+--INSERT INTO public.tour_images (tour_id, images_id) VALUES (5, 5);
+--INSERT INTO public.tour_images (tour_id, images_id) VALUES (6, 4);
+--INSERT INTO public.tour_images (tour_id, images_id) VALUES (7, 1);
+--INSERT INTO public.tour_images (tour_id, images_id) VALUES (8, 4);
 
 
-INSERT INTO public.user__schedules (user__username, schedules_id) VALUES ('userA', 1);
-INSERT INTO public.user__schedules (user__username, schedules_id) VALUES ('userA', 6);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (1, 3);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (2, 4);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (3, 3);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (4, 2);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (5, 2);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (6, 4);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (7, 3);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (8, 3);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (1, 5);
+--INSERT INTO public.tour_languages (tour_id, languages_id) VALUES (8, 1);
 
-INSERT INTO public.user__tours (user__username, tours_id) VALUES ('userB', 3);
-INSERT INTO public.user__tours (user__username, tours_id) VALUES ('userB', 8);
+--INSERT INTO public.tour_reviews (tour_id, reviews_id) VALUES (8, 1);
+
+--INSERT INTO public.tour_route (tour_id, route_id) VALUES (8, 1);
+--INSERT INTO public.tour_route (tour_id, route_id) VALUES (8, 2);
+--INSERT INTO public.tour_route (tour_id, route_id) VALUES (3, 3);
+
+
+--INSERT INTO public.user__schedules (user__username, schedules_id) VALUES ('userA', 1);
+--INSERT INTO public.user__schedules (user__username, schedules_id) VALUES ('userA', 6);
+
+--INSERT INTO public.user__tours (user__username, tours_id) VALUES ('userB', 3);
+--INSERT INTO public.user__tours (user__username, tours_id) VALUES ('userB', 8);
